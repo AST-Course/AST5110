@@ -1,0 +1,15 @@
+autopep8 @ file:///home/conda/feedstock_root/build_artifacts/autopep8_1591017828430/work
+ipython @ file:///Users/runner/miniforge3/conda-bld/ipython_1604159583689/work
+jupyter-client @ file:///home/conda/feedstock_root/build_artifacts/jupyter_client_1598486169312/work
+jupyter-console @ file:///home/conda/feedstock_root/build_artifacts/jupyter_console_1598728807792/work
+jupyter-core @ file:///Users/runner/miniforge3/conda-bld/jupyter_core_1605127898019/work
+jupyterlab-pygments @ file:///home/conda/feedstock_root/build_artifacts/jupyterlab_pygments_1601375948261/work
+matlab==0.1
+matplotlib @ file:///Users/runner/miniforge3/conda-bld/matplotlib-base_1594091703837/work
+notebook @ file:///Users/runner/miniforge3/conda-bld/notebook_1605103671454/work
+numexpr==2.7.1
+numpy @ file:///Users/runner/miniforge3/conda-bld/numpy_1594937073781/work
+qtconsole @ file:///home/conda/feedstock_root/build_artifacts/qtconsole_1599147533948/work
+QtPy==1.9.0
+scipy @ file:///Users/runner/miniforge3/conda-bld/scipy_1604305025129/work
+sunpy @ file:///Users/runner/miniforge3/conda-bld/sunpy_1592165614464/work
