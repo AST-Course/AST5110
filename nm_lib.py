@@ -5,12 +5,6 @@ Created on Fri Jul 02 10:25:17 2021
 
 @author: Juan Martinez Sykora
 
---------------------------------------------------------------------------------------------------
-
-NOTE TO NEW USERS:
-
---------------------------------------------------------------------------------------------------
-
 """
 
 # import builtin modules
@@ -56,10 +50,10 @@ def deriv_4tho(xx, hh, **kwargs):
         xx :: spatial axis. 
         hh :: function that depends on xx. 
     Output: 
-        returns the centered 4th order derivative of hh respect to xx. Last 2 and first two 
+        returns the centered 4th order derivative of hh respect to xx. Last and first two 
         grid points are ill calculated. 
     """
-
+   
 
 def step_adv_burgers(xx, hh, a, cfl_cut = 0.98, 
                     ddx = lambda x,y: deriv_dnw(x, y), **kwargs): 
@@ -233,7 +227,7 @@ def step_uadv_burgers(xx, hh, cfl_cut = 0.98,
     """       
 
 
-def cfl_diff_burger(a,dx): 
+def cfl_diff_burger(a,x): 
     """
     Computes the dt_fact, i.e., Courant, Fredrich, and 
     Lewy condition for the diffusive term in the Burger's eq. 
@@ -261,8 +255,9 @@ def ops_Lax_LL_Add(xx, hh, nt, a, b, cfl_cut = 0.98,
          cfl_adv_burger
          numpy.pad for boundaries. 
     Input: 
-        xx :: spatial axis. 
+        xx :: array of the spatial axis. 
         hh :: function that depends on xx.
+        nt :: integer, number of iterations
         a  :: either constant, or array which multiply the right hand side of the Burger's eq.
         b  :: either constant, or array which multiply the right hand side of the Burger's eq.
         cfl_cut:: constant value to limit dt from cfl_adv_burger. 
@@ -293,6 +288,7 @@ def ops_Lax_LL_Lie(xx, hh, nt, a, b, cfl_cut = 0.98,
     Input: 
         xx :: spatial axis. 
         hh :: function that depends on xx.
+        nt :: integer, number of iterations
         a  :: either constant, or array which multiply the right hand side of the Burger's eq.
         b  :: either constant, or array which multiply the right hand side of the Burger's eq.
         cfl_cut:: constant value to limit dt from cfl_adv_burger. 
@@ -323,6 +319,7 @@ def ops_Lax_LL_Strang(xx, hh, nt, a, b, cfl_cut = 0.98,
     Input: 
         xx :: spatial axis. 
         hh :: function that depends on xx.
+        nt :: integer, number of iterations
         a  :: either constant, or array which multiply the right hand side of the Burger's eq.
         b  :: either constant, or array which multiply the right hand side of the Burger's eq.
         cfl_cut:: constant value to limit dt from cfl_adv_burger. 
@@ -353,6 +350,7 @@ def osp_Lax_LH_Strang(xx, hh, nt, a, b, cfl_cut = 0.98,
     Input: 
         xx :: spatial axis. 
         hh :: function that depends on xx.
+        nt :: integer, number of iterations
         a  :: either constant, or array which multiply the right hand side of the Burger's eq.
         b  :: either constant, or array which multiply the right hand side of the Burger's eq.
         cfl_cut:: constant value to limit dt from cfl_adv_burger. 
@@ -364,10 +362,10 @@ def osp_Lax_LH_Strang(xx, hh, nt, a, b, cfl_cut = 0.98,
         t :: time 1D array
         unnt :: Spatial and time evolution of u^n_j for n = (0,nt), and where j represents
         all the elements of the domain. 
-    """ 
+    """
 
 
-def step_diff_burgers(xx, hh, a, **kwargs): 
+def step_diff_burgers(xx, hh, a, ddx = lambda x,y: deriv_cent(x, y), **kwargs): 
     """
     Right hand side of the diffusive term of Burger's eq. where nu can be a constant or a function that 
     depends on xx. 
@@ -378,7 +376,6 @@ def step_diff_burgers(xx, hh, a, **kwargs):
     Output: 
         right hand side of (u^{n+1}-u^{n})/dt = from burgers eq, i.e., x \frac{\partial u}{\partial x} 
     """    
-
 
 
 def NR_f(xx, un, uo, a, dt, **kwargs): 
@@ -406,6 +403,8 @@ def jacobian(xx, un, a, dt, **kwargs):
     Output: 
         J :: Jacobian F_j'(u^{n+1}{k})
     """    
+ 
+
 
 
 def Newton_Raphson(xx, hh, a, dt, nt, toll= 1e-5, ncount=2, 
@@ -417,6 +416,7 @@ def Newton_Raphson(xx, hh, a, dt, nt, toll= 1e-5, ncount=2,
         hh :: function that depends on xx.
         a  :: either constant, or array which multiply the right hand side of the Burger's eq.
         dt :: constant: time interval
+        nt :: integer, number of iterations
         toll:: constant of the error limit
         ncount: maximum number of iterations
         bnd_type:: String. It allows to select the type of boundaries 
@@ -450,9 +450,13 @@ def Newton_Raphson(xx, hh, a, dt, nt, toll= 1e-5, ncount=2,
             un = ug - np.matmul(np.linalg.inv(
                     jac),ff1)
 
-            count+=1
-            err = np.max(np.abs(un-ug)) # error
+            # error: 
+            err = np.max(np.abs(un-ug)/(np.abs(un)+toll)) # error
+            #err = np.max(np.abs(un-ug))
             errt[it]=err
+
+            # Number of iterations
+            count+=1
             countt[it]=count
             
             # Boundaries 
@@ -467,6 +471,7 @@ def Newton_Raphson(xx, hh, a, dt, nt, toll= 1e-5, ncount=2,
         unnt[:,it] = un
         
     return t, unnt, errt, countt
+
 
 
 def NR_f_u(xx, un, uo, dt, **kwargs): 
@@ -495,6 +500,7 @@ def jacobian_u(xx, un, dt, **kwargs):
         J :: Jacobian F_j'(u^{n+1}{k})
     """    
 
+
 def Newton_Raphson_u(xx, hh, dt, nt, toll= 1e-5, ncount=2, 
             bnd_type='wrap', bnd_limits=[1,1], **kwargs):
     """
@@ -502,8 +508,8 @@ def Newton_Raphson_u(xx, hh, dt, nt, toll= 1e-5, ncount=2,
     Input:    
         xx :: spatial axis. 
         hh :: function that depends on xx.
-        a  :: either constant, or array which multiply the right hand side of the Burger's eq.
         dt :: constant: time interval
+        nt :: integer, number of iterations
         toll:: constant of the error limit
         ncount: maximum number of iterations
         bnd_type:: String. It allows to select the type of boundaries 
@@ -537,9 +543,12 @@ def Newton_Raphson_u(xx, hh, dt, nt, toll= 1e-5, ncount=2,
             un = ug - np.matmul(np.linalg.inv(
                     jac),ff1)
 
-            count+=1
-            err = np.max(np.abs(un-ug)) # error
+            # error
+            err = np.max(np.abs(un-ug)/(np.abs(un)+toll)) 
             errt[it]=err
+
+            # Number of iterations
+            count+=1
             countt[it]=count
             
             # Boundaries 
@@ -554,6 +563,39 @@ def Newton_Raphson_u(xx, hh, dt, nt, toll= 1e-5, ncount=2,
         unnt[:,it] = un
         
     return t, unnt, errt, countt
+
+def taui_sts(nu, niter, iiter): 
+    '''
+    STS parabolic scheme. [(nu -1)cos(pi (2 iiter - 1) / 2 niter) + nu + 1]^{-1}
+    Input:    
+        nu    :: constant (0,1). 
+        niter :: integer, number of iterations
+        iiter :: integer, iterations number
+    Output: 
+        constant: [(nu -1)cos(pi (2 iiter - 1) / 2 niter) + nu + 1]^{-1}
+    '''
+
+def evol_sts(xx, hh, nt,  a, cfl_cut = 0.45, 
+        ddx = lambda x,y: deriv_cent(x, y), 
+        bnd_type='wrap', bnd_limits=[0,1], nu=0.9, n_sts=10): 
+    '''
+    Evolution of the STS method. 
+    Input: 
+        xx :: spatial axis. 
+        hh :: function that depends on xx.
+        nt :: integer, number of iterations
+        a  :: either constant, or array which multiply the right hand side of the Burger's eq.
+        cfl_cut:: constant value to limit dt from cfl_adv_burger. 
+        ddx :: Lambda function allows to change the space derivative function. 
+        bnd_type:: String. It allows to select the type of boundaries 
+        bnd_limits:: Array of two integer elements. The number of pixels that
+                will need to be updated with the boundary information. 
+    Output: 
+        t :: time 1D array
+        unnt :: Spatial and time evolution of u^n_j for n = (0,nt), and where j represents
+        all the elements of the domain. 
+    '''
+
 
 def hyman(xx, f, dth, a, fold=None, dtold=None,
         cfl_cut=0.8, ddx = lambda x,y: deriv_dnw(x, y), 
