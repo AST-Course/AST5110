@@ -1,0 +1,3 @@
+[submodule "AST5110.wiki"]
+	path = AST5110.wiki
+	url = git@github.com:AvijeetPrasad/AST5110.wiki.git

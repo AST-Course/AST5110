@@ -2,26 +2,26 @@
 # Learn more at https://jupyterbook.org/customize/toc.html
 #
 format: jb-book
-root: ast5110.wiki/home
+root: AST5110.wiki/Home
 parts:
   - caption: Wiki
     chapters:
-    - file: ast5110.wiki/Discretization
-    - file: ast5110.wiki/Introduction-to-PDEs-and-clarifications
-    - file: ast5110.wiki/Errors
-    - file: ast5110.wiki/Stability
-    - file: ast5110.wiki/Examples-of-hyperbolic-numerical-schemes.md
-    - file: ast5110.wiki/Hyper-Diffusive
-    - file: ast5110.wiki/Staggered-mesh
-    - file: ast5110.wiki/Implicit-methods
+    - file: AST5110.wiki/Discretization
+    - file: AST5110.wiki/Introduction-to-PDEs-and-clarifications
+    - file: AST5110.wiki/Errors
+    - file: AST5110.wiki/Stability
+    - file: AST5110.wiki/Examples-of-hyperbolic-numerical-schemes.md
+    - file: AST5110.wiki/Hyper-Diffusive
+    - file: AST5110.wiki/Staggered-mesh
+    - file: AST5110.wiki/Implicit-methods
       sections:
-      - file: ast5110.wiki/Newton-Raphson-method
-      - file: ast5110.wiki/Crank-Nicolson-in-Multidimensions
-      - file: ast5110.wiki/Super-time-stepping
-      - file: ast5110.wiki/Self-similar-solution-for-parabolic-eq
-    - file: ast5110.wiki/Operator-splitting
+      - file: AST5110.wiki/Newton-Raphson-method
+      - file: AST5110.wiki/Crank-Nicolson-in-Multidimensions
+      - file: AST5110.wiki/Super-time-stepping
+      - file: AST5110.wiki/Self-similar-solution-for-parabolic-eq
+    - file: AST5110.wiki/Operator-splitting
 #      sections:
-#      - file: ast5110.wiki/Operator-splitting-vs-Predictor-corrector
+#      - file: AST5110.wiki/Operator-splitting-vs-Predictor-corrector
   - caption: Exercises
     chapters:
     - file: ex_1a_v0.5
