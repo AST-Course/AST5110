@@ -7,7 +7,7 @@ parts:
   - caption: Wiki
     chapters:
     - file: AST5110.wiki/Discretization
-    - file: AST5110.wiki/Introduction-to-PDEs-and-clarifications
+    - file: AST5110.wiki/Introduction-to-PDEs-and-clasifications
     - file: AST5110.wiki/Errors
     - file: AST5110.wiki/Stability
     - file: AST5110.wiki/Examples-of-hyperbolic-numerical-schemes.md
