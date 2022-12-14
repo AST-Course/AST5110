@@ -28,7 +28,7 @@ jobs:
         jupyter-book build -W -n --keep-going .
 
     - name: Upload
-    if: |
+      if: |
       github.event_name != 'pull_request' && (
         github.ref_name != 'main' ||
         github.event_name == 'workflow_dispatch'
