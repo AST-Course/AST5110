@@ -29,10 +29,12 @@ jobs:
 
     - name: Upload
       if: |
-      github.event_name != 'pull_request' && (
-        github.ref_name != 'main' ||
-        github.event_name == 'workflow_dispatch'
-      )
+        (
+          github.event_name != 'pull_request' && (
+            github.ref_name != 'main' ||
+            github.event_name == 'workflow_dispatch'
+          )
+        )
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
