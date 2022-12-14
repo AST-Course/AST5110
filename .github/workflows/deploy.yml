@@ -25,7 +25,7 @@ jobs:
 
     - name: Build
       run: |
-        jupyter-book build .
+        jupyter-book build -W -n --keep-going .
 
     - name: Upload
       if: github.event_name != 'pull_request'
