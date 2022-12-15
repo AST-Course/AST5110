@@ -10,7 +10,7 @@ parts:
     - file: AST5110.wiki/Introduction-to-PDEs-and-classifications
     - file: AST5110.wiki/Errors
     - file: AST5110.wiki/Stability
-    - file: AST5110.wiki/Examples-of-hyperbolic-numerical-schemes.md
+    - file: AST5110.wiki/Examples-of-hyperbolic-numerical-schemes-book.md
     - file: AST5110.wiki/Hyper-diffusive
     - file: AST5110.wiki/Staggered-mesh
     - file: AST5110.wiki/Implicit-methods
