@@ -1,18 +1,16 @@
 # nm_lib
 
-This is intendend for student to develop the library of a numerical code following the [excersices](https://gitlab.com/ast5110_course/ast5110). 
+This is intendend for student to develop the library of a numerical code following the [excersices](https://github.com/jumasy/AST5110/).
 
-Please create [nm_lib wiki](https://gitlab.com/ast5110_course/nm_lib/-/wikis/home) to add a detailed description about this code and what it can do!
+Please create [nm_lib wiki](https://github.com/jumasy/AST5110/wiki) to add a detailed description about this code and what it can do!
 
-In the long run, create [CI/CD pipeline](https://gitlab.com/ast5110_course/nm_lib/-/pipelines) to warranty that each commit successfuly pass a small number of tests. 
-
-### Fork this reposotory privately:  
-[to create a fork follow the instructions](https://docs.gitlab.com/ee/user/project/repository/forking_workflow.html)
+### Fork this repository privately:
+[to create a fork follow the instructions](https://docs.github.com/en/get-started/quickstart/fork-a-repo)
 
 ### To install the files:
 ```
 cd nm_lib
-python setup.py develop
+pip install -e .
 ```
 
 ### To start using the library:
