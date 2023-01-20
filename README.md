@@ -15,9 +15,22 @@ Numerical recipes.<br>
 Cambridge University Press.<br>
 <http://numerical.recipes>
 
+* Culbert B. Laney.<br>
+Computational Gasdynamics.<br>
+University of Colorado, Cambridge University Press
+
+* K. W. Morton and D. F. Mayers
+Numerical Solution of Partial Differential Equations: And introduction
+Computing Laboratory, University of Oxford, Cambridge University Press. 
+
+
 ## Dependencies
 
 * Anaconda 3 includes most of the required libraries.
+
+* We will have tests to run in CI/CD, so [pytest](https://docs.pytest.org/) will be convenient. 
+
+* For good practices and clean the code []()
 
 * In addition, you will create your own python library.
 As a starting point, fork the
