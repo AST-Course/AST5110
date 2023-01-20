@@ -21,7 +21,7 @@ Cambridge University Press.<br>
 
 * In addition, you will create your own python library.
 As a starting point, fork the
-[numerical methods repository for AST5110](https://gitlab.com/ast5110_course/nm_lib.git).
+[numerical methods repository for AST5110](https://github.com/jumasy/nm_lib.git).
 
 ## Download
 
@@ -31,8 +31,4 @@ This will allow me interactively to follow the progress of each of the students
 
 ## Get jupyter-book
 
-If interested to have a notebook of the exersices and wiki, do the following steps in the folder of the exercises:
-
-   git clone git@gitlab.com:ast5110_course/ast5110.wiki.git<br>
-   cd ../<br>
-   jupyter-book build -W -n --keep-going ast5110/
+If interested to have a notebook of the exersices and wiki, you can download from ([jupyter-book](https://jumasy.github.io/AST5110/AST5110.wiki/Home.html)).
