@@ -8,4 +8,3 @@ _build/
 nm_lib.egg-info
 .eggs
 nm_lib/test/__pycache__/
-
