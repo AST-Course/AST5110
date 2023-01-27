@@ -24,5 +24,5 @@ pip install -e .
 ### To start using the library:
 Run this code to get started:
 ```
-import nm_lib as nm
+from nm_lib import nm_lib as nm
 ```
