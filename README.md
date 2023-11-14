@@ -32,29 +32,27 @@ Computing Laboratory, University of Oxford, Cambridge University Press.
 
 * For good practices and clean the code [pre-commit](https://pre-commit.com). Run pre-commit run -a to clean the code. 
 
-* In addition, you will create your own python library.
-As a starting point, fork the
-[numerical methods repository for AST5110](https://github.com/AST-Course/nm_lib.git).
+* You will also create your own Python library included in this repository (see below). 
 
 ## Download
 
-In order to solve the excersices, it is highly recommended to create a private fork and provide access to jumasy1980@gmail.com.
-This will allow me interactively to follow the progress of each of the students
+To solve the exercises, it is highly recommended to create a private fork and provide access to jumasy1980@gmail.com.
+This will allow me to follow the progress of each of the students
 ([fork info](https://gist.github.com/0xjac/85097472043b697ab57ba1b1c7530274)).
 
 ## Get jupyter-book
 
-If interested to have a notebook of the exersices and wiki, you can download from ([jupyter-book](https://github.io/AST-Course/AST5110/AST5110.wiki/Home.html)).
+If you are interested in having a notebook of the exercises and wiki, you can download them from ([jupyter-book](https://github.io/AST-Course/AST5110/AST5110.wiki/Home.html)).
 # nm_lib
 
-This is intendend for student to develop the library of a numerical code following the [excersices](https://github.com/AST-Course/AST5110/).
+This is intended for students to develop the library of a numerical code following the [excersices](https://github.com/AST-Course/AST5110/).
 
-Please create [AST 5110 wiki](https://github.com/AST-Course/AST5110/wiki) to add a detailed description about this code and what it can do!
+Please create [AST 5110 wiki](https://github.com/AST-Course/AST5110/wiki) to add a detailed description of this code and what it can do!
 
 ### Fork this repository privately:
 [to create a fork follow the instructions](https://gist.github.com/0xjac/85097472043b697ab57ba1b1c7530274)
 
-### In case you want to do the course in a different enviroment, do the following:
+### In case you want to do the course in a different environment, do the following:
 ```
 conda create --name ast5110_course
 conda activate ast5110_course
