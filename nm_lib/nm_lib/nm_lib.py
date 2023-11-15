@@ -17,7 +17,7 @@ import matplotlib.pyplot as plt
 
 def deriv_dnw(xx, hh, **kwargs):
     """
-    Returns the downwind 2nd order derivative of hh array respect to xx array. 
+    Returns the downwind 2nd order derivative of hh array with respect to xx array. 
 
     Parameters 
     ----------
@@ -29,7 +29,7 @@ def deriv_dnw(xx, hh, **kwargs):
     Returns
     -------
     `array`
-        The downwind 2nd order derivative of hh respect to xx. Last 
+        The downwind 2nd order derivative of hh respect to xx. The last 
         grid point is ill (or missing) calculated. 
     """
 
@@ -41,11 +41,11 @@ def order_conv(hh, hh2, hh4, **kwargs):
     Parameters 
     ----------
     hh : `array`
-        Function that depends on xx. 
+        A function that depends on xx. 
     hh2 : `array`
-        Function that depends on xx but with twice number of grid points than hh. 
+        A function that depends on xx but with twice the number of grid points than hh. 
     hh4 : `array`
-        Function that depends on xx but with twice number of grid points than hh2.
+        A function that depends on xx but with twice the number of grid points than hh2.
     Returns
     -------
     `array` 
@@ -55,27 +55,27 @@ def order_conv(hh, hh2, hh4, **kwargs):
 
 def deriv_4tho(xx, hh, **kwargs): 
     """
-    Returns the 4th order derivative of hh respect to xx.
+    Returns the 4th order derivative of hh with respect to xx.
 
     Parameters 
     ---------- 
     xx : `array`
         Spatial axis. 
     hh : `array`
-        Function that depends on xx. 
+        A function that depends on xx. 
 
     Returns
     -------
     `array`
-        The centered 4th order derivative of hh respect to xx. 
-        Last and first two grid points are ill calculated. 
+        The centered 4th order derivative of hh with respect to xx. 
+        The last and first two grid points are ill-calculated. 
     """
    
 
 def step_adv_burgers(xx, hh, a, cfl_cut = 0.98, 
                     ddx = lambda x,y: deriv_dnw(x, y), **kwargs): 
     r"""
-    Right hand side of Burger's eq. where a can be a constant or a function that 
+    Right-hand side of Burger's eq. where a can be a constant or a function that 
     depends on xx. 
 
     Requires 
@@ -87,14 +87,14 @@ def step_adv_burgers(xx, hh, a, cfl_cut = 0.98,
     xx : `array`
         Spatial axis. 
     hh : `array`
-        Function that depends on xx.
+        A function that depends on xx.
     a : `float` or `array`
-        Either constant, or array which multiply the right hand side of the Burger's eq.
+        Either constant or array multiplies the right-hand side of the Burger's eq.
     cfl_cut : `float`
         Constant value to limit dt from cfl_adv_burger. 
-        By default clf_cut=0.98. 
+        By default, clf_cut=0.98. 
     ddx : `lambda function`
-        Allows to select the type of spatial derivative. 
+        Allows the selection of the type of spatial derivative. 
         By default lambda x,y: deriv_dnw(x, y)
 
     Returns
@@ -108,12 +108,12 @@ def step_adv_burgers(xx, hh, a, cfl_cut = 0.98,
 def cfl_adv_burger(a,x): 
     """
     Computes the dt_fact, i.e., Courant, Fredrich, and 
-    Lewy condition for the advective term in the Burger's eq. 
+    Lewy's condition for the advective term in Burger's equation. 
 
     Parameters
     ----------
     a : `float` or `array`
-        Either constant, or array which multiply the right hand side of the Burger's eq.
+        Either constant or array multiplies the right-hand side of the Burger's eq.
     x : `array`
         Spatial axis. 
 
@@ -128,7 +128,7 @@ def evolv_adv_burgers(xx, hh, nt, a, cfl_cut = 0.98,
         ddx = lambda x,y: deriv_dnw(x, y), 
         bnd_type='wrap', bnd_limits=[0,1], **kwargs):
     r"""
-    Advance nt time-steps in time the burger eq for a being a a fix constant or array.
+    Advance nt time-steps in time the burger eq for a being a fix constant or array.
     Requires
     ----------
     step_adv_burgers
@@ -138,9 +138,9 @@ def evolv_adv_burgers(xx, hh, nt, a, cfl_cut = 0.98,
     xx : `array`
         Spatial axis. 
     hh : `array`
-        Function that depends on xx.
+        A function that depends on xx.
     a : `float` or `array`
-        Either constant, or array which multiply the right hand side of the Burger's eq.
+        Either constant or array, which multiplies the right-hand side of the Burger's eq.
     cfl_cut : `float`
         Constant value to limit dt from cfl_adv_burger. 
     ddx : `lambda function`
@@ -150,7 +150,7 @@ def evolv_adv_burgers(xx, hh, nt, a, cfl_cut = 0.98,
         Allows to select the type of boundaries. 
         By default 'wrap'.
     bnd_limits : `list(int)`
-        Array of two integer elements. The number of pixels that
+        Array of two integer elements. The number of pixels 
         will need to be updated with the boundary information. 
         By default [0,1].
 
@@ -166,26 +166,26 @@ def evolv_adv_burgers(xx, hh, nt, a, cfl_cut = 0.98,
 
 def deriv_upw(xx, hh, **kwargs):
     r"""
-    returns the upwind 2nd order derivative of hh respect to xx. 
+    Returns the upwind 2nd order derivative of hh with respect to xx. 
 
     Parameters
     ----------
     xx : `array`
         Spatial axis. 
     hh : `array`
-        Function that depends on xx. 
+        A function that depends on xx. 
 
     Returns
     ------- 
     `array`
-        The upwind 2nd order derivative of hh respect to xx. First 
-        grid point is ill calculated. 
+        The upwind 2nd order derivative of hh respect to xx. The first 
+        grid point is ill-calculated. 
     """
     
 
 def deriv_cent(xx, hh, **kwargs):
     r"""
-    returns the centered 2nd derivative of hh respect to xx. 
+    Returns the centered 2nd derivative of hh with respect to xx. 
 
     Parameters
     ---------- 
@@ -197,8 +197,8 @@ def deriv_cent(xx, hh, **kwargs):
     Returns
     -------
     `array`
-        The centered 2nd order derivative of hh respect to xx. First 
-        and last grid points are ill calculated. 
+        The centered 2nd order derivative of hh with respect to xx. The first 
+        and last grid points are ill-calculated. 
     """
 
 
@@ -224,8 +224,8 @@ def evolv_uadv_burgers(xx, hh, nt, cfl_cut = 0.98,
     ddx : `lambda function` 
         Allows to change the space derivative function. 
     bnd_type : `string` 
-        It allows to select the type of boundaries.
-        By default 'wrap'
+        It allows one to select the type of boundaries.
+        By default, 'wrap'
     bnd_limits : `list(int)`
         List of two integer elements. The number of pixels that
         will need to be updated with the boundary information.
@@ -256,17 +256,17 @@ def evolv_Lax_uadv_burgers(xx, hh, nt, cfl_cut = 0.98,
     xx : `array`
         Spatial axis. 
     hh : `array`
-        Function that depends on xx.
+        A function that depends on xx.
     cfl_cut : `array`
         Constant value to limit dt from cfl_adv_burger. 
         By default 0.98
     ddx : `array`
-        Lambda function allows to change the space derivative function.
+        The lambda function allows to change of the space derivative function.
         By derault  lambda x,y: deriv_dnw(x, y)
     bnd_type : `string`
         It allows to select the type of boundaries 
     bnd_limits : `list(int)`
-        List of two integer elements. The number of pixels that
+        List of two integer elements. The number of pixels 
         will need to be updated with the boundary information. 
         By default [0,1]
 
@@ -284,7 +284,7 @@ def evolv_Lax_adv_burgers(xx, hh, nt, a, cfl_cut = 0.98,
         ddx = lambda x,y: deriv_dnw(x, y), 
         bnd_type='wrap', bnd_limits=[0,1], **kwargs):
     r"""
-    Advance nt time-steps in time the burger eq for a being a a fix constant or array.
+    Advance nt time-steps in time the burger eq for a being a fix constant or array.
 
     Requires
     --------
@@ -295,11 +295,11 @@ def evolv_Lax_adv_burgers(xx, hh, nt, a, cfl_cut = 0.98,
     xx : `array`
         Spatial axis. 
     hh : `array`
-        Function that depends on xx.
+        A function that depends on xx.
     nt : `int`
         Number of iterations
     a : `float` or `array`
-        Either constant, or array which multiply the right hand side of the Burger's eq.
+        Either constant or array multiplies the right-hand side of the Burger's eq.
     cfl_cut : `float`
         Constant value to limit dt from cfl_adv_burger. 
         By default 0.98
@@ -307,8 +307,8 @@ def evolv_Lax_adv_burgers(xx, hh, nt, a, cfl_cut = 0.98,
         Allows to change the space derivative function. 
         By default lambda x,y: deriv_dnw(x, y)
     bnd_type : `string` 
-        It allows to select the type of boundaries. 
-        By default 'wrap'
+        It allows one to select the type of boundaries. 
+        By default, 'wrap'
     bnd_limits : `list(int)`
         Array of two integer elements. The number of pixels that
         will need to be updated with the boundary information. 
@@ -327,7 +327,7 @@ def evolv_Lax_adv_burgers(xx, hh, nt, a, cfl_cut = 0.98,
 def step_uadv_burgers(xx, hh, cfl_cut = 0.98, 
                     ddx = lambda x,y: deriv_dnw(x, y), **kwargs): 
     r"""
-    Right hand side of Burger's eq. where a is u, i.e hh.  
+    Right-hand side of Burger's eq. where a is u, i.e., hh.  
 
     Requires
     --------
@@ -338,7 +338,7 @@ def step_uadv_burgers(xx, hh, cfl_cut = 0.98,
     xx : `array`
         Spatial axis. 
     hh : `array`
-        Function that depends on xx.
+        A function that depends on xx.
     cfl_cut : `array`
         Constant value to limit dt from cfl_adv_burger. 
         By default 0.98
@@ -364,7 +364,7 @@ def cfl_diff_burger(a,x):
     Parameters
     ----------
     a : `float` or `array` 
-        Either constant, or array which multiply the right hand side of the Burger's eq.
+        Either constant or array multiplies the right-hand side of the Burger's eq.
     x : `array`
         Spatial axis. 
 
@@ -380,7 +380,7 @@ def ops_Lax_LL_Add(xx, hh, nt, a, b, cfl_cut = 0.98,
         bnd_type='wrap', bnd_limits=[0,1], **kwargs): 
     r"""
     Advance nt time-steps in time the burger eq for a being a and b 
-    a fix constant or array. Solving two advective terms separately 
+    a fix constant or array. Solve two advective terms separately 
     with the Additive Operator Splitting scheme.  Both steps are 
     with a Lax method. 
 
@@ -394,13 +394,13 @@ def ops_Lax_LL_Add(xx, hh, nt, a, b, cfl_cut = 0.98,
     xx : `array`
         Spatial axis. 
     hh : `array`
-        Function that depends on xx.
+        A function that depends on xx.
     nt : `int`
         Number of iterations
     a : `float` or `array`
-        Either constant, or array which multiply the right hand side of the Burger's eq.
+        Either constant or array multiplies the right-hand side of the Burger's eq.
     b : `float` or `array`
-        Either constant, or array which multiply the right hand side of the Burger's eq.
+        Either constant or array multiplies the right-hand side of the Burger's eq.
     cfl_cut : `float`
         Constant value to limit dt from cfl_adv_burger. 
         By default 0.98
@@ -408,10 +408,10 @@ def ops_Lax_LL_Add(xx, hh, nt, a, b, cfl_cut = 0.98,
         Allows to change the space derivative function. 
         By default lambda x,y: deriv_dnw(x, y)
     bnd_type : `string` 
-        It allows to select the type of boundaries 
-        By default 'wrap'
+        It allows one to select the type of boundaries 
+        By default, 'wrap'
     bnd_limits : `list(int)`
-        List of two integer elements. The number of pixels that
+        List of two integer elements. The number of pixels 
         will need to be updated with the boundary information. 
         By default [0,1]
 
@@ -447,9 +447,9 @@ def ops_Lax_LL_Lie(xx, hh, nt, a, b, cfl_cut = 0.98,
     nt : `int`
         Number of iterations
     a : `float` or `array`
-        Either constant, or array which multiply the right hand side of the Burger's eq.
+        Either constant or array multiplies the right-hand side of the Burger's eq.
     b : `float` or `array`
-        Either constant, or array which multiply the right hand side of the Burger's eq.
+        Either constant or array multiplies the right-hand side of the Burger's eq.
     cfl_cut : `float` 
         Limit dt from cfl_adv_burger.
         By default 0.98
@@ -457,8 +457,8 @@ def ops_Lax_LL_Lie(xx, hh, nt, a, b, cfl_cut = 0.98,
         Allows to change the space derivative function. 
         By default lambda x,y: deriv_dnw(x, y)
     bnd_type : `string`
-        It allows to select the type of boundaries. 
-        By default 'wrap'
+        It allows one to select the type of boundaries. 
+        By default, 'wrap'
     bnd_limits : `list(int)`
         List of two integer elements. The number of pixels that
         will need to be updated with the boundary information. 
@@ -498,9 +498,9 @@ def ops_Lax_LL_Strang(xx, hh, nt, a, b, cfl_cut = 0.98,
     nt : `int`
         Number of iterations
     a : `float` or `array`
-        Either constant, or array which multiply the right hand side of the Burger's eq.
+        Either constant or array multiplies the right-hand side of the Burger's eq.
     b : `float` or `array`
-        Either constant, or array which multiply the right hand side of the Burger's eq.
+        Either constant or array multiplies the right-hand side of the Burger's eq.
     cfl_cut : `float`
         Constant value to limit dt from cfl_adv_burger.
         By default 0.98
@@ -509,7 +509,7 @@ def ops_Lax_LL_Strang(xx, hh, nt, a, b, cfl_cut = 0.98,
         By default lambda x,y: deriv_dnw(x, y)
     bnd_type : `string` 
         Allows to select the type of boundaries.
-        By default `wrap`
+        By default, `wrap`
     bnd_limits : `list(int)` 
         The number of pixels that will need to be updated with the boundary information.
         By default [0,1]
@@ -532,7 +532,7 @@ def osp_Lax_LH_Strang(xx, hh, nt, a, b, cfl_cut = 0.98,
     Advance nt time-steps in time the burger eq for a being a and b 
     a fix constant or array. Solving two advective terms separately 
     with the Strang Operator Splitting scheme. One step is with a Lax method 
-    and the second step is the Hyman predictor-corrector scheme. 
+    and the second is the Hyman predictor-corrector scheme. 
 
     Requires
     --------
@@ -548,9 +548,9 @@ def osp_Lax_LH_Strang(xx, hh, nt, a, b, cfl_cut = 0.98,
     nt : `int`
         Number of iterations.
     a : `float` or `array`
-        Either constant, or array which multiply the right hand side of the Burger's eq.
+        Either constant or array multiplies the right-hand side of the Burger's eq.
     b : `float` or `array`
-        Either constant, or array which multiply the right hand side of the Burger's eq.
+        Either constant or array multiplies the right-hand side of the Burger's eq.
     cfl_cut : `float` 
         Limit dt from cfl_adv_burger. 
         By default 0.98
@@ -558,8 +558,8 @@ def osp_Lax_LH_Strang(xx, hh, nt, a, b, cfl_cut = 0.98,
         Allows to change the space derivative function. 
         By default lambda x,y: deriv_dnw(x, y)
     bnd_type : `string`
-        It allows to select the type of boundaries. 
-        By default 'wrap'
+        It allows one to select the type of boundaries. 
+        By default, 'wrap'
     bnd_limits : `list(int)`
         Array of two integer elements. The number of pixels that
         will need to be updated with the boundary information. 
@@ -585,9 +585,9 @@ def step_diff_burgers(xx, hh, a, ddx = lambda x,y: deriv_cent(x, y), **kwargs):
     xx : `array`
         Spatial axis. 
     hh : `array`
-        Function that depends on xx.
+        A function that depends on xx.
     a : `float` or `array`
-        Either constant, or array which multiply the right hand side of the Burger's eq.
+        Either constant or array multiplies the right-hand side of the Burger's eq.
     ddx : `lambda function`
         Allows to change the space derivative function. 
         By default lambda x,y: deriv_dnw(x, y)
@@ -608,11 +608,11 @@ def NR_f(xx, un, uo, a, dt, **kwargs):
     xx : `array`
         Spatial axis. 
     un : `array`
-        Function that depends on xx.
+        A function that depends on xx.
     uo : `array`
-        Function that depends on xx.
+        A function that depends on xx.
     a : `float` or `array`
-        Either constant, or array which multiply the right hand side of the Burger's eq.
+        Either constant or array multiplies the right-hand side of the Burger's eq.
     dt : `float` 
         Time interval
 
@@ -632,9 +632,9 @@ def jacobian(xx, un, a, dt, **kwargs):
     xx : `array`
         Spatial axis. 
     un : `array`
-        Function that depends on xx.
+        A function that depends on xx.
     a : `float` or `array`
-        Either constant, or array which multiply the right hand side of the Burger's eq.
+        Either constant or array multiplies the right-hand side of the Burger's eq.
     dt : `float` 
         Time interval
 
@@ -655,9 +655,9 @@ def Newton_Raphson(xx, hh, a, dt, nt, toll= 1e-5, ncount=2,
     xx : `array`
         Spatial axis. 
     hh : `array`
-        Function that depends on xx.
+        A function that depends on xx.
     a : `float` or `array`
-        Either constant, or array which multiply the right hand side of the Burger's eq.
+        Either constant or array multiplies the right-hand side of the Burger's eq.
     dt : `float`
         Time interval
     nt : `int`
@@ -670,7 +670,7 @@ def Newton_Raphson(xx, hh, a, dt, nt, toll= 1e-5, ncount=2,
         By default 2
     bnd_type : `string` 
         Allows to select the type of boundaries.
-        By default 'wrap'
+        By default, 'wrap'
     bnd_limits : `list(int)`
         Array of two integer elements. The number of pixels that
         will need to be updated with the boundary information.
@@ -742,11 +742,11 @@ def NR_f_u(xx, un, uo, dt, **kwargs):
     xx : `array`
         Spatial axis. 
     un : `array`
-        Function that depends on xx.
+        A function that depends on xx.
     uo : `array`
-        Function that depends on xx.
+        A function that depends on xx.
     a : `float` and `array`
-        Either constant, or array which multiply the right hand side of the Burger's eq.
+        Either constant or array multiplies the right-hand side of the Burger's eq.
     dt : `int`
         Time interval
 
@@ -766,9 +766,9 @@ def jacobian_u(xx, un, dt, **kwargs):
     xx : `array`
         Spatial axis. 
     un : `array`
-        Function that depends on xx.
+        A function that depends on xx.
     a : `float` and `array`
-        Either constant, or array which multiply the right hand side of the Burger's eq.
+        Either constant or array multiplies the right-hand side of the Burger's eq.
     dt : `int`
         Time interval
 
@@ -789,7 +789,7 @@ def Newton_Raphson_u(xx, hh, dt, nt, toll= 1e-5, ncount=2,
     xx : `array`
         Spatial axis.
     hh : `array`
-        Function that depends on xx.
+        A function that depends on xx.
     dt : `float` 
         Time interval
     nt : `int`
@@ -802,7 +802,7 @@ def Newton_Raphson_u(xx, hh, dt, nt, toll= 1e-5, ncount=2,
         By default 2
     bnd_type : `string` 
         Allows to select the type of boundaries.
-        By default 'wrap'
+        By default, 'wrap'
     bnd_limits : `list(int)`
         Array of two integer elements. The number of pixels that
         will need to be updated with the boundary information.
@@ -892,11 +892,11 @@ def evol_sts(xx, hh, nt,  a, cfl_cut = 0.45,
     xx : `array`
         Spatial axis. 
     hh : `array`
-        Function that depends on xx.
+        A function that depends on xx.
     nt : `int`
         Number of iterations
     a : `float` or `array` 
-        Either constant, or array which multiply the right hand side of the Burger's eq.
+        Either constant or array multiplies the right-hand side of the Burger's eq.
     cfl_cut : `float`
         Constant value to limit dt from cfl_adv_burger. 
         By default 0.45
@@ -909,7 +909,7 @@ def evol_sts(xx, hh, nt,  a, cfl_cut = 0.45,
     bnd_limits : `list(int)`
         List of two integer elements. The number of pixels that
         will need to be updated with the boundary information. 
-        By defalt [0,1]
+        By default, [0,1]
     nu : `float`
         STS nu coefficient between (0,1).
         By default 0.9
@@ -922,7 +922,7 @@ def evol_sts(xx, hh, nt,  a, cfl_cut = 0.45,
     t : `array`
         time 1D array
     unnt : `array`
-        Spatial and time evolution of u^n_j for n = (0,nt), and where j represents
+        Spatial and time evolution of u^n_j for n = (0,nt), where j represents
         all the elements of the domain. 
     """
 
@@ -930,7 +930,48 @@ def evol_sts(xx, hh, nt,  a, cfl_cut = 0.45,
 def hyman(xx, f, dth, a, fold=None, dtold=None,
         cfl_cut=0.8, ddx = lambda x,y: deriv_dnw(x, y), 
         bnd_type='wrap', bnd_limits=[0,1], **kwargs): 
+    """
+    Hyman Corrector-predictor method 
 
+    Parameters
+    ----------
+    xx : `array`
+        Spatial axis. 
+    f : `array`
+        A function that depends on xx.
+    dth : `int`
+        Time step interval 
+    a : `float` or `array` 
+        Either constant or array multiplies the right-hand side of the Burger's eq.
+    fold : `array`
+        A function that depends on xx from the previous timestep.
+    dtold : `array`
+        Time step interval from previous step. 
+    cfl_cut : `float`
+        Constant value to limit dt from cfl_adv_burger. 
+        By default 0.45
+    ddx : `lambda function` 
+        Allows to change the space derivative function. 
+        By default lambda x,y: deriv_cent(x, y)
+    bnd_type : `string` 
+        Allows to select the type of boundaries
+        by default 'wrap'
+    bnd_limits : `list(int)`
+        List of two integer elements. The number of pixels that
+        will need to be updated with the boundary information. 
+        By default, [0,1]
+
+    Returns
+    -------
+    f : `array`
+        Spatial and time evolution of u^n_j for n = (0,nt), where j represents
+        all the domain elements. 
+    fold : `array`
+        Spatial and time evolution of u^n_j_1/2 for n = (0,nt), where j represents
+        all the domain elements, i.e., from the previous step.
+    dt : `float`
+        time interval 
+    """
     dt, u1_temp = step_adv_burgers(xx, f, a, ddx=ddx)
 
     if (np.any(fold) == None):
@@ -971,12 +1012,58 @@ def hyman(xx, f, dth, a, fold=None, dtold=None,
 
 
 def hyman_corr(f, fsav, dfdt, c2):
-
+    """
+    Hyman Corrector step 
+    
+    Parameters
+    ----------
+    f : `array`
+        A function that depends on xx.
+    fsav : `array`
+        A function that depends on xx from the interpolated step.
+    dfdt : `array`
+        A function that depends on xx. The right-hand side of the time derivative. 
+    c2: `float`
+        Coefficient.
+        
+    Returns
+    -------
+    corrector : `array`
+        A function of the Hyman corrector step 
+    """
     return  fsav  + c2* dfdt
 
 
 def hyman_pred(f, fold, dfdt, a1, b1, a2, b2): 
-
+    """
+    Hyman Predictor step
+    
+    Parameters
+    ----------
+    f : `array`
+        A function that depends on xx.
+    fold : `array`
+        A function that depends on xx from the previous step.
+    dfdt : `array`
+        A function that depends on xx. The right-hand side of the time derivative. 
+    a1: `float`
+        Coefficient.
+    b1: `float`
+        Coefficient.
+    a2: `float`
+        Coefficient.
+    b2: `float`
+        Coefficient.
+        
+    Returns
+    -------
+    f : `array`
+        A function that depends on xx.
+    fold : `array`
+        A function that depends on xx from the previous step.
+    fsav : `array`
+        A function that depends on xx from the interpolated step.
+    """
     fsav = np.copy(f)
     tempvar = f + a1*(fold-f) + b1*dfdt
     fold = np.copy(fsav)
