@@ -5,7 +5,7 @@
   },
   "waitFor": "onCreateCommand",
   "updateContentCommand": "python3 -m pip install -r requirements.txt",
-  "postCreateCommand": "python3 -m  pip install -e git+https://github.com/AST-Course/nm_lib.git#egg=nm-lib",
+  "postCreateCommand": "python3 -m pip install -e git+https://github.com/AST-Course/AST5110.git#egg=nm-lib",
   "customizations": {
     "codespaces": {
       "openFiles": []
