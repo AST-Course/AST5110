@@ -24,16 +24,16 @@ parts:
 #      - file: AST5110.wiki/Operator-splitting-vs-Predictor-corrector
   - caption: Exercises
     chapters:
-    - file: ex_1a_v0.5
-    - file: ex_1b_ext
-    - file: ex_1b_v1.5
-    - file: ex_2a_analytical
-    - file: ex_2b
-    - file: ex_3a
-    - file: ex_4a
-    - file: ex_4b
-    - file: ex_5a
-    - file: ex_6a
+    - file: notebooks/ex_1
+    - file: notebooks/ex_1_ext
+    - file: notebooks/ex_2a_analytical
+    - file: notebooks/ex_2b
+    - file: notebooks/ex_3
+    - file: notebooks/ex_4
+    - file: notebooks/ex_4
+    - file: notebooks/ex_5
+    - file: notebooks/ex_6
+    - file: notebooks/ex_7
   #  - file: nm_lib/nm_lib.ipynb
   # - caption: Project
   #    chapters:

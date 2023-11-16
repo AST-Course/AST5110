@@ -1,9 +1,11 @@
 astropy
 jupyter
+jupyter-book
 matplotlib
 numba
 numpy
 pandas
+pytest
 scikit-image
 setuptools
 tqdm

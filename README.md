@@ -52,7 +52,7 @@ Please create [AST 5110 wiki](https://github.com/AST-Course/AST5110/wiki) to add
 ### Fork this repository privately:
 [to create a fork follow the instructions](https://gist.github.com/0xjac/85097472043b697ab57ba1b1c7530274)
 
-### In case you want to do the course in a different environment, do the following:
+### It is recommended that you setup a separate (conda/mamba) environement for this course using the following:
 ```
 mamba create --name ast5110_course python=3.11
 mamba activate ast5110_course
@@ -69,4 +69,11 @@ pip install -e .
 Run this code to get started:
 ```
 import nm_lib as nm
+```
+
+## Wiki
+The AST5110 wiki is added here as a git submodule. To clone the wiki, run:
+```
+git submodule init
+git submodule update
 ```
