@@ -78,4 +78,4 @@ git submodule init
 git submodule update
 ```
 ## Instructions for Course Exercises
-See [instructions](AST5110.wiki/Exercise-instructions.md) for more details.
+See [instructions](https://github.com/AST-Course/AST5110/wiki/Exercise-instructions) for more details.
