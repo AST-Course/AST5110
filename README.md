@@ -32,16 +32,48 @@ Computing Laboratory, University of Oxford, Cambridge University Press.
 
 * For good practices and clean the code [pre-commit](https://pre-commit.com). Run pre-commit run -a to clean the code. 
 
-* In addition, you will create your own python library.
-As a starting point, fork the
-[numerical methods repository for AST5110](https://github.com/AST-Course/nm_lib.git).
+* You will also create your own Python library included in this repository (see below). 
 
 ## Download
 
-In order to solve the excersices, it is highly recommended to create a private fork and provide access to jumasy1980@gmail.com.
-This will allow me interactively to follow the progress of each of the students
+To solve the exercises, it is highly recommended to create a private fork and provide access to jumasy1980@gmail.com.
+This will allow me to follow the progress of each of the students
 ([fork info](https://gist.github.com/0xjac/85097472043b697ab57ba1b1c7530274)).
 
 ## Get jupyter-book
 
-If interested to have a notebook of the exersices and wiki, you can download from ([jupyter-book](https://github.io/AST-Course/AST5110/AST5110.wiki/Home.html)).
+If you are interested in having a notebook of the exercises and wiki, you can download them from ([jupyter-book](https://github.io/AST-Course/AST5110/AST5110.wiki/Home.html)).
+# nm_lib
+
+This is intended for students to develop the library of a numerical code following the [excersices](https://github.com/AST-Course/AST5110/).
+
+Please create [AST 5110 wiki](https://github.com/AST-Course/AST5110/wiki) to add a detailed description of this code and what it can do!
+
+### Fork this repository privately:
+[to create a fork follow the instructions](https://gist.github.com/0xjac/85097472043b697ab57ba1b1c7530274)
+
+### It is recommended that you setup a separate (conda/mamba) environement for this course using the following:
+```
+mamba create --name ast5110_course python=3.11
+mamba activate ast5110_course
+mamba install --file requirements.txt
+```
+
+### To install the files:
+In the root folder (`AST5110/`), which contains the `setup.cfg` and `setup.py` files run:
+```
+pip install -e .
+```
+
+### To start using the library:
+Run this code to get started:
+```
+import nm_lib as nm
+```
+
+## Wiki
+The AST5110 wiki is added here as a git submodule. To clone the wiki, run:
+```
+git submodule init
+git submodule update
+```

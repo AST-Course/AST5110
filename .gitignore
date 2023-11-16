@@ -1,6 +1,12 @@
+build/
 _build/
 .DS_Store
 
 # VScode
 .history
 .vscode
+
+nm_lib.egg-info
+.eggs
+nm_lib/test/__pycache__/
+nm_lib/__pycache__/
