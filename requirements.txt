@@ -1,7 +1,3 @@
-matplotlib
-numpy
-scipy
-jupyter
 autopep8 @ file:///home/conda/feedstock_root/build_artifacts/autopep8_1591017828430/work
 ipython @ file:///Users/runner/miniforge3/conda-bld/ipython_1604159583689/work
 jupyter-client @ file:///home/conda/feedstock_root/build_artifacts/jupyter_client_1598486169312/work
