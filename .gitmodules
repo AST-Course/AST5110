@@ -2,3 +2,5 @@
 	path = AST5110.wiki
 	url = git@github.com:AST-Course/AST5110.wiki.git
     branch = master
+	ignore = dirty
+	shallow = true

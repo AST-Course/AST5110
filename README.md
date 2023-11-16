@@ -77,3 +77,5 @@ The AST5110 wiki is added here as a git submodule. To clone the wiki, run:
 git submodule init
 git submodule update
 ```
+## Instructions for Course Exercises
+See [instructions](AST5110.wiki/Exercise-instructions.md) for more details.
