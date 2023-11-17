@@ -1,26 +1,30 @@
-# AST5110: Numerical Methods in Astrophysics
+# AST5110: Numerical Modeling
 
-Welcome to AST5110. This course blends theoretical insights with practical applications, aiming to equip students with a profound understanding of the numerical techniques prevalent in astrophysical research.
+Welcome to AST5110, a course dedicated to exploring numerical techniques in astrophysical research. The course begins with the discretization of functions and an understanding of their convergence. Utilizing Burger's equation, we explore stability using first-order upwind, downwind, cell-center derivatives, and higher-order derivatives. Key elements such as time advancement, boundary condition handling, and initial validation tests are integral to this phase. These tests also facilitate the integration of a Continuous Integration (CI) pipeline, ensuring code reliability for each new commit in the _nm_lib_ library.
+
+We then delve into the Courant-Friedrichs-Lewy (CFL) condition, examining its impact on time derivatives in various Partial Differential Equations (PDEs). The course covers several implicit methods and numerical analytical techniques to address diffusive term challenges and CFL constraints. Students will have the opportunity to implement these methods in their code.
+
+The curriculum further expands to include a broader range of terms, variables, and equations necessary for solving hydrodynamic equations. During this segment, students will implement operator splitting, gaining insights into its applicability and limitations.
+
+Optionally, students can enhance their skills by extending their code to 2D or 3D models, incorporating new physical phenomena, or conducting and analyzing various numerical experiments tailored to their interests.
 
 ## Course Structure
 
-AST5110 unfolds through a series of lectures, interactive discussions, and hands-on exercises, focusing on key topics such as:
-
-- **Discretization**: Delve into discretizing continuous models.
-- **Introduction to PDEs and Classifications**: Fundamentals of Partial Differential Equations and their classifications.
-- **Errors**: Insight into various computational error types.
-- **Stability**: Explore Von Neumann analysis, the CFL condition, and stability principles.
-- **Numerical Schemes**: 
-  - Hyper Diffusive methods
-  - Riemann Solvers
-  - Flux Limiters
-  - Staggered Mesh techniques
-- **Implicit Methods**: 
-  - The Newton-Raphson Method
-  - Crank-Nicolson in Multidimensions
-  - Super Time Stepping
-  - Self-similar Solutions for Parabolic Equations
-- **Operator Splitting**: Techniques and applications.
+- [**Discretization**](https://github.com/AST-Course/AST5110/wiki/Discretization): Delve into discretizing continuous models.
+- [**Introduction to PDEs and Classifications**](https://github.com/AST-Course/AST5110/wiki/Introduction-to-PDEs-and-classifications): Fundamentals of Partial Differential Equations and their classifications.
+- [**Errors**](https://github.com/AST-Course/AST5110/wiki/Errors): Insight into various computational error types.
+- [**Stability**](https://github.com/AST-Course/AST5110/wiki/Stability): Explore Von Neumann analysis, the CFL condition, and stability principles.
+- [**Numerical Schemes**](https://github.com/AST-Course/AST5110/wiki/Examples-of-hyperbolic-numerical-schemes): 
+  - [Hyper Diffusive methods](https://github.com/AST-Course/AST5110/wiki/Hyper-diffusive)
+  - [Riemann Solvers](https://github.com/AST-Course/AST5110/wiki/Riemann-solvers)
+  - [Flux Limiters](https://github.com/AST-Course/AST5110/wiki/Flux-limiter)
+  - [Staggered Mesh techniques](https://github.com/AST-Course/AST5110/wiki/Staggered-mesh)
+- [**Implicit Methods**](https://github.com/AST-Course/AST5110/wiki/Implicit-methods): 
+  - [The Newton-Raphson Method](https://github.com/AST-Course/AST5110/wiki/Newton-Raphson-method)
+  - [Crank-Nicolson in Multidimensions](https://github.com/AST-Course/AST5110/wiki/Crank-Nicolson-in-Multidimensions)
+  - [Super Time Stepping](https://github.com/AST-Course/AST5110/wiki/Super-time-stepping)
+  - [Self-similar Solutions for Parabolic Equations](https://github.com/AST-Course/AST5110/wiki/Self-similar-solution-for-parabolic-eq)
+- [**Operator Splitting**](https://github.com/AST-Course/AST5110/wiki/Operator-splitting): Techniques and applications.
 
 ## Repository Structure
 
@@ -33,18 +37,22 @@ Our repository is organized into:
 
 ## Getting Started
 
-1. **Create a Private Fork**: Begin by setting up a private fork of the course repository. Detailed instructions are available [here](#placeholder-link-for-course-exercise-wiki).
-2. **Environment Setup**: Configure your Python environment as per the [Setup Python Environment](#placeholder-link-for-course-exercise-wiki) guide.
-3. **Course Familiarization**: Get acquainted with the course structure, repository layout, wiki setup, and branch protection guidelines detailed in the [Exercise Instructions](https://github.com/AST-Course/AST5110/wiki/Exercise-instructions).
-4. **GitHub Pages Setup**: Follow the [Setup GitHub Pages](#placeholder-link-for-course-exercise-wiki) guide to configure your GitHub pages.
-5. **Dive into Learning**: Start with the lectures and corresponding exercises in the `notebooks/` directory.
-6. **Jupyter Book**: For a compiled notebook of exercises and the wiki, download from [Jupyter Book](#placeholder-link-for-jupyter-book).
+1. **Create a Private Fork**: Start your journey by establishing a private fork of the course repository. Follow the detailed [instructions for setting up a private fork](https://github.com/AST-Course/AST5110/wiki/Setup-private-fork) to get started.
+
+2. **Environment Setup**: Prepare your Python environment in line with the course requirements. The [Python environment setup guide](https://github.com/AST-Course/AST5110/wiki/Setup-python-environment) will walk you through the necessary steps.
+
+3. **Course Familiarization**: Familiarize yourself with the overall structure of the course, including the repository layout and the wiki. Explore the course [concepts and notebooks](https://github.com/AST-Course/AST5110/wiki/Notebooks-and-concepts) to understand the core components.
+
+4. **Exercise Instructions**: Engage with the course exercises located in the `notebooks/` directory. You can find all the necessary guidelines in the [exercise instructions](https://github.com/AST-Course/AST5110/wiki/Exercise-instructions).
+
+5. **Jupyter Book**: To access a compiled notebook that combines both exercises and the wiki, follow the [guide to setting up GitHub Pages](https://github.com/AST-Course/AST5110/wiki/Setup-GitHub-pages-for-private-fork). This will help you configure GitHub Pages for viewing the course content in a structured, book-like format.
 
 ## Important Links
 
-- [Course Syllabus](#placeholder-link-for-course-syllabus)
-- [Lecture Schedule](#placeholder-link-for-lecture-schedule)
-- [Online Discussion Forum](#placeholder-link-for-discussion-forum)
+- [Course Overview](https://www.uio.no/studier/emner/matnat/astro/AST5110/index-eng.html)
+- [Course Wiki](https://github.com/AST-Course/AST5110/wiki)
+- [Course Repository](https://github.com/AST-Course/AST5110)
+
 
 ## Further Reading
 
@@ -55,3 +63,5 @@ The course material is compiled from diverse resources, including:
 - W. H. Press et al.: Numerical Recipes, [Cambridge University Press](http://numerical.recipes).
 - Culbert B. Laney: Computational Gasdynamics, Cambridge University Press.
 - K. W. Morton and D. F. Mayers: Numerical Solution of Partial Differential Equations, Cambridge University Press.
+- Å. Nordlund & K. Galsgaard (1995): A 3D MHD code for Parallel Computers.
+- B. Gudiksen et al. (2011): The stellar atmosphere simulation code Bifrost: Code description and validation, [A&A 531, A154](https://www.aanda.org/articles/aa/pdf/2011/07/aa16520-11.pdf).
