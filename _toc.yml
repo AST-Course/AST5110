@@ -34,6 +34,6 @@ parts:
     - file: notebooks/ex_6
     - file: notebooks/ex_7
   #  - file: nm_lib/nm_lib.ipynb
-  # - caption: Project
-  #    chapters:
-  #    - file: project-combined
+  - caption: Project
+    chapters:
+    - file: notebooks/project_2021
