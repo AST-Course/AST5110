@@ -1,81 +1,67 @@
-# README
+# AST5110: Numerical Modeling
 
-## Material has been collected by
+Welcome to AST5110, a course dedicated to exploring numerical techniques in astrophysical research. The course begins with the discretization of functions and an understanding of their convergence. Utilizing Burger's equation, we explore stability using first-order upwind, downwind, cell-center derivatives, and higher-order derivatives. Key elements such as time advancement, boundary condition handling, and initial validation tests are integral to this phase. These tests also facilitate the integration of a Continuous Integration (CI) pipeline, ensuring code reliability for each new commit in the _nm_lib_ library.
 
-* F. Moreno-Insertis (2018).<br>
-Course on numerical simulation techniques for fluid dynamics.<br>
-Universidad de La Laguna (Tenerife, Spain).
+We then delve into the Courant-Friedrichs-Lewy (CFL) condition, examining its impact on time derivatives in various Partial Differential Equations (PDEs). The course covers several implicit methods and numerical analytical techniques to address diffusive term challenges and CFL constraints. Students will have the opportunity to implement these methods in their code.
 
-* V. H. Hansteen (2018).<br>
-AST 5110 Numerical modeling.<br>
-University of Oslo (Oslo, Norway).
+The curriculum further expands to include a broader range of terms, variables, and equations necessary for solving hydrodynamic equations. During this segment, students will implement operator splitting, gaining insights into its applicability and limitations.
 
-* W. H. Press et al..<br>
-Numerical recipes.<br>
-Cambridge University Press.<br>
-<http://numerical.recipes>
+Optionally, students can enhance their skills by extending their code to 2D or 3D models, incorporating new physical phenomena, or conducting and analyzing various numerical experiments tailored to their interests.
 
-* Culbert B. Laney.<br>
-Computational Gasdynamics.<br>
-University of Colorado, Cambridge University Press
+## Course Structure
 
-* K. W. Morton and D. F. Mayers.<br>
-Numerical Solution of Partial Differential Equations: And introduction.<br>
-Computing Laboratory, University of Oxford, Cambridge University Press. 
+- [**Discretization**](https://github.com/AST-Course/AST5110/wiki/Discretization): Delve into discretizing continuous models.
+- [**Introduction to PDEs and Classifications**](https://github.com/AST-Course/AST5110/wiki/Introduction-to-PDEs-and-classifications): Fundamentals of Partial Differential Equations and their classifications.
+- [**Errors**](https://github.com/AST-Course/AST5110/wiki/Errors): Insight into various computational error types.
+- [**Stability**](https://github.com/AST-Course/AST5110/wiki/Stability): Explore Von Neumann analysis, the CFL condition, and stability principles.
+- [**Numerical Schemes**](https://github.com/AST-Course/AST5110/wiki/Examples-of-hyperbolic-numerical-schemes): 
+  - [Hyper Diffusive methods](https://github.com/AST-Course/AST5110/wiki/Hyper-diffusive)
+  - [Riemann Solvers](https://github.com/AST-Course/AST5110/wiki/Riemann-solvers)
+  - [Flux Limiters](https://github.com/AST-Course/AST5110/wiki/Flux-limiter)
+  - [Staggered Mesh techniques](https://github.com/AST-Course/AST5110/wiki/Staggered-mesh)
+- [**Implicit Methods**](https://github.com/AST-Course/AST5110/wiki/Implicit-methods): 
+  - [The Newton-Raphson Method](https://github.com/AST-Course/AST5110/wiki/Newton-Raphson-method)
+  - [Crank-Nicolson in Multidimensions](https://github.com/AST-Course/AST5110/wiki/Crank-Nicolson-in-Multidimensions)
+  - [Super Time Stepping](https://github.com/AST-Course/AST5110/wiki/Super-time-stepping)
+  - [Self-similar Solutions for Parabolic Equations](https://github.com/AST-Course/AST5110/wiki/Self-similar-solution-for-parabolic-eq)
+- [**Operator Splitting**](https://github.com/AST-Course/AST5110/wiki/Operator-splitting): Techniques and applications.
+
+## Repository Structure
+
+Our repository is organized into:
+
+- `nm_lib/`: A library of essential functions used throughout the course.
+- `notebooks/`: Jupyter Notebooks containing exercises, examples, and projects.
+- `AST5110.wiki/`: Extensive wiki pages detailing each covered topic.
+- `setup.py`, `requirements.txt`: Setup files to configure the course environment.
+
+## Getting Started
+
+1. **Create a Private Fork**: Start your journey by establishing a private fork of the course repository. Follow the detailed [instructions for setting up a private fork](https://github.com/AST-Course/AST5110/wiki/Setup-private-fork) to get started.
+
+2. **Environment Setup**: Prepare your Python environment in line with the course requirements. The [Python environment setup guide](https://github.com/AST-Course/AST5110/wiki/Setup-python-environment) will walk you through the necessary steps.
+
+3. **Course Familiarization**: Familiarize yourself with the overall structure of the course, including the repository layout and the wiki. Explore the course [concepts and notebooks](https://github.com/AST-Course/AST5110/wiki/Notebooks-and-concepts) to understand the core components.
+
+4. **Exercise Instructions**: Engage with the course exercises located in the `notebooks/` directory. You can find all the necessary guidelines in the [exercise instructions](https://github.com/AST-Course/AST5110/wiki/Exercise-instructions).
+
+5. **Jupyter Book**: To access a compiled notebook that combines both exercises and the wiki, follow the [guide to setting up GitHub Pages](https://github.com/AST-Course/AST5110/wiki/Setup-GitHub-pages-for-private-fork). This will help you configure GitHub Pages for viewing the course content in a structured, book-like format.
+
+## Important Links
+
+- [Course Overview](https://www.uio.no/studier/emner/matnat/astro/AST5110/index-eng.html)
+- [Course Wiki](https://github.com/AST-Course/AST5110/wiki)
+- [Course Repository](https://github.com/AST-Course/AST5110)
 
 
-## Dependencies
+## Further Reading
 
-* Anaconda 3 includes most of the required libraries.
+The course material is compiled from diverse resources, including:
 
-* We will have tests to run in CI/CD, so [pytest](https://docs.pytest.org/) will be convenient. 
-
-* For good practices and clean the code [pre-commit](https://pre-commit.com). Run pre-commit run -a to clean the code. 
-
-* You will also create your own Python library included in this repository (see below). 
-
-## Download
-
-To solve the exercises, it is highly recommended to create a private fork and provide access to jumasy1980@gmail.com.
-This will allow me to follow the progress of each of the students
-([fork info](https://gist.github.com/0xjac/85097472043b697ab57ba1b1c7530274)).
-
-## Get jupyter-book
-
-If you are interested in having a notebook of the exercises and wiki, you can download them from ([jupyter-book](https://github.io/AST-Course/AST5110/AST5110.wiki/Home.html)).
-# nm_lib
-
-This is intended for students to develop the library of a numerical code following the [excersices](https://github.com/AST-Course/AST5110/).
-
-Please create [AST 5110 wiki](https://github.com/AST-Course/AST5110/wiki) to add a detailed description of this code and what it can do!
-
-### Fork this repository privately:
-[to create a fork follow the instructions](https://gist.github.com/0xjac/85097472043b697ab57ba1b1c7530274)
-
-### It is recommended that you setup a separate (conda/mamba) environement for this course using the following:
-```
-mamba create --name ast5110_course python=3.11
-mamba activate ast5110_course
-mamba install --file requirements.txt
-```
-
-### To install the files:
-In the root folder (`AST5110/`), which contains the `setup.cfg` and `setup.py` files run:
-```
-pip install -e .
-```
-
-### To start using the library:
-Run this code to get started:
-```
-import nm_lib as nm
-```
-
-## Wiki
-The AST5110 wiki is added here as a git submodule. To clone the wiki, run:
-```
-git submodule init
-git submodule update
-```
-## Instructions for Course Exercises
-See [instructions](https://github.com/AST-Course/AST5110/wiki/Exercise-instructions) for more details.
+- F. Moreno-Insertis (2018): Numerical simulation techniques for fluid dynamics, Universidad de La Laguna.
+- V. H. Hansteen (2018): AST 5110 Numerical modeling, University of Oslo.
+- W. H. Press et al.: Numerical Recipes, [Cambridge University Press](http://numerical.recipes).
+- Culbert B. Laney: Computational Gasdynamics, Cambridge University Press.
+- K. W. Morton and D. F. Mayers: Numerical Solution of Partial Differential Equations, Cambridge University Press.
+- Å. Nordlund & K. Galsgaard (1995): A 3D MHD code for Parallel Computers.
+- B. Gudiksen et al. (2011): The stellar atmosphere simulation code Bifrost: Code description and validation, [A&A 531, A154](https://www.aanda.org/articles/aa/pdf/2011/07/aa16520-11.pdf).
