@@ -1,10 +1,10 @@
 # AST5110: Numerical Modeling
 
-Welcome to AST5110, a course dedicated to exploring numerical techniques in astrophysical research. The course begins with the discretization of functions and an understanding of their convergence. Utilizing Burger's equation, we explore stability using first-order upwind, downwind, cell-center derivatives, and higher-order derivatives. Key elements such as time advancement, boundary condition handling, and initial validation tests are integral to this phase. These tests also facilitate the integration of a Continuous Integration (CI) pipeline, ensuring code reliability for each new commit in the _nm_lib_ library.
+Welcome to AST5110, a course dedicated to exploring numerical techniques in astrophysical research. The course begins with the discretization of functions and their convergence. Utilizing Burger's equation, we explore stability using different spatial derivatives. Key elements such as time advancement and initial validation tests are integral to this phase. These tests also facilitate the integration of a Continuous Integration (CI) pipeline, ensuring code reliability for each new commit in the _nm_lib_ library.
 
-We then delve into the Courant-Friedrichs-Lewy (CFL) condition, examining its impact on time derivatives in various Partial Differential Equations (PDEs). The course covers several implicit methods and numerical analytical techniques to address diffusive term challenges and CFL constraints. Students will have the opportunity to implement these methods in their code.
+We then delve into the Von Newman analysis to constrain the timeste of time derivatives in various Partial Differential Equations (PDEs). The course covers explicit, semi-implicit, and implicit methods, combining with operator splitting and numerical analytical techniques to address diffusive term challenges. Students will have the opportunity to implement these methods in their code.
 
-The curriculum further expands to include a broader range of terms, variables, and equations necessary for solving hydrodynamic equations. During this segment, students will implement operator splitting, gaining insights into its applicability and limitations.
+The curriculum expands to include a broader range of terms, variables, and equations necessary for solving hydrodynamic equations. During this segment, students will implement operator splitting, gaining insights into its applicability and limitations.
 
 Optionally, students can enhance their skills by extending their code to 2D or 3D models, incorporating new physical phenomena, or conducting and analyzing various numerical experiments tailored to their interests.
 
@@ -43,9 +43,9 @@ Our repository is organized into:
 
 3. **Course Familiarization**: Familiarize yourself with the overall structure of the course, including the repository layout and the wiki. Explore the course [concepts and notebooks](https://github.com/AST-Course/AST5110/wiki/Notebooks-and-concepts) to understand the core components.
 
-4. **Exercise Instructions**: Engage with the course exercises located in the `notebooks/` directory. You can find all the necessary guidelines in the [exercise instructions](https://github.com/AST-Course/AST5110/wiki/Exercise-instructions).
+4. **Exercise Instructions**: Engage with the course exercises in the `notebooks/` directory. All the necessary guidelines are in the [exercise instructions](https://github.com/AST-Course/AST5110/wiki/Exercise-instructions).
 
-5. **Jupyter Book**: To access a compiled notebook that combines both exercises and the wiki, follow the [guide to setting up GitHub Pages](https://github.com/AST-Course/AST5110/wiki/Setup-GitHub-pages-for-private-fork). This will help you configure GitHub Pages for viewing the course content in a structured, book-like format.
+5. **Jupyter Book**: To access a compiled notebook that combines both exercises and the wiki, follow the [guide to setting up GitHub Pages](https://github.com/AST-Course/AST5110/wiki/Setup-GitHub-pages-for-private-fork). This will help you configure GitHub Pages to view the course content in a structured, book-like format.
 
 ## Important Links
 
