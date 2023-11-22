@@ -36,4 +36,4 @@ parts:
   #  - file: nm_lib/nm_lib.ipynb
   - caption: Project
     chapters:
-    - file: notebooks/project_2021
+    - file: notebooks/project
