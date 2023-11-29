@@ -17,7 +17,6 @@ Optionally, students can enhance their skills by extending their code to 2D or 3
 - [**Numerical Schemes**](https://github.com/AST-Course/AST5110/wiki/Examples-of-hyperbolic-numerical-schemes): 
   - [Hyper Diffusive methods](https://github.com/AST-Course/AST5110/wiki/Hyper-diffusive)
   - [Riemann Solvers](https://github.com/AST-Course/AST5110/wiki/Riemann-solvers)
-  - [Flux Limiters](https://github.com/AST-Course/AST5110/wiki/Flux-limiter)
   - [Staggered Mesh techniques](https://github.com/AST-Course/AST5110/wiki/Staggered-mesh)
 - [**Implicit Methods**](https://github.com/AST-Course/AST5110/wiki/Implicit-methods): 
   - [The Newton-Raphson Method](https://github.com/AST-Course/AST5110/wiki/Newton-Raphson-method)
