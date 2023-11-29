@@ -60,7 +60,7 @@ The course material is compiled from diverse resources, including:
 
 - F. Moreno-Insertis (2018): Numerical simulation techniques for fluid dynamics, Universidad de La Laguna.
 - V. H. Hansteen (2018): AST 5110 Numerical modeling, University of Oslo.
-- W. H. Press et al.: Numerical Recipes, [Cambridge University Press](http://numerical.recipes).
+- W. H. Press et al.: [Numerical Recipes](http://numerical.recipes), Cambridge University Press.
 - Culbert B. Laney: Computational Gasdynamics, Cambridge University Press.
 - K. W. Morton and D. F. Mayers: Numerical Solution of Partial Differential Equations, Cambridge University Press.
 - Å. Nordlund & K. Galsgaard (1995): A 3D MHD code for Parallel Computers.
