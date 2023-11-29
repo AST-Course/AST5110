@@ -1,6 +1,6 @@
-# AST5110: Numerical Modeling
+# AST5110/AST9110: Numerical Modeling
 
-Welcome to AST5110, a course that explores numerical techniques in astrophysical research. The course begins with the discretization of functions and their convergence. Utilizing Burger's equation, we explore stability using different spatial derivatives. Key elements such as time advancement and initial validation tests are integral to this phase. These tests also facilitate the integration of a Continuous Integration (CI) pipeline, ensuring code reliability for each new commit in the _nm_lib_ library.
+Welcome to AST5110/AST9110, a course that explores numerical techniques in astrophysical research. The course begins with the discretization of functions and their convergence. Utilizing Burger's equation, we explore stability using different spatial derivatives. Key elements such as time advancement and initial validation tests are integral to this phase. These tests also facilitate the integration of a Continuous Integration (CI) pipeline, ensuring code reliability for each new commit in the _nm_lib_ library.
 
 We then delve into the von Neumann stability analysis to constrain the timeste of time derivatives in various Partial Differential Equations (PDEs). The course covers explicit, semi-implicit, and implicit methods combined with operator splitting and numerical analytical techniques to address diffusive term challenges. Students will have the opportunity to implement these methods in their code.
 
@@ -48,7 +48,8 @@ Our repository is organized into:
 
 ## Important Links
 
-- [Course Overview](https://www.uio.no/studier/emner/matnat/astro/AST5110/index-eng.html)
+- [AST5110: Course Overview](https://www.uio.no/studier/emner/matnat/astro/AST5110/index-eng.html)
+- [AST9110: Course Overview](https://www.uio.no/studier/emner/matnat/astro/AST9110/index-eng.html)
 - [Course Wiki](https://github.com/AST-Course/AST5110/wiki)
 - [Course Repository](https://github.com/AST-Course/AST5110)
 
