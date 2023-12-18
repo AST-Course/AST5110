@@ -4,7 +4,7 @@ Welcome to AST5110/AST9110, a course that explores numerical techniques in astro
 
 We then delve into the von Neumann stability analysis to constrain the timeste of time derivatives in various Partial Differential Equations (PDEs). The course covers explicit, semi-implicit, and implicit methods combined with operator splitting and numerical analytical techniques to address diffusive term challenges. Students will have the opportunity to implement these methods in their code.
 
-The curriculum expands to include a broader range of terms, variables, and equations necessary for solving hydrodynamic equations. During this segment, students will implement operator splitting, gaining insights into its applicability and limitations.
+The curriculum expands to include a broader range of terms, variables, and equations necessary for solving hydrodynamic equations. During this segment, students will implement operator splitting, gaining insights into its applicability and limitations, and focusing on stellar and solar atmospheric problems.
 
 Optionally, students can enhance their skills by extending their code to 2D or 3D models, incorporating new physical phenomena, or conducting and analyzing various numerical experiments tailored to their interests.
 
