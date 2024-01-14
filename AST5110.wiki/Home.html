@@ -1,0 +1,565 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>AST5110: Numerical Modeling &#8212; AST5110</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=bd9e20870c6007c4c509"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'AST5110.wiki/Home';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Discretization" href="Discretization.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <header>
+  
+    <div class="bd-header navbar navbar-expand-lg bd-navbar">
+    </div>
+  
+  </header>
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="#">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">AST5110</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1 current active">
+                <a class="reference internal" href="#">
+                    AST5110: Numerical Modeling
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Wiki</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Discretization.html">Discretization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Introduction-to-PDEs-and-classifications.html">Introduction to PDEs and classifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Errors.html">Errors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Stability.html">Stability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Examples-of-hyperbolic-numerical-schemes-book.html">Examples of hyperbolic numerical schemes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Hyper-diffusive.html">Hyper diffusive</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Staggered-mesh.html">Staggered mesh</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="Implicit-methods.html">Implicit methods</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="Newton-Raphson-method.html">1. Newton-Raphson method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Crank-Nicolson-in-Multidimensions.html">2 Crank-Nicolson in Multidimensions (ADI methods)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Super-time-stepping.html">3 Other methods that can relax the stiffness (Super-time stepping or wave methods)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Self-similar-solution-for-parabolic-eq.html">Self similar solution for parabolic equations Moreno-Insertis et al.</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Operator-splitting.html">Operator splitting</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Exercises</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/ex_1.html">Discretization of a function of a single variable. Differentiation through finite differences.</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/ex_1_ext.html">A calculation of the order of convergence when the limit value is unknown</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/ex_2a_analytical.html">Preparation of the first numerical solution of a space-time partial differential equation: Study of the advection equation (Optional for everybody!).</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/ex_2b.html">A first example of a numerical simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/ex_3.html">The instability of numerical codes: symptoms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/ex_4.html">Stabilities and accuracy in time.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/ex_5.html">Riemann scheme.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/ex_6.html">Space-time partial differential equation: Study of the diffusive equation (implicit methods)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/ex_7.html">Operator splitting</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Project</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/project.html">Hydrodynamical PDE models</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/AST5110.wiki/Home.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>AST5110: Numerical Modeling</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#course-structure">Course Structure</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#repository-structure">Repository Structure</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started">Getting Started</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#important-links">Important Links</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-reading">Further Reading</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="ast5110-numerical-modeling">
+<h1>AST5110: Numerical Modeling<a class="headerlink" href="#ast5110-numerical-modeling" title="Permalink to this heading">#</a></h1>
+<p>Welcome to AST5110, a course dedicated to exploring numerical techniques in astrophysical research. The course begins with the discretization of functions and an understanding of their convergence. Utilizing Burger’s equation, we explore stability using first-order upwind, downwind, cell-center derivatives, and higher-order derivatives. Key elements such as time advancement, boundary condition handling, and initial validation tests are integral to this phase. These tests also facilitate the integration of a Continuous Integration (CI) pipeline, ensuring code reliability for each new commit in the <em>nm_lib</em> library.</p>
+<p>We then delve into the Courant-Friedrichs-Lewy (CFL) condition, examining its impact on time derivatives in various Partial Differential Equations (PDEs). The course covers several implicit methods and numerical analytical techniques to address diffusive term challenges and CFL constraints. Students will have the opportunity to implement these methods in their code.</p>
+<p>The curriculum further expands to include a broader range of terms, variables, and equations necessary for solving hydrodynamic equations. During this segment, students will implement operator splitting, gaining insights into its applicability and limitations.</p>
+<p>Optionally, students can enhance their skills by extending their code to 2D or 3D models, incorporating new physical phenomena, or conducting and analyzing various numerical experiments tailored to their interests.</p>
+<section id="course-structure">
+<h2>Course Structure<a class="headerlink" href="#course-structure" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/AST-Course/AST5110/wiki/Discretization"><strong>Discretization</strong></a>: Delve into discretizing continuous models.</p></li>
+<li><p><a class="reference external" href="https://github.com/AST-Course/AST5110/wiki/Introduction-to-PDEs-and-classifications"><strong>Introduction to PDEs and Classifications</strong></a>: Fundamentals of Partial Differential Equations and their classifications.</p></li>
+<li><p><a class="reference external" href="https://github.com/AST-Course/AST5110/wiki/Errors"><strong>Errors</strong></a>: Insight into various computational error types.</p></li>
+<li><p><a class="reference external" href="https://github.com/AST-Course/AST5110/wiki/Stability"><strong>Stability</strong></a>: Explore Von Neumann analysis, the CFL condition, and stability principles.</p></li>
+<li><p><a class="reference external" href="https://github.com/AST-Course/AST5110/wiki/Examples-of-hyperbolic-numerical-schemes"><strong>Numerical Schemes</strong></a>:</p>
+<ul>
+<li><p><a class="reference external" href="https://github.com/AST-Course/AST5110/wiki/Hyper-diffusive">Hyper Diffusive methods</a></p></li>
+<li><p><a class="reference external" href="https://github.com/AST-Course/AST5110/wiki/Riemann-solvers">Riemann Solvers</a></p></li>
+<li><p><a class="reference external" href="https://github.com/AST-Course/AST5110/wiki/Flux-limiter">Flux Limiters</a></p></li>
+<li><p><a class="reference external" href="https://github.com/AST-Course/AST5110/wiki/Staggered-mesh">Staggered Mesh techniques</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference external" href="https://github.com/AST-Course/AST5110/wiki/Implicit-methods"><strong>Implicit Methods</strong></a>:</p>
+<ul>
+<li><p><a class="reference external" href="https://github.com/AST-Course/AST5110/wiki/Newton-Raphson-method">The Newton-Raphson Method</a></p></li>
+<li><p><a class="reference external" href="https://github.com/AST-Course/AST5110/wiki/Crank-Nicolson-in-Multidimensions">Crank-Nicolson in Multidimensions</a></p></li>
+<li><p><a class="reference external" href="https://github.com/AST-Course/AST5110/wiki/Super-time-stepping">Super Time Stepping</a></p></li>
+<li><p><a class="reference external" href="https://github.com/AST-Course/AST5110/wiki/Self-similar-solution-for-parabolic-eq">Self-similar Solutions for Parabolic Equations</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference external" href="https://github.com/AST-Course/AST5110/wiki/Operator-splitting"><strong>Operator Splitting</strong></a>: Techniques and applications.</p></li>
+</ul>
+</section>
+<section id="repository-structure">
+<h2>Repository Structure<a class="headerlink" href="#repository-structure" title="Permalink to this heading">#</a></h2>
+<p>Our repository is organized into:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">nm_lib/</span></code>: A library of essential functions used throughout the course.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">notebooks/</span></code>: Jupyter Notebooks containing exercises, examples, and projects.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">AST5110.wiki/</span></code>: Extensive wiki pages detailing each covered topic.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">setup.py</span></code>, <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code>: Setup files to configure the course environment.</p></li>
+</ul>
+</section>
+<section id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Create a Private Fork</strong>: Start your journey by establishing a private fork of the course repository. Follow the detailed <a class="reference external" href="https://github.com/AST-Course/AST5110/wiki/Setup-private-fork">instructions for setting up a private fork</a> to get started.</p></li>
+<li><p><strong>Environment Setup</strong>: Prepare your Python environment in line with the course requirements. The <a class="reference external" href="https://github.com/AST-Course/AST5110/wiki/Setup-python-environment">Python environment setup guide</a> will walk you through the necessary steps.</p></li>
+<li><p><strong>Course Familiarization</strong>: Familiarize yourself with the overall structure of the course, including the repository layout and the wiki. Explore the course <a class="reference external" href="https://github.com/AST-Course/AST5110/wiki/Notebooks-and-concepts">concepts and notebooks</a> to understand the core components.</p></li>
+<li><p><strong>Exercise Instructions</strong>: Engage with the course exercises located in the <code class="docutils literal notranslate"><span class="pre">notebooks/</span></code> directory. You can find all the necessary guidelines in the <a class="reference external" href="https://github.com/AST-Course/AST5110/wiki/Exercise-instructions">exercise instructions</a>.</p></li>
+<li><p><strong>Jupyter Book</strong>: To access a compiled notebook that combines both exercises and the wiki, follow the <a class="reference external" href="https://github.com/AST-Course/AST5110/wiki/Setup-GitHub-pages-for-private-fork">guide to setting up GitHub Pages</a>. This will help you configure GitHub Pages for viewing the course content in a structured, book-like format.</p></li>
+</ol>
+</section>
+<section id="important-links">
+<h2>Important Links<a class="headerlink" href="#important-links" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.uio.no/studier/emner/matnat/astro/AST5110/index-eng.html">Course Overview</a></p></li>
+<li><p><a class="reference external" href="https://github.com/AST-Course/AST5110/wiki">Course Wiki</a></p></li>
+<li><p><a class="reference external" href="https://github.com/AST-Course/AST5110">Course Repository</a></p></li>
+</ul>
+</section>
+<section id="further-reading">
+<h2>Further Reading<a class="headerlink" href="#further-reading" title="Permalink to this heading">#</a></h2>
+<p>The course material is compiled from diverse resources, including:</p>
+<ul class="simple">
+<li><p>F. Moreno-Insertis (2018): Numerical simulation techniques for fluid dynamics, Universidad de La Laguna.</p></li>
+<li><p>V. H. Hansteen (2018): AST 5110 Numerical modeling, University of Oslo.</p></li>
+<li><p>W. H. Press et al.: <a class="reference external" href="http://numerical.recipes">Numerical Recipes</a>, Cambridge University Press.</p></li>
+<li><p>Culbert B. Laney: Computational Gasdynamics, Cambridge University Press.</p></li>
+<li><p>K. W. Morton and D. F. Mayers: Numerical Solution of Partial Differential Equations, Cambridge University Press.</p></li>
+<li><p>Å. Nordlund &amp; K. Galsgaard (1995): A 3D MHD code for Parallel Computers.</p></li>
+<li><p>B. Gudiksen et al. (2011): The stellar atmosphere simulation code Bifrost: Code description and validation, <a class="reference external" href="https://www.aanda.org/articles/aa/pdf/2011/07/aa16520-11.pdf">A&amp;A 531, A154</a>.</p></li>
+</ul>
+</section>
+<div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./AST5110.wiki"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="right-next"
+       href="Discretization.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Discretization</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#course-structure">Course Structure</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#repository-structure">Repository Structure</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started">Getting Started</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#important-links">Important Links</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-reading">Further Reading</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Juan Martinez-Sykora & Avijeet Prasad
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,817 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Hydrodynamical PDE models &#8212; AST5110</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=bd9e20870c6007c4c509"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/project';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Operator splitting" href="ex_7.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <header>
+  
+    <div class="bd-header navbar navbar-expand-lg bd-navbar">
+    </div>
+  
+  </header>
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../AST5110.wiki/Home.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">AST5110</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../AST5110.wiki/Home.html">
+                    AST5110: Numerical Modeling
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Wiki</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../AST5110.wiki/Discretization.html">Discretization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AST5110.wiki/Introduction-to-PDEs-and-classifications.html">Introduction to PDEs and classifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AST5110.wiki/Errors.html">Errors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AST5110.wiki/Stability.html">Stability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AST5110.wiki/Examples-of-hyperbolic-numerical-schemes-book.html">Examples of hyperbolic numerical schemes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AST5110.wiki/Hyper-diffusive.html">Hyper diffusive</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AST5110.wiki/Staggered-mesh.html">Staggered mesh</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../AST5110.wiki/Implicit-methods.html">Implicit methods</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../AST5110.wiki/Newton-Raphson-method.html">1. Newton-Raphson method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AST5110.wiki/Crank-Nicolson-in-Multidimensions.html">2 Crank-Nicolson in Multidimensions (ADI methods)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AST5110.wiki/Super-time-stepping.html">3 Other methods that can relax the stiffness (Super-time stepping or wave methods)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AST5110.wiki/Self-similar-solution-for-parabolic-eq.html">Self similar solution for parabolic equations Moreno-Insertis et al.</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../AST5110.wiki/Operator-splitting.html">Operator splitting</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Exercises</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ex_1.html">Discretization of a function of a single variable. Differentiation through finite differences.</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="ex_1_ext.html">A calculation of the order of convergence when the limit value is unknown</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ex_2a_analytical.html">Preparation of the first numerical solution of a space-time partial differential equation: Study of the advection equation (Optional for everybody!).</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ex_2b.html">A first example of a numerical simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ex_3.html">The instability of numerical codes: symptoms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ex_4.html">Stabilities and accuracy in time.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ex_5.html">Riemann scheme.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ex_6.html">Space-time partial differential equation: Study of the diffusive equation (implicit methods)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ex_7.html">Operator splitting</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Project</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Hydrodynamical PDE models</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/notebooks/project.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Hydrodynamical PDE models</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-or-select-your-code">1- Build or select your code</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-the-code">2- Test the code</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#add-a-new-source-terms-thermal-conduction">3-  Add a new source terms: Thermal conduction</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-test-the-code">3a- Test the code.</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nano-flares-in-the-corona">4- (nano)-flares in the corona.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#add-a-new-source-terms-nuclear-reactions">3-  Add a new source terms: Nuclear reactions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">3a- Test the code.</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gravity-vs-pressure-and-destroying-mass">4- gravity vs pressure and destroying mass.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#external-forces">3. External forces</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#global-dynamo">4. Global dynamo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bifrost-implementation">3- Bifrost implementation.</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-viscosity">3a- Viscosity</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-viscosity">3b- Viscosity</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parameter-range">4- Parameter range</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-frequency">4a- Frequency.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-amplitude">4b- Amplitude</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-bonnus-try-to-add-a-white-driven-random-waves">4c- Bonnus, try to add a <em>white</em> driven random waves.</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#two-system-of-equations-two-fluids">3-  Two system of equations: two fluids.</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">3a- Test the code:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#energy-dissipated-in-the-chromosphere">4- Energy dissipated in the chromosphere.</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d-models">3-  2D models</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">3a- Test the code:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chromospheric-coronal-transitions-prominences-and-spicules">4- “chromospheric”-coronal transitions: Prominences and spicules</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kelvin-helmhotz-instability-in-spicules">4.1- Kelvin-Helmhotz instability in Spicules</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rayleigh-taylor-instability-in-prominences">4.2- Rayleigh-Taylor instability in Prominences</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d-magnetic-field">3- 1.5D Magnetic field</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#alfven-waves">4- Alfven waves</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="hydrodynamical-pde-models">
+<h1>Hydrodynamical PDE models<a class="headerlink" href="#hydrodynamical-pde-models" title="Permalink to this heading">#</a></h1>
+<p>As modelers of stellar atmospheres, we are primarily interested in solving the equations of mass, momentum, and energy balance, along with the equations governing the evolution of the magnetic field, the transport equations for the radiation field, heat flux equations, etc. For this project, we will start with the hydrodynamic equations in 1 dimension as follows:</p>
+<div class="math notranslate nohighlight">
+\[ \frac{\partial \rho}{\partial t} + \nabla \cdot (\rho \bf u) = 0 \]</div>
+<div class="math notranslate nohighlight">
+\[ \frac{\partial \rho {\bf u}}{\partial t} + \nabla \cdot (\rho {\bf u} \otimes {\bf u}) = - \nabla (P_g)\]</div>
+<div class="math notranslate nohighlight">
+\[ \frac{\partial e}{\partial t } = -\nabla\cdot e {\bf u} -P_g \nabla \cdot {\bf u}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\rho\)</span>, <span class="math notranslate nohighlight">\(\bf u\)</span>, <span class="math notranslate nohighlight">\(P_g\)</span>, and <span class="math notranslate nohighlight">\(e\)</span> are the density, velocity vector, gas pressure, and internal energy. <span class="math notranslate nohighlight">\(\cdot\)</span> and <span class="math notranslate nohighlight">\(\otimes\)</span> are the dyadic and tensorial product, respectively. One extra equation needs to connect the pressure with the energy. For this you can use <span class="math notranslate nohighlight">\(P_g  = (\gamma-1)e\)</span> where <span class="math notranslate nohighlight">\(\gamma=5/3\)</span>. Note that, in 1 dimension the operation  <span class="math notranslate nohighlight">\(\nabla \cdot (\rho {\bf u} \otimes {\bf u})\)</span> becomes as follows:</p>
+<div class="math notranslate nohighlight">
+\[ \nabla \cdot (\rho {\bf u} \otimes {\bf u}) = \frac{\partial (\rho u^2)}{\partial x} \]</div>
+<section id="build-or-select-your-code">
+<h2>1- Build or select your code<a class="headerlink" href="#build-or-select-your-code" title="Permalink to this heading">#</a></h2>
+<p>In this exercise, you can select one of the following options:</p>
+<ol class="arabic">
+<li><p>Build your hydro-dynamical (HD) numerical code applying the tools/functions learned during the 6th different assessment. Solve the above set of equations in one dimension.</p>
+<p><strong>A plus</strong> implement the <a class="reference external" href="https://github.com/AST-Course/AST5110/wiki/Discretization">Bifrost 6th order spatial derivative, 5th order spatial interpolation</a> with the hyper-diffusion scheme (see <a class="reference external" href="https://github.com/AST-Course/AST5110/wiki/Hyper-diffusive">wiki</a>). Note that Bifrost is using a <a class="reference external" href="https://github.com/AST-Course/AST5110/wiki/Staggered-mesh">staggered mesh</a> where the density, pressure, energy, and temperature are cell-centered, and velocity and momentum are at the edges (in 1 dimension).</p>
+<p><strong>A plus</strong> implement the <a class="reference external" href="https://github.com/AST-Course/AST5110/wiki/Flux-limiter-method">Flux limiter method</a>.</p>
+<p><strong>A plus</strong> implement the <a class="reference external" href="https://github.com/AST-Course/AST5110/wiki/Rieman-Solver-method">Rieman Solver method</a>.</p>
+<p>What would you choose for the CFL condition?</p>
+</li>
+<li><p>Use the Bifrost, Ebysus, or other numerical codes you are interested in learning.</p>
+<p>Note that I can help only with the numerical codes that I’m familiar with, but you should still select the ones you are interested in as long as you have access to them.</p>
+<p>Johannes: Since you do this excersize with an existing code. You will need to investigate, spatial derivative order and temporal orders. Fully test with Riemann solvers. As well as investigate the k-diagrams for a test that has initial random perturbations in density/velocity.</p>
+</li>
+</ol>
+</section>
+<section id="test-the-code">
+<h2>2- Test the code<a class="headerlink" href="#test-the-code" title="Permalink to this heading">#</a></h2>
+<p>Set your code to run a 1D problem using the following initial conditions. The fluid is initially at rest on either side of a density and pressure jump. To the left, respectively right side of the interface, we have:</p>
+<p><span class="math notranslate nohighlight">\(\rho_L = 0.125\)</span></p>
+<p><span class="math notranslate nohighlight">\(\rho_R = 1.0\)</span></p>
+<p><span class="math notranslate nohighlight">\(Pg_L = 0.125/\gamma\)</span></p>
+<p><span class="math notranslate nohighlight">\(Pg_R = 1.0/\gamma\)</span></p>
+<p>The ratio of specific heats is chosen to be <span class="math notranslate nohighlight">\(\gamma = 5/3\)</span> on both sides of the interface. The units are normalized, with the density and pressure in units of the density and pressure on the left-hand side of the jump and the velocity in units of the sound speed. The length unit is the size of the domain and the time in units of the time required to cross the domain at the speed of sound.</p>
+<p>What boundary conditions would you choose?
+What do you see?</p>
+<p>This is known as the Sod-shock tube test <a class="reference external" href="https://ui.adsabs.harvard.edu/abs/1978JCoPh..27....1S/abstract">Sod et al. 1978</a>, a standard test in computational HD codes. It consists of a one-dimensional flow discontinuity problem that provides a good test of a compressible code’s ability to capture shocks and contact discontinuities within a few grid zones and produce the correct density profile in a rarefaction or expansion wave. The test can also be used to check if the code can satisfy the Rankine-Hugoniot shock jump conditions since this test has an analytical solution. If you have access, you can also look at <em>Computational Gasdynamics book from Culbert B. Laney</em> Section 5. However, many other books will describe this problem in detail.</p>
+<p>Compare the simulation with the analytical solution. This could be used for a sanity test after new additions to the code.</p>
+<p><strong>Suggestion</strong> This test might be too complex to debug the code. However, as a starting debugging test, you can consider an advection test (constant initial velocity) of a gaussian density perturbation in pressure balance.</p>
+<p>Johannes: In addition, add and 1D MHD Roe tests.</p>
+</section>
+<section id="add-a-new-source-terms-thermal-conduction">
+<h2>3-  Add a new source terms: Thermal conduction<a class="headerlink" href="#add-a-new-source-terms-thermal-conduction" title="Permalink to this heading">#</a></h2>
+<p>Expand the HD equations by adding thermal conduction:</p>
+<p><span class="math notranslate nohighlight">\( \frac{\partial \rho}{\partial t} + \nabla \cdot (\rho \bf u) = 0 \)</span></p>
+<p><span class="math notranslate nohighlight">\( \frac{\partial \rho {\bf u}}{\partial t} + \nabla \cdot (\rho {\bf u}  \otimes {\bf u}) = - \nabla (P_g)\)</span></p>
+<p><span class="math notranslate nohighlight">\( \frac{\partial e}{\partial t } = -\nabla\cdot e {\bf u} -P_g \nabla \cdot {\bf u} + \nabla \kappa \nabla T_g \)</span></p>
+<p>Use the ideal equation of state:</p>
+<p><span class="math notranslate nohighlight">\(P_g = n K_B T_g\)</span></p>
+<p>where <span class="math notranslate nohighlight">\(n\)</span> is the number of particles and assume everything is hydrogen. <span class="math notranslate nohighlight">\(K_B\)</span> is the Boltzman constant. <span class="math notranslate nohighlight">\(\kappa\)</span> is the thermal coefficient.</p>
+<p>Note that this term is diffusive. Which numerical scheme would you use to avoid stiffness?</p>
+<p><strong>Challenge</strong>: Consider a Super-Time-Stepping method <a class="reference external" href="https://gitlab.com/ast5110_course/ast5110/-/blob/master/ex_5a.ipynb">See Ex_5</a> and <a class="reference external" href="https://ui.adsabs.harvard.edu/abs/2020A%26A...638A..79N/abstract">see also Nobrega-Siverio et al. 2020</a></p>
+<section id="a-test-the-code">
+<h3>3a- Test the code.<a class="headerlink" href="#a-test-the-code" title="Permalink to this heading">#</a></h3>
+<p>Use the same asymptotical solutions to test the thermal conduction term as in <a class="reference external" href="https://gitlab.com/ast5110_course/ast5110/-/blob/master/ex_5a.ipynb">Ex_5</a></p>
+</section>
+</section>
+<section id="nano-flares-in-the-corona">
+<h2>4- (nano)-flares in the corona.<a class="headerlink" href="#nano-flares-in-the-corona" title="Permalink to this heading">#</a></h2>
+<p>Add an ad-hoc source term:</p>
+<p><span class="math notranslate nohighlight">\( \frac{\partial \rho}{\partial t} + \nabla \cdot (\rho \bf u) = 0 \)</span></p>
+<p><span class="math notranslate nohighlight">\( \frac{\partial \rho {\bf u}}{\partial t} + \nabla \cdot (\rho {\bf u}  \otimes {\bf u}) = - \nabla (P_g)\)</span></p>
+<p><span class="math notranslate nohighlight">\( \frac{\partial e}{\partial t } = -\nabla\cdot e {\bf u} -P_g \nabla \cdot {\bf u} + \nabla \kappa \nabla T_g + S(x,t)\)</span></p>
+<p>where <span class="math notranslate nohighlight">\(S(x,t)\)</span> is the ad-hoc source term which depend in space and time and it will have the follosing description:</p>
+<p><span class="math notranslate nohighlight">\(S(x,t) = A \exp(-(x-x_0)^2/W_s^2) \exp(-(t-t_0)^2/W_t^2)\)</span></p>
+<p>where <span class="math notranslate nohighlight">\(A\)</span> is the amplitud, <span class="math notranslate nohighlight">\(W_s\)</span> the spatial width of the Gaussian centered at <span class="math notranslate nohighlight">\(x_0\)</span>, and <span class="math notranslate nohighlight">\(W_t\)</span> the temporal range of the Gaussian centered at <span class="math notranslate nohighlight">\(t_0\)</span>. Consider different <span class="math notranslate nohighlight">\(W_s\)</span> ranging from a few tens of km to a few Mm and <span class="math notranslate nohighlight">\(W_t\)</span> ranging from a few fraction of second a 100s.</p>
+<p>For the initial condition: implement the same initial scenario as in <a class="reference external" href="https://iopscience.iop.org/article/10.1086/518828/pdf">Heggland et al. 2007</a>. Consider various density/temperature levels in the corona.</p>
+<p>One of the candidates to heat the corona is due to braiding of the magnetic field. Braiding can produce episodic (flaring) and localized heating in the solar atmosphere which is propagated along the magnetic field lines via thermal conduction or electron beans. The energy released on these flaring events can go from nano-flares to class X flares. Consider a 1D stratified atmosphere and invesgate the energy deposition along the 1D atmosphere for various background stratifications and energies for the flaring events. Where are you going to put the source? How does it travel? Compare with what we have learned from the assymptotic solution in <a class="reference external" href="https://gitlab.com/ast5110_course/ast5110/-/blob/master/ex_5a.ipynb">Ex_5</a>. Can you see evaporation? When?</p>
+<p>The parameter range is huge for this exercise (<span class="math notranslate nohighlight">\(W_s\)</span>, <span class="math notranslate nohighlight">\(W_t\)</span>, A, and initial conditions). Play with one thing at a time. No need to do all possible combinations.</p>
+<p><strong>Bonus</strong> consider a more irregular source in time:</p>
+<p><span class="math notranslate nohighlight">\(S(x,t) = \sum_i^n A_i \exp(-(x-x_i)^2/W_{si}^2) \exp(-(t-t_i)^2/W_{ti}^2)\)</span></p>
+</section>
+<section id="add-a-new-source-terms-nuclear-reactions">
+<h2>3-  Add a new source terms: Nuclear reactions<a class="headerlink" href="#add-a-new-source-terms-nuclear-reactions" title="Permalink to this heading">#</a></h2>
+<p>Expand the HD equations by a sink term that can destroy matter:</p>
+<p><span class="math notranslate nohighlight">\( \frac{\partial \rho}{\partial t} + \nabla \cdot (\rho \bf u) = - S_\rho \)</span></p>
+<p><span class="math notranslate nohighlight">\( \frac{\partial \rho {\bf u}}{\partial t} + \nabla \cdot (\rho {\bf u}  \otimes {\bf u}) = - \nabla (P_g) - \rho {\bf u} S_\rho\)</span></p>
+<p><span class="math notranslate nohighlight">\( \frac{\partial e}{\partial t } = -\nabla\cdot e {\bf u} -P_g \nabla \cdot {\bf u} + \nabla \kappa \nabla T_g  - Q\)</span></p>
+<p>Use the ideal equation of state:</p>
+<p><span class="math notranslate nohighlight">\(P_g = n K_B T_g\)</span></p>
+<p>where <span class="math notranslate nohighlight">\(n\)</span> is the number of particles and assume everything is hydrogen. <span class="math notranslate nohighlight">\(K_B\)</span> is the Boltzman constant. <span class="math notranslate nohighlight">\(\kappa\)</span> is the thermal coefficient.</p>
+<p>Consider an <span class="math notranslate nohighlight">\(S\)</span> that turns on after reaching certain density and temperature (<span class="math notranslate nohighlight">\(S(\rho,T)\)</span>) and growth exponentially with the product of both.</p>
+<p><span class="math notranslate nohighlight">\(Q\)</span> is the energy losses. Looking at Gaute’s exercise, how do you think this term would look like?</p>
+<p>Note that this term is a source term and can be stiff. Which numerical scheme would you use to avoid stiffness?</p>
+<section id="id1">
+<h3>3a- Test the code.<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
+<p>Start with a fix density and temperature above the lower limit. How does it evolve?</p>
+</section>
+</section>
+<section id="gravity-vs-pressure-and-destroying-mass">
+<h2>4- gravity vs pressure and destroying mass.<a class="headerlink" href="#gravity-vs-pressure-and-destroying-mass" title="Permalink to this heading">#</a></h2>
+<p>Add a gravity that varies in z being max at the center and decreases as a gaussian.</p>
+<p><span class="math notranslate nohighlight">\( \frac{\partial \rho}{\partial t} + \nabla \cdot (\rho \bf u) = - S_\rho \)</span></p>
+<p><span class="math notranslate nohighlight">\( \frac{\partial \rho {\bf u}}{\partial t} + \nabla \cdot (\rho {\bf u}  \otimes {\bf u}) = - \nabla (P_g) - \partial \rho {\bf u} S_\rho + g \rho\)</span></p>
+<p><span class="math notranslate nohighlight">\( \frac{\partial e}{\partial t } = -\nabla\cdot e {\bf u} -P_g \nabla \cdot {\bf u} + \nabla \kappa \nabla T_g  - Q\)</span></p>
+<p>Without the source. Consider constant density and let it run until reaches a steady state.</p>
+<p>Now turn on the sink source.</p>
+</section>
+<section id="external-forces">
+<h2>3. External forces<a class="headerlink" href="#external-forces" title="Permalink to this heading">#</a></h2>
+<p>Add an external force that will keep rotating the plasma.</p>
+<p><span class="math notranslate nohighlight">\( \frac{\partial \rho}{\partial t} + \nabla \cdot (\rho \bf u) = 0 \)</span></p>
+<p><span class="math notranslate nohighlight">\( \frac{\partial \rho {\bf u}}{\partial t} + \nabla \cdot (\rho {\bf u}  \otimes {\bf u}) = - \nabla (P_g) - {\bf F(x,y)} + J \times B\)</span></p>
+<p><span class="math notranslate nohighlight">\( \frac{\partial e}{\partial t } = -\nabla\cdot e {\bf u} -P_g \nabla \cdot {\bf u} + \nabla \kappa \nabla T_g \)</span></p>
+<p>Test it without magnetic field first.</p>
+</section>
+<section id="global-dynamo">
+<h2>4. Global dynamo<a class="headerlink" href="#global-dynamo" title="Permalink to this heading">#</a></h2>
+<p>Add constant magnetic field (<span class="math notranslate nohighlight">\(B(x)\)</span>) and let it run. Nature has many examples of global dynamo. In the sun, the differential rotation leads to a global dynamo that leads to the solar cycle. Accretion disk can experience similar effects. Investigate how the magnetic field changes.</p>
+<p><strong>bonus</strong> Consider to add a time component to the external force.</p>
+</section>
+<section id="bifrost-implementation">
+<h2>3- Bifrost implementation.<a class="headerlink" href="#bifrost-implementation" title="Permalink to this heading">#</a></h2>
+<p>Implement the Bifrost 1D hydro scheme, i.e., 6th order spatial derivative and 5th order interpolation in a staggered mesh with the hyper-diffusive scheme.</p>
+<p><span class="math notranslate nohighlight">\( \frac{\partial \rho}{\partial t} + \nabla \cdot (\rho \bf u) = 0 \)</span></p>
+<p><span class="math notranslate nohighlight">\( \frac{\partial \rho {\bf u}}{\partial t} + \nabla \cdot (\rho {\bf u} \otimes {\bf u}) + \tau_{vis}= - \nabla (P_g)\)</span></p>
+<p><span class="math notranslate nohighlight">\( \frac{\partial e}{\partial t } = -\nabla\cdot e {\bf u} -P_g \nabla \cdot {\bf u} + \mu (\nabla{\bf u})^2 + Q_\tau\)</span></p>
+<p>Make sure that the diffused term goes into the energy equation. How it will look like?</p>
+<section id="a-viscosity">
+<h3>3a- Viscosity<a class="headerlink" href="#a-viscosity" title="Permalink to this heading">#</a></h3>
+<p>While most of the time the numerical resolutions are not high enough to reproduce the Reynolds number within the solar atmosphere, it is also true that the chromosphere can have large dissipative effects comming from ion-neutral interactions. To mimic that effect we will introduce a new viscouse term in the momentum and energy equations as follows:</p>
+<p><span class="math notranslate nohighlight">\( \frac{\partial \rho}{\partial t} + \nabla \cdot (\rho \bf u) = 0 \)</span></p>
+<p><span class="math notranslate nohighlight">\( \frac{\partial \rho {\bf u}}{\partial t} + \nabla \cdot (\rho {\bf u} \otimes {\bf u}) + \nabla \mu \nabla{\bf u}= - \nabla (P_g)\)</span></p>
+<p><span class="math notranslate nohighlight">\( \frac{\partial e}{\partial t } = -\nabla\cdot e {\bf u} -P_g \nabla \cdot {\bf u} + \mu (\nabla{\bf u})^2\)</span></p>
+<p>where <span class="math notranslate nohighlight">\(\mu\)</span> is the viscouse coeficient and has units of g/cm/s. The viscosity can be also express as a kinematic viscosity as follow <span class="math notranslate nohighlight">\(\nu = \mu/\rho \)</span> in units of <span class="math notranslate nohighlight">\(cm^2/s\)</span>. It will depend on the type of fluids, collisions, temperature and densities. In the chromosphere, one of the dominant diffusive therm is the ambipolar diffusion which comes from the ion-neutral interactions. We are not solving here the magnetic field evolution nor two fluids, but lets assume that the dissipation acts as a viscouse. The kinematic viscosity (<span class="math notranslate nohighlight">\(\nu\)</span>) ranges from <span class="math notranslate nohighlight">\(10^6-10^{12}\)</span> m<span class="math notranslate nohighlight">\(^2\)</span>/s. This can be found for instance in the numerical models <a class="reference external" href="https://iopscience.iop.org/article/10.3847/1538-4357/ab643f">Martinez-Sykora et al. 2019</a>. These models included ambipolar diffusion and non-equilibrium ionization which changed drasticaly the diffusive term within the atmosphere. Use this range to parametrize how shocks could be dissipated within the chromosphere.</p>
+<p><strong>bonus</strong> <a class="reference external" href="https://iopscience.iop.org/article/10.3847/1538-4357/ab643f/pdf">Martinez-Sykora et al. 2019</a> provides fits files with the diffusions in tables that depend on temperature and density, i.e., <span class="math notranslate nohighlight">\(\nu(\rho,T)\)</span> is a tabulated function. Consider to add that possiblity and compare with a fix value.</p>
+</section>
+<section id="b-viscosity">
+<h3>3b- Viscosity<a class="headerlink" href="#b-viscosity" title="Permalink to this heading">#</a></h3>
+<p>Consider a random perturbation in density and velocity. Calculate k-diagrams. Which spatial scales gets dissipated? Why? What happens when there is a constant velocity. Try for different speeds.</p>
+</section>
+</section>
+<section id="parameter-range">
+<h2>4- Parameter range<a class="headerlink" href="#parameter-range" title="Permalink to this heading">#</a></h2>
+<p>Waves in the solar chromosphere comes with many fequencies and amplitudes. From a stratified atmosphere such as the one in <a class="reference external" href="https://iopscience.iop.org/article/10.1086/518828/pdf">Heggland et al. 2007</a> you will investigate how shocks travel in the chromosphere and transition region. For this, following this reference, drive the bottom boundary with acoustic waves at different frequencies and amplitudes. Can you recognice the different features as the sod-shock test?</p>
+<section id="a-frequency">
+<h3>4a- Frequency.<a class="headerlink" href="#a-frequency" title="Permalink to this heading">#</a></h3>
+<p>How does change the chromospheric thermo-dynamic properties for a fix amplitude the frequency of the driven waves.
+Go from high frequencies (0.1Hz) to 5 minutes oscilations. This parameter range have been observed <a class="reference external" href="https://iopscience.iop.org/article/10.1088/2041-8205/736/2/L24">Okamoto et al. 2011</a>. However, those waves were Alfvenic waves instead of magnetic acoustic shocks as done here.</p>
+<p>What is the role of the viscosity to the shock traveling through the chromosphere?</p>
+</section>
+<section id="b-amplitude">
+<h3>4b- Amplitude<a class="headerlink" href="#b-amplitude" title="Permalink to this heading">#</a></h3>
+<p>How does change the chromospheric thermo-dynamic properties for a fix frequency and various amplitudes of the driven waves. Use the same parameter range as in <a class="reference external" href="https://iopscience.iop.org/article/10.1086/518828/pdf">Heggland et al. 2007</a>.</p>
+<p>What is the role of the viscosity to the shock traveling through the chromosphere?</p>
+</section>
+<section id="c-bonnus-try-to-add-a-white-driven-random-waves">
+<h3>4c- Bonnus, try to add a <em>white</em> driven random waves.<a class="headerlink" href="#c-bonnus-try-to-add-a-white-driven-random-waves" title="Permalink to this heading">#</a></h3>
+<p>The idea here is to see which frequencies goes through when the source can produce various types of waves. Use a powerlaw of frequency and energy.</p>
+</section>
+</section>
+<section id="two-system-of-equations-two-fluids">
+<h2>3-  Two system of equations: two fluids.<a class="headerlink" href="#two-system-of-equations-two-fluids" title="Permalink to this heading">#</a></h2>
+<p>The chromosphere, transition region and corona are weakly collisional. Therefore, different fluids or species can experience different forces and consequently drift with other fluids. As a result, under these conditions, single fluid equations are not accurate enough. The presence of velocity drift between fluids could be eventually dissipate and heat the plasma.</p>
+<p>Duplicate the HD equations and couple them with the momentum and energy exchange as follows:</p>
+<p><span class="math notranslate nohighlight">\( \frac{\partial \rho_\alpha}{\partial t} + \nabla \cdot (\rho_\alpha \bf u_\alpha) = 0 \)</span></p>
+<p><span class="math notranslate nohighlight">\( \frac{\partial \rho_\alpha {\bf u_\alpha}}{\partial t} + \nabla \cdot (\rho_\alpha {\bf u_\alpha} \otimes {\bf u_\alpha}) = - \nabla (P_{g\alpha}) + \rho_\alpha \nu_{\alpha\beta}(u_\alpha-u_\beta)\)</span></p>
+<p><span class="math notranslate nohighlight">\( \frac{\partial e_\alpha}{\partial t } = -\nabla\cdot e_\alpha {\bf u_\alpha} -P_{g\alpha} \nabla \cdot {\bf u_\alpha} + Q_{\alpha}^{\alpha\beta}\)</span></p>
+<p>where <span class="math notranslate nohighlight">\(\alpha= [i,n]\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> refer either to ions <span class="math notranslate nohighlight">\(i\)</span> or neutrals <span class="math notranslate nohighlight">\(n\)</span>. For simplicity, lets assume hydrogen and protons and consider to impose a fix collision frequency. Due to conservation <span class="math notranslate nohighlight">\(\rho_\alpha \nu_{\alpha\beta}=\rho_\beta \nu_{\beta\alpha}\)</span>.</p>
+<p><span class="math notranslate nohighlight">\(Q_{\alpha}^{\alpha\beta} = \frac{n_{\alpha} m_{\alpha} \nu_{\alpha \beta}}{m_{\alpha}+m_{\beta}} \left[m_{\beta}(\vec{u}_\beta - \vec{u}_\alpha)^2+\frac{2 k_B}{\gamma-1} \left(T_{\beta}-T_{\alpha}\right)\right]\)</span></p>
+<p>where <span class="math notranslate nohighlight">\(m_{\alpha\beta} = \frac{m_{\alpha}m_{\beta}}{m_{\alpha}+m_{\beta}}\)</span>, and for this exercise, since we assume only hydrogen, <span class="math notranslate nohighlight">\(m_\alpha \approx m_\beta\)</span> is a good proxy.</p>
+<p>For further description of multicomponent fluids see e.g. the book by <a class="reference external" href="https://ui.adsabs.harvard.edu/abs/2002PPCF...44.2283Z/abstract">Zhdanov 2002</a>, <a class="reference external" href="https://ui.adsabs.harvard.edu/abs/2014PhPl...21i2901K/abstract">Khomenko et al 2014</a>.</p>
+<section id="id2">
+<h3>3a- Test the code:<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
+<p>Consider the following tests to validate the implementation:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>1) Consider an scenario with no heating sources and constant collision frequency. In that case, it is simple to compute the slope in loglog scale of the velocity drift. 
+    1a) What would happen in you turn $Q^{\alpha\beta}_\alpha$ on? 
+2) Assuming zero velocity drift, what would be the temperature evolution when the two fluids are different?     
+</pre></div>
+</div>
+</section>
+<section id="energy-dissipated-in-the-chromosphere">
+<h3>4- Energy dissipated in the chromosphere.<a class="headerlink" href="#energy-dissipated-in-the-chromosphere" title="Permalink to this heading">#</a></h3>
+<p>Ion-neutral interaction cans play a big role on dissipating the magnetic energy. The figure below reveals the collision frequency parameter range within the chromosphere. A zero order of the velocity drift can be found in <a class="reference external" href="https://iopscience.iop.org/article/10.3847/2041-8205/831/1/L1/pdf">Martinez-Sykora et al 2016</a> Fig. 4b. Use the numerical code to provide a better understanding on the time-scale of the heating and damping mechanism within the chromosphere.</p>
+<!-- ![Screen%20Shot%202021-09-21%20at%206.52.55%20PM.png](attachment:Screen%20Shot%202021-09-21%20at%206.52.55%20PM.png) -->
+<p><strong>bonus</strong> One can compute the collision frequency as follows:</p>
+<p><span class="math notranslate nohighlight">\(\nu^{\text{col,L}}_{\alpha, \beta}=\frac{m_{\alpha,\beta}}{m_{\beta}} n_{\beta} u^{th}_{\alpha,\beta}\, \sigma_{\alpha,\beta}\left(T_{\alpha,\beta}\right)\)</span></p>
+<p>where <span class="math notranslate nohighlight">\(T_{\alpha,\beta} =(m_{\alpha} T_{\alpha}+m_{\beta} T_{\beta} )/(m_{\alpha}+m_{\beta})\)</span> is the weigthed temperature, <span class="math notranslate nohighlight">\(u^{th}_{\alpha,\beta} = |\sqrt{\frac{8}{\pi\mu_{\alpha,\beta}}}|\)</span> is the thermal velocity with <span class="math notranslate nohighlight">\(\mu_{\alpha,\beta} = \frac{\mu_{\alpha}\,\mu_{\beta}}{\mu_{\alpha}+\mu_{\beta}}\)</span> and <span class="math notranslate nohighlight">\(\mu_{\alpha} = \frac{m_\alpha}{K_B T_\alpha}\)</span>. <span class="math notranslate nohighlight">\(K_B\)</span> is the Boltzmann constant. The cross-section (<span class="math notranslate nohighlight">\(\sigma_{\alpha,\beta}(\left(T_{\alpha,\beta}\right)\)</span>) are tabulated as a function of temperature and for this exersize you can use the one from <a class="reference external" href="https://aip.scitation.org/doi/10.1063/1.3495980">Bruno et al. 2010</a>. Ask me for the table.</p>
+</section>
+</section>
+<section id="d-models">
+<h2>3-  2D models<a class="headerlink" href="#d-models" title="Permalink to this heading">#</a></h2>
+<p>Expand the following equations into a two (or three) dimensions. In order to facilitate the implementation, consider step 1 and 2 already in 3D. So, the variables are 3D (nx,ny,nz). In that case, in 1D, the variables are still 3D, i.e., (nx, 1, 1). Where the derivatives out of the domain are zero, i.e., <span class="math notranslate nohighlight">\(\frac{\partial \rho}{\partial z} = 0\)</span></p>
+<p><span class="math notranslate nohighlight">\( \frac{\partial \rho}{\partial t} + \nabla \cdot (\rho \bf u) = 0 \)</span></p>
+<p><span class="math notranslate nohighlight">\( \frac{\partial \rho {\bf u}}{\partial t} + \nabla \cdot (\rho {\bf u} \otimes {\bf u}) = - \nabla (P_g)\)</span></p>
+<p><span class="math notranslate nohighlight">\( \frac{\partial e}{\partial t } = -\nabla\cdot e {\bf u} -P_g \nabla \cdot {\bf u}\)</span></p>
+<p>Consider to implement Bifrost numerical scheme (derivations, interpolations and hyper diffusive term). To clarify the diadic and tensorial product as well as the multi-dimensions. The momentum conservation becomes into 2 (in 2D) or 3 (in 2.5D or 3D) equations, i.e., for the x, y and/or z components. The following operation <span class="math notranslate nohighlight">\(\nabla \cdot (\rho {\bf u} \otimes {\bf u})\)</span>  can be expanded as follows for the x, y and z components:</p>
+<p><span class="math notranslate nohighlight">\(\frac {\partial \rho u_x^2}{\partial x} + \frac {\partial \rho u_x u_y}{\partial y} + \frac {\partial \rho u_x u_z}{\partial z}\)</span></p>
+<p><span class="math notranslate nohighlight">\(\frac {\partial \rho u_y^2}{\partial y} + \frac {\partial \rho u_x u_y}{\partial x} + \frac {\partial \rho u_y u_z}{\partial z}\)</span></p>
+<p><span class="math notranslate nohighlight">\(\frac {\partial \rho u_z^2}{\partial z} + \frac {\partial \rho u_z u_y}{\partial y} + \frac {\partial \rho u_x u_z}{\partial x}\)</span></p>
+<p>which comes from the following matrix operations:</p>
+<p><span class="math notranslate nohighlight">\(
+\nabla \cdot (\rho {\mathbf{u} \otimes \mathbf{u}})=\left[\begin{array}{c}
+\frac{\partial}{\partial x} \\
+\frac{\partial}{\partial y} \\
+\frac{\partial}{\partial z}
+\end{array}\right]
+\left(\rho
+\left[\begin{array}{cccc}
+u_{x} u_{x} &amp; u_{x} u_{y} &amp; u_{x} u_{z} \\
+u_{y} u_{x} &amp; u_{y} u_{y} &amp; u_{y} u_{z} \\
+u_{z} u_{x} &amp; u_{z} u_{y} &amp; u_{z} u_{z}
+\end{array}\right]\right)
+\)</span></p>
+<section id="id3">
+<h3>3a- Test the code:<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
+<p>For simplicity, consider a 2D gaussian profile in density which is pressure balance and with an initial velocity (like for 1D case).  I recommend that the initial velocity is diagonal.</p>
+<p><strong>bonus</strong> you can also add other test that are described here <a class="reference external" href="http://flash.uchicago.edu/site/flashcode/user_support/flash_ug_devel/node184.html#SECTION010115000000000000000">Flash code hydro tests</a>. From that list, good options are Blast, Sedov explosion, Isentropic Vortex, or Relativistic Two-dimensional Riemann (but not relativistic).</p>
+</section>
+</section>
+<section id="chromospheric-coronal-transitions-prominences-and-spicules">
+<h2>4- “chromospheric”-coronal transitions: Prominences and spicules<a class="headerlink" href="#chromospheric-coronal-transitions-prominences-and-spicules" title="Permalink to this heading">#</a></h2>
+<section id="kelvin-helmhotz-instability-in-spicules">
+<h3>4.1- Kelvin-Helmhotz instability in Spicules<a class="headerlink" href="#kelvin-helmhotz-instability-in-spicules" title="Permalink to this heading">#</a></h3>
+<p>Kelvin-Helmhotz instability: Spicules are highly dynamic cold dens material traveling into the million degrees corona. Investigate the shear, vortices, scales, and mixing with the following initial setup. Devide the domain with background environmetal properties, 1) typical from quiet corona (i.e., 1 million K degrees and densities of <span class="math notranslate nohighlight">\(10^{-14}\)</span> g/cm<span class="math notranslate nohighlight">\(^3\)</span>) and zero velocity 2) typical from the upper-chromosphere (i.e., 8,000 K degrees and densities of <span class="math notranslate nohighlight">\(10^{-12}\)</span> g/cm<span class="math notranslate nohighlight">\(^3\)</span>) with 100km/s <a class="reference external" href="https://iopscience.iop.org/article/10.3847/1538-4357/abc9b1">Chintzoglou et al. 2021</a>. One could consider periodic boundary conditions if the middle of the domain is the upper chromosphere, and top and bottom corona.</p>
+</section>
+<section id="rayleigh-taylor-instability-in-prominences">
+<h3>4.2- Rayleigh-Taylor instability in Prominences<a class="headerlink" href="#rayleigh-taylor-instability-in-prominences" title="Permalink to this heading">#</a></h3>
+<p>Rayleigh-Taylor instability: Solar Prominences are cold dens material embebed in the million degrees corona. Add gravity to the HD eq. Using the same setup but the chromospheric material will be above the corona, both with zero velocity. Investigate the vortices, scales, and mixing. In this case, one needs to have constant extrapolation at the top and bottom where the top is the prominence and the bottom the corona.</p>
+<p>Investigate with different numerical domains and resolutions in both setups.</p>
+</section>
+</section>
+<section id="d-magnetic-field">
+<h2>3- 1.5D Magnetic field<a class="headerlink" href="#d-magnetic-field" title="Permalink to this heading">#</a></h2>
+<p>The convective motion shakes the magnetic field driving Alfven waves. The wave power is enough to drive the solar wind. However, it is unclear how this wave power is transfered and deposited into the corona. Expand the 1D HD code to an 1.5D MHD code as follows:</p>
+<p><span class="math notranslate nohighlight">\( \frac{\partial \rho}{\partial t} + \nabla \cdot (\rho \bf u) = 0 \)</span></p>
+<p><span class="math notranslate nohighlight">\( \frac{\partial \rho {\bf u}}{\partial t} + \nabla \cdot (\rho {\bf u} \otimes {\bf u}) = - \nabla (P_g) + {\bf J}\times {\bf B}\)</span></p>
+<p><span class="math notranslate nohighlight">\( \frac{\partial e}{\partial t } = -\nabla\cdot e {\bf u} -P_g \nabla \cdot {\bf u}\)</span></p>
+<p>where <span class="math notranslate nohighlight">\({\bf J} = \nabla \times {\bf B}\)</span>. It is important to have all three components for <span class="math notranslate nohighlight">\({\bf u}\)</span> and <span class="math notranslate nohighlight">\({\bf B}\)</span>, so you need to solve the momentum equation for all three components. This is known as 1.5Dimensions. On top of this, now we need to solve the evolution of the magnetic field. For this we will solve the induction equations as follows:</p>
+<p><span class="math notranslate nohighlight">\( \frac{\partial {\bf B}}{\partial t } = - \nabla ({\bf u}\times{\bf B}) \)</span></p>
+<p>To expand the advection term in 1.5D (see Killian’s description too). You need to expand the momentum equation for the various components of the momentum. However, since its in 1D, the <span class="math notranslate nohighlight">\(\partial /\partial y\)</span> and <span class="math notranslate nohighlight">\(\partial / \partial z\)</span> are zeros because the axis perpendicular to the 1D domain are assumed constant in space. So, taking that into account, the following operation <span class="math notranslate nohighlight">\(\nabla \cdot (\rho {\bf u} \otimes {\bf u})\)</span>  can be expanded as follows for the x, y and z components:</p>
+<p><span class="math notranslate nohighlight">\(\frac {\partial \rho u_x^2}{\partial x} \)</span></p>
+<p><span class="math notranslate nohighlight">\(\frac {\partial \rho u_x u_y}{\partial x}\)</span></p>
+<p><span class="math notranslate nohighlight">\(\frac {\partial \rho u_x u_z}{\partial x}\)</span></p>
+<p>which comes from the following matrix operations:</p>
+<p><span class="math notranslate nohighlight">\(
+\nabla \cdot (\rho {\mathbf{u} \otimes \mathbf{u}})=\left[\begin{array}{c}
+\frac{\partial}{\partial x} \\
+\frac{\partial}{\partial y} \\
+\frac{\partial}{\partial z}
+\end{array}\right]
+\left(\rho
+\left[\begin{array}{cccc}
+u_{x} u_{x} &amp; u_{x} u_{y} &amp; u_{x} u_{z} \\
+u_{y} u_{x} &amp; u_{y} u_{y} &amp; u_{y} u_{z} \\
+u_{z} u_{x} &amp; u_{z} u_{y} &amp; u_{z} u_{z}
+\end{array}\right]\right)
+\)</span></p>
+<p>and we assumed, as mentioned, <span class="math notranslate nohighlight">\(\partial /\partial y\)</span> and <span class="math notranslate nohighlight">\(\partial / \partial z\)</span> are zeros.</p>
+</section>
+<section id="alfven-waves">
+<h2>4- Alfven waves<a class="headerlink" href="#alfven-waves" title="Permalink to this heading">#</a></h2>
+<p>Go from high frequencies (0.1Hz) to 5 minutes oscilations. This parameter range have been observed <a class="reference external" href="https://iopscience.iop.org/article/10.1088/2041-8205/736/2/L24">Okamoto et al. 2011</a>. How this energy propagates through the atmosphere? Do waves in 1D constant atmosphere, i.e., no gravity nor stratification. Put an initial wave and see how long it takes to dissipate for various frequencies due to the artificial diffusion.</p>
+<p><strong>bonus</strong> Add gravity and prepare a stratified atmosphere. Drive the 1D amtosphere with Alfven waves (changing the magnetic field at the boundaries). How does these wave propagate?</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="ex_7.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Operator splitting</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-or-select-your-code">1- Build or select your code</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-the-code">2- Test the code</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#add-a-new-source-terms-thermal-conduction">3-  Add a new source terms: Thermal conduction</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-test-the-code">3a- Test the code.</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nano-flares-in-the-corona">4- (nano)-flares in the corona.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#add-a-new-source-terms-nuclear-reactions">3-  Add a new source terms: Nuclear reactions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">3a- Test the code.</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gravity-vs-pressure-and-destroying-mass">4- gravity vs pressure and destroying mass.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#external-forces">3. External forces</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#global-dynamo">4. Global dynamo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bifrost-implementation">3- Bifrost implementation.</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-viscosity">3a- Viscosity</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-viscosity">3b- Viscosity</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parameter-range">4- Parameter range</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-frequency">4a- Frequency.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-amplitude">4b- Amplitude</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-bonnus-try-to-add-a-white-driven-random-waves">4c- Bonnus, try to add a <em>white</em> driven random waves.</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#two-system-of-equations-two-fluids">3-  Two system of equations: two fluids.</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">3a- Test the code:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#energy-dissipated-in-the-chromosphere">4- Energy dissipated in the chromosphere.</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d-models">3-  2D models</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">3a- Test the code:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chromospheric-coronal-transitions-prominences-and-spicules">4- “chromospheric”-coronal transitions: Prominences and spicules</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kelvin-helmhotz-instability-in-spicules">4.1- Kelvin-Helmhotz instability in Spicules</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rayleigh-taylor-instability-in-prominences">4.2- Rayleigh-Taylor instability in Prominences</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d-magnetic-field">3- 1.5D Magnetic field</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#alfven-waves">4- Alfven waves</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Juan Martinez-Sykora & Avijeet Prasad
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

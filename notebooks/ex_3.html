@@ -1,0 +1,585 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>The instability of numerical codes: symptoms &#8212; AST5110</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=bd9e20870c6007c4c509"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/ex_3';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Stabilities and accuracy in time." href="ex_4.html" />
+    <link rel="prev" title="A first example of a numerical simulation" href="ex_2b.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <header>
+  
+    <div class="bd-header navbar navbar-expand-lg bd-navbar">
+    </div>
+  
+  </header>
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../AST5110.wiki/Home.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">AST5110</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../AST5110.wiki/Home.html">
+                    AST5110: Numerical Modeling
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Wiki</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../AST5110.wiki/Discretization.html">Discretization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AST5110.wiki/Introduction-to-PDEs-and-classifications.html">Introduction to PDEs and classifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AST5110.wiki/Errors.html">Errors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AST5110.wiki/Stability.html">Stability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AST5110.wiki/Examples-of-hyperbolic-numerical-schemes-book.html">Examples of hyperbolic numerical schemes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AST5110.wiki/Hyper-diffusive.html">Hyper diffusive</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AST5110.wiki/Staggered-mesh.html">Staggered mesh</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../AST5110.wiki/Implicit-methods.html">Implicit methods</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../AST5110.wiki/Newton-Raphson-method.html">1. Newton-Raphson method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AST5110.wiki/Crank-Nicolson-in-Multidimensions.html">2 Crank-Nicolson in Multidimensions (ADI methods)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AST5110.wiki/Super-time-stepping.html">3 Other methods that can relax the stiffness (Super-time stepping or wave methods)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AST5110.wiki/Self-similar-solution-for-parabolic-eq.html">Self similar solution for parabolic equations Moreno-Insertis et al.</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../AST5110.wiki/Operator-splitting.html">Operator splitting</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Exercises</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ex_1.html">Discretization of a function of a single variable. Differentiation through finite differences.</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="ex_1_ext.html">A calculation of the order of convergence when the limit value is unknown</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ex_2a_analytical.html">Preparation of the first numerical solution of a space-time partial differential equation: Study of the advection equation (Optional for everybody!).</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ex_2b.html">A first example of a numerical simulation</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">The instability of numerical codes: symptoms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ex_4.html">Stabilities and accuracy in time.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ex_5.html">Riemann scheme.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ex_6.html">Space-time partial differential equation: Study of the diffusive equation (implicit methods)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ex_7.html">Operator splitting</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Project</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="project.html">Hydrodynamical PDE models</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/notebooks/ex_3.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>The instability of numerical codes: symptoms</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#numerical-instability-violent-development">1 – Numerical instability: violent development</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#centered-differences">2 – Centered differences</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-stability-of-the-non-centered-finite-differences-schemes">3 – The stability of the non-centered finite-differences schemes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-a">4- Optional (A).</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comments">Comments:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-b">4- Optional (B)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Comments:</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="the-instability-of-numerical-codes-symptoms">
+<h1>The instability of numerical codes: symptoms<a class="headerlink" href="#the-instability-of-numerical-codes-symptoms" title="Permalink to this heading">#</a></h1>
+<p>The instability of numerical schemes and codes is one of the critical problems that a researcher using numerical experimentation may encounter. In this exercise, we are going to see how violent numerical instabilities can be.</p>
+<section id="numerical-instability-violent-development">
+<h2>1 – Numerical instability: violent development<a class="headerlink" href="#numerical-instability-violent-development" title="Permalink to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Repeat the numerical simulation carried out <strong>in exercise <a class="reference external" href="https://github.com/AST-Course/AST5110/blob/main/ex_2a.ipynb">ex_2a</a></strong>, but now take <span class="math notranslate nohighlight">\(a = 1\)</span> (it was <span class="math notranslate nohighlight">\(a = −1\)</span>); (use a moderate number of intervals, like, e.g., 128). Check out what happens. After how many timesteps does instability become evident?</p></li>
+</ol>
+<p>Repeat the experiment with 1024 points (and afterward with any other power of 2 you may want to use). Is the experiment stable now? After how many timesteps does the instability become evident now?</p>
+<ol class="arabic simple" start="2">
+<li><p>Still for <span class="math notranslate nohighlight">\(a = 1\)</span>, use for the spatial differentiation backward finite differencing, i.e.:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\left(\frac{\partial u}{\partial x}\right)_{x=x_i} \rightarrow \frac{u_i-u_{i-1}}{\Delta x}  \tag{1}\]</div>
+<p>Fill in the <code class="docutils literal notranslate"><span class="pre">nm_lib</span></code> function <code class="docutils literal notranslate"><span class="pre">deriv_upw</span></code>, and use the <code class="docutils literal notranslate"><span class="pre">lambda</span></code> function <code class="docutils literal notranslate"><span class="pre">ddx</span></code> and select the proper limits for <code class="docutils literal notranslate"><span class="pre">bnd_limits</span></code>.</p>
+<p><strong>taking care of also changing the implementation of the boundary condition.</strong> Does the unstable character of the code change?</p>
+</section>
+<section id="centered-differences">
+<h2>2 – Centered differences<a class="headerlink" href="#centered-differences" title="Permalink to this heading">#</a></h2>
+<p>Use now for the spatial derivation <em>centered finite differences</em>, i.e.:</p>
+<div class="math notranslate nohighlight">
+\[\left(\frac{\partial u}{\partial x}\right)_{x=x_i} \rightarrow \frac{u_{i+1}-u_{i-1}}{2\Delta x}   \tag{2}\]</div>
+<p>(and see the note on boundary conditions below). Fill in <code class="docutils literal notranslate"><span class="pre">nm_lib</span></code> the function <code class="docutils literal notranslate"><span class="pre">deriv_cent</span></code>, and like in the previous case, use the <code class="docutils literal notranslate"><span class="pre">lambda</span></code> function <code class="docutils literal notranslate"><span class="pre">ddx</span></code> and select the proper limits for <code class="docutils literal notranslate"><span class="pre">bnd_limits</span></code>. Use <code class="docutils literal notranslate"><span class="pre">cfl_cut=0.3</span></code>. Is any instability apparent in this case? Does the situation change when you change the sign of the constant <span class="math notranslate nohighlight">\(a\)</span>?</p>
+<p>Note: In this case, the periodicity boundary condition can be implemented as follows: define <span class="math notranslate nohighlight">\(xx\)</span> so that the endpoint <span class="math notranslate nohighlight">\(x = x_0\)</span> of the domain coincides with <span class="math notranslate nohighlight">\(xx[1]\)</span> (i.e., the second component of the array) and the endpoint <span class="math notranslate nohighlight">\(x = x_f\)</span> coincides with the last element in the array [i.e., <span class="math notranslate nohighlight">\(xx[nump-1]\)</span>]. For the boundary condition, you can do the following: assume you are calling <span class="math notranslate nohighlight">\(uun\)</span> the array at time <span class="math notranslate nohighlight">\(t + \Delta t\)</span>. Then the boundary condition is imposed by specifying <span class="math notranslate nohighlight">\(uun[0] = uun[nump-2]\)</span> and <span class="math notranslate nohighlight">\(uun[nump-1] = uun[1]\)</span>.</p>
+</section>
+<section id="the-stability-of-the-non-centered-finite-differences-schemes">
+<h2>3 – The stability of the non-centered finite-differences schemes<a class="headerlink" href="#the-stability-of-the-non-centered-finite-differences-schemes" title="Permalink to this heading">#</a></h2>
+<p>In the previous exercises, we saw that when <span class="math notranslate nohighlight">\(a &gt; 0\)</span>, a <em>backward-oriented</em> finite-difference scheme yields stability. However, a crucial component in the problem was to give a specific value for <span class="math notranslate nohighlight">\(\Delta t\)</span>, namely  <span class="math notranslate nohighlight">\(t = 0.98 x/|a|\)</span>. Would it have been wise to choose a larger or smaller <span class="math notranslate nohighlight">\(\Delta t\)</span>? Let us check that <span class="math notranslate nohighlight">\(\Delta t\)</span> cannot be chosen arbitrarily large: run the program, but now writing</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(\Delta t = 0.5 \frac{\Delta x}{a}\)</span>;</p></li>
+<li><p><span class="math notranslate nohighlight">\(\Delta t = 0.99 \frac{\Delta x}{a}\)</span>;</p></li>
+<li><p><span class="math notranslate nohighlight">\(\Delta t = 1.01 \frac{\Delta x}{a}\)</span>;</p></li>
+<li><p><span class="math notranslate nohighlight">\(\Delta t = 2 \frac{\Delta x}{a}\)</span>;</p></li>
+</ol>
+<p>and check if those values maintain the good stability properties of the code. For example, does there seem to be a threshold in <span class="math notranslate nohighlight">\(\Delta t\)</span> for the instability? Note that you need to define <code class="docutils literal notranslate"><span class="pre">cfl_cut</span></code> to 0.5, 0.99, 1.01, and 2.0.</p>
+</section>
+<section id="optional-a">
+<h2>4- Optional (A).<a class="headerlink" href="#optional-a" title="Permalink to this heading">#</a></h2>
+<p>Consider now the following Burgers’ equation, i.e.,</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial u}{\partial t} + u \frac{\partial u}{\partial x} = 0   \tag{3}\]</div>
+<p>can be seen as yet another case of the equation solved in the previous exercises of this
+series by writing:</p>
+<div class="math notranslate nohighlight">
+\[a(x,t,u) = u  \tag{4}\]</div>
+<p>The importance of this equation in physics derives in part from the fact that it describes
+the motion of a non-accelerated fluid with an arbitrary velocity field at time <span class="math notranslate nohighlight">\(t = 0\)</span> and
+because it contains the possibility of spontaneous formation of discontinuities. (*)</p>
+<p>We can simply solve equation (1) by modifying the program developed for the previous exercises but now writing <span class="math notranslate nohighlight">\(a(x_i, t^n) = u^n_i\)</span>. Carry out that modification, and run the program in the domain <span class="math notranslate nohighlight">\(x \in (x_0, x_f)\)</span> with <span class="math notranslate nohighlight">\(x_0 = −1.4\)</span>, <span class="math notranslate nohighlight">\(x_f = 2.0\)</span> with the initial condition:</p>
+<div class="math notranslate nohighlight">
+\[u(x,t=0) = A\left[\tanh\left(\frac{x+x_c}{W}\right)-\tanh\left(\frac{x-x_c}{W}\right) \right] + B \tag{5}\]</div>
+<p>whereby <span class="math notranslate nohighlight">\(A = 1.0\)</span>, <span class="math notranslate nohighlight">\(x_c = 0.70\)</span>, <span class="math notranslate nohighlight">\(W = 0.1\)</span>, <span class="math notranslate nohighlight">\(B = 0.3\)</span>. Let the solution evolve until time <span class="math notranslate nohighlight">\(t_f = 100\)</span>. Explain in physical (or mathematical) terms the solution you get. Change to <span class="math notranslate nohighlight">\(A = −0.02\)</span> and explain the result. For this exercise, fill in <code class="docutils literal notranslate"><span class="pre">nm_lib</span></code> functions <code class="docutils literal notranslate"><span class="pre">evolv_uadv_burgers</span></code> and <code class="docutils literal notranslate"><span class="pre">step_uadv_burgers</span></code>.</p>
+<section id="comments">
+<h3>Comments:<a class="headerlink" href="#comments" title="Permalink to this heading">#</a></h3>
+<p>In the numerical solution, we see the initial condition patently evolving into something that looks like a discontinuity. We understand that this discontinuity is formed because the characteristic curves <span class="math notranslate nohighlight">\(dx_p/dt = a(x, t, u) = u\)</span> are more inclined (i.e., faster) in a spacetime diagram when starting at elements with larger <span class="math notranslate nohighlight">\(u\)</span>: since the solution is constant along those curves, the faster elements, therefore, catch those in front of them which have lower <span class="math notranslate nohighlight">\(u\)</span> (as is the case in the solution you have found numerically here) – so the solution must steepen when that happens.</p>
+<p>Mathematically and physically, we should not be too surprised: we know that, for instance, in gas dynamics, weird nonlinear phenomena take place, some of which (the shocks) have to do with the formation of discontinuities or sharp transitions. Numerically, though, we ought to be rather surprised for various reasons:</p>
+<p>a. the numerical calculation of a very large value of the derivative (as is surely the case across the big jump forming in our calculation) cannot be very accurate. It might even happen, we think, that the program crashed because of <em>NaNs</em> or exceptions, etc, occurring in the calculation. But, in fact, our program happily calculates away … seemingly forever.</p>
+<p>b. when a discontinuity forms, the exact mathematical solution, strictly speaking, cannot be calculated in a simple way anymore: when there is a discontinuity, one must take into account what is called the jump relations, also called internal boundary conditions, across the discontinuity: they give the mutual relation of the variables on either side of the discontinuity. A solution obtained in this way is called a <strong>weak solution</strong> in mathematics.</p>
+<p>c. we finally ask ourselves what the mathematically-exact weak solution would be in this case and whether our simple numerical scheme provides a solution near the exact one despite the obvious difficulty of handling large jumps across the near-discontinuity.</p>
+<p>We have to leave these as open questions for discussion at a later point.</p>
+<p>As a final comment, consider the consequences of the fact that the acceleration in gas dynamics contains a term of the general form <span class="math notranslate nohighlight">\(u\)</span> <span class="math notranslate nohighlight">\(du/dx\)</span> …. Much of the beautiful physics occurring in the universe is due to non-linearities like this one.</p>
+</section>
+</section>
+<section id="optional-b">
+<h2>4- Optional (B)<a class="headerlink" href="#optional-b" title="Permalink to this heading">#</a></h2>
+<p>For this exercise, do first <a class="reference external" href="https://github.com/AST-Course/AST5110/blob/main/ex_4a.ipynb">ex_4a</a>.
+Consider the same setup as the previous exercise. But now, solve it using the upwind method:</p>
+<div class="math notranslate nohighlight">
+\[u^{n+1}_j = u^{n}_j - \frac{\Delta t}{\Delta x} u^{n}_j(u^{n}_j- u^{n}_{j+1})\]</div>
+<p>And using the Lax method implemented in <a class="reference external" href="https://github.com/AST-Course/AST5110/blob/main/ex_4a.ipynb">ex_4a</a>. What do you see? Argue why you think the solution is not correct. <strong>Hint</strong> In the first exercise, we disccused about flux conservation.</p>
+<section id="id1">
+<h3>Comments:<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
+<p>See <a class="reference external" href="https://github.com/AST-Course/AST5110/wiki/Staggered-mesh">Stagger mesh</a> documentation on how a staggered mesh allows keeping the conservation.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="ex_2b.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">A first example of a numerical simulation</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="ex_4.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Stabilities and accuracy in time.</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#numerical-instability-violent-development">1 – Numerical instability: violent development</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#centered-differences">2 – Centered differences</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-stability-of-the-non-centered-finite-differences-schemes">3 – The stability of the non-centered finite-differences schemes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-a">4- Optional (A).</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comments">Comments:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-b">4- Optional (B)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Comments:</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Juan Martinez-Sykora & Avijeet Prasad
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

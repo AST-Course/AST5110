@@ -1,0 +1,579 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Operator splitting &#8212; AST5110</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=bd9e20870c6007c4c509"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'AST5110.wiki/Operator-splitting';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Discretization of a function of a single variable. Differentiation through finite differences." href="../notebooks/ex_1.html" />
+    <link rel="prev" title="Self similar solution for parabolic equations Moreno-Insertis et al." href="Self-similar-solution-for-parabolic-eq.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <header>
+  
+    <div class="bd-header navbar navbar-expand-lg bd-navbar">
+    </div>
+  
+  </header>
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="Home.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">AST5110</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="Home.html">
+                    AST5110: Numerical Modeling
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Wiki</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Discretization.html">Discretization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Introduction-to-PDEs-and-classifications.html">Introduction to PDEs and classifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Errors.html">Errors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Stability.html">Stability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Examples-of-hyperbolic-numerical-schemes-book.html">Examples of hyperbolic numerical schemes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Hyper-diffusive.html">Hyper diffusive</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Staggered-mesh.html">Staggered mesh</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="Implicit-methods.html">Implicit methods</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="Newton-Raphson-method.html">1. Newton-Raphson method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Crank-Nicolson-in-Multidimensions.html">2 Crank-Nicolson in Multidimensions (ADI methods)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Super-time-stepping.html">3 Other methods that can relax the stiffness (Super-time stepping or wave methods)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Self-similar-solution-for-parabolic-eq.html">Self similar solution for parabolic equations Moreno-Insertis et al.</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Operator splitting</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Exercises</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/ex_1.html">Discretization of a function of a single variable. Differentiation through finite differences.</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/ex_1_ext.html">A calculation of the order of convergence when the limit value is unknown</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/ex_2a_analytical.html">Preparation of the first numerical solution of a space-time partial differential equation: Study of the advection equation (Optional for everybody!).</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/ex_2b.html">A first example of a numerical simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/ex_3.html">The instability of numerical codes: symptoms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/ex_4.html">Stabilities and accuracy in time.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/ex_5.html">Riemann scheme.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/ex_6.html">Space-time partial differential equation: Study of the diffusive equation (implicit methods)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/ex_7.html">Operator splitting</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Project</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/project.html">Hydrodynamical PDE models</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/AST5110.wiki/Operator-splitting.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Operator splitting</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lie-trotter-splitting">Lie-Trotter Splitting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#strang-splitting">Strang Splitting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#additive-splitting">Additive Splitting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#alternating-direction-implicit-adi-method">Alternating-direction implicit (ADI) method</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="operator-splitting">
+<h1>Operator splitting<a class="headerlink" href="#operator-splitting" title="Permalink to this heading">#</a></h1>
+<p>Operator splitting is a standard technique to advance in time the solution at each timestep separately for groups of terms that contain different physics (hence with different numerical requirements).  For instance, diffusive terms such as</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial u}{\partial t} =  \frac{\partial }{\partial x}\left( D\frac{\partial u}{\partial x}\right) \tag{1}\]</div>
+<p>could be solved with implicit methods and source or advective terms, e.g.,</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial u}{\partial t} =  A\, u + v\frac{\partial u}{\partial x}\]</div>
+<p>explicitly. Considering an equation that contains these terms:</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial u}{\partial t} =  A\, u + v\frac{\partial u}{\partial x} + \frac{\partial }{\partial x}\left( D\frac{\partial u}{\partial x}\right) \]</div>
+<p>then each term could be separated and solved over a timestep <span class="math notranslate nohighlight">\(\Delta t\)</span> determined by von Neuman analysis for each term separately. For instance, one might use an explicit scheme for the advective term combined with a Crank-Nicolson or another implicit scheme for the diffusion term.</p>
+<p>This could be done with the so-called Operator Splitting (OS). The basic idea of operator splitting, which is also called time splitting or the method of fractional steps, is this: Suppose you have an initial value equation of the form</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial u}{\partial t} = F\, u \tag{2}\]</div>
+<p>where the operator <span class="math notranslate nohighlight">\(F\)</span> is some operator. While <span class="math notranslate nohighlight">\(F\)</span> is not necessarily linear, suppose that it can at least be written as a linear sum of <span class="math notranslate nohighlight">\(m\)</span> pieces, which act additively on <span class="math notranslate nohighlight">\(u\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[F u = F_1 u + F_2 u + ... + F_m u \tag{3}\]</div>
+<p>Finally, suppose that for <strong>each</strong> of the pieces, you already know a differencing scheme for updating the variable <span class="math notranslate nohighlight">\(u\)</span> from timestep <span class="math notranslate nohighlight">\(n\)</span> to timestep <span class="math notranslate nohighlight">\(n+1\)</span>, valid if that piece of the operator were the only one on the right-hand side. We will write these updatings symbolically as</p>
+<div class="math notranslate nohighlight">
+\[u^{n+1} = U_1(u^n,\Delta t)\]</div>
+<div class="math notranslate nohighlight">
+\[u^{n+1} = U_2(u^n,\Delta t)\]</div>
+<div class="math notranslate nohighlight">
+\[...\]</div>
+<div class="math notranslate nohighlight">
+\[u^{n+1} = U_m(u^n,\Delta t) \tag{4}\]</div>
+<p>Now, one form of operator splitting would be to get from <span class="math notranslate nohighlight">\(n\)</span> to <span class="math notranslate nohighlight">\(n+1\)</span> by the following sequence of updating:</p>
+<div class="math notranslate nohighlight">
+\[u^{n+(1/m)} = U_1(u^n,\Delta t)\]</div>
+<div class="math notranslate nohighlight">
+\[u^{n+(2/m)} = U_2(u^{n+(1/m)},\Delta t)\]</div>
+<div class="math notranslate nohighlight">
+\[...\]</div>
+<div class="math notranslate nohighlight">
+\[u^{n+1} = U_m(u^{n+(m-1)/m},\Delta t) \tag{5}\]</div>
+<p>where <span class="math notranslate nohighlight">\(t=n\, \Delta t\)</span> and <span class="math notranslate nohighlight">\(\Delta t\rightarrow 0\)</span>.</p>
+<p>The following describes different techniques where one could apply an OS.</p>
+<section id="lie-trotter-splitting">
+<h2>Lie-Trotter Splitting<a class="headerlink" href="#lie-trotter-splitting" title="Permalink to this heading">#</a></h2>
+<p>Lie-Trotter splitting is a first-order splitting method that solves two sub-problems sequentially on subintervals <span class="math notranslate nohighlight">\([t^n,t^{n+1}]\)</span> where <span class="math notranslate nohighlight">\(t^{n+1/2} = t^n + \Delta t/2\)</span> and <span class="math notranslate nohighlight">\(\Delta t = t^{n+1}-t^n\)</span>. The different subproblems are connected via the initial conditions as follows:</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial u}{\partial t} = F_1 u(t)$ with $t \in [t^n,t^{n+1}]$ and $u(t^n)=u^n_{sp}\]</div>
+<div class="math notranslate nohighlight">
+\[\frac{\partial v}{\partial t} = F_2 v(t)$ with $t \in [t^n,t^{n+1}]$ and $v(t^n)=u(t^{n+1})\]</div>
+<p>where <span class="math notranslate nohighlight">\(u^n_{sp}= U_0\)</span>. The approximated split solution at the point <span class="math notranslate nohighlight">\(t=t^{n+1}\)</span> is defined as <span class="math notranslate nohighlight">\(u^{n+1}_{sp}=v(t^{n+1})\)</span>.</p>
+</section>
+<section id="strang-splitting">
+<h2>Strang Splitting<a class="headerlink" href="#strang-splitting" title="Permalink to this heading">#</a></h2>
+<p>Strang splitting is one of the most popular and widely used operator splitting methods. By small modification, it is possible to make the splitting algorithm second-order accurate. The idea is that instead of first solving the first sub-problem for a full-time step, we solve it for a half-time step. We then solve the second sub-problem for a full-time step and then go back to the first sub-problem and solve it for a half-time step.</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial u^*}{\partial t} = F_1 u(t)$ with $t \in [t^n,t^{n+1/2}]$ and $u(t^n)=u^n_{sp}\]</div>
+<div class="math notranslate nohighlight">
+\[\frac{\partial v}{\partial t} = F_2 v(t)$ with $t \in [t^n,t^{n+1}]$ and $v(t^n)=u(t^{n+1/2})\]</div>
+<div class="math notranslate nohighlight">
+\[\frac{\partial w}{\partial t} = F_1 w(t)$ with $t \in [t^{n+1/2},t^{n+1}]$ and $w(t^{n+1/2})=v(t^{n+1})\]</div>
+<p>where <span class="math notranslate nohighlight">\(t^{n+1/2} = t^n + \Delta t/2\)</span>, and the approximated split solution at the point  <span class="math notranslate nohighlight">\(t=t^{n+1/2}\)</span> is defined as <span class="math notranslate nohighlight">\(u^{n+1}_{sp}=w(t^{n+1})\)</span>.</p>
+</section>
+<section id="additive-splitting">
+<h2>Additive Splitting<a class="headerlink" href="#additive-splitting" title="Permalink to this heading">#</a></h2>
+<p>The additive operator splitting method is a first-order method, and it is based on a simple idea in which we solve the different sub-problems using the same initial condition. The computed split solution of the two sub-problems is added, and the initial condition is subtracted from the sum. In this manner, we obtain a splitting method where the different sub-problems do not affect each other. This motivates the use of additive splitting, first because the result of an additive operator splitting is independent of the order in which the operators are applied. For methods like Lie-Trotter and Strang splitting, the operators will generally not commute in the non-linear case, which means the result depends on the order in which the operators are applied. Another advantage is that the operators are applied independently so that they can be computed in parallel</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial u}{\partial t} = F_1 u(t)$ with $t \in [t^n,t^{n+1}]$ and $u(t^n)=u^n_{sp}\]</div>
+<div class="math notranslate nohighlight">
+\[\frac{\partial v}{\partial t} = F_2 v(t)$ with $t \in [t^n,t^{n+1}]$ and $v(t^n)=u^n_{sp}\]</div>
+<div class="math notranslate nohighlight">
+\[u^{n+1}_{sp} = u(t^{n+1}) + v(t^{n+1}) - u^n_{sp}\]</div>
+</section>
+<section id="alternating-direction-implicit-adi-method">
+<h2>Alternating-direction implicit (ADI) method<a class="headerlink" href="#alternating-direction-implicit-adi-method" title="Permalink to this heading">#</a></h2>
+<p>Equation (2.3) in Section <a class="reference internal" href="Implicit-methods.html"><span class="doc std std-doc">Implicit methods</span></a> is an example of operator splitting with a slightly different twist. Let us reinterpret (4) to have a different meaning: Let <span class="math notranslate nohighlight">\(U_1\)</span> now denote an updating method that includes all the pieces of the total operator <span class="math notranslate nohighlight">\(F\)</span> algebraically, but which is desirably stable only for the <span class="math notranslate nohighlight">\(F_1\)</span> piece; likewise <span class="math notranslate nohighlight">\(U_2, ..., U_m\)</span>. Then a method of getting from <span class="math notranslate nohighlight">\(u^n\)</span> to <span class="math notranslate nohighlight">\(u^{n+1}\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[u^{n+(1/m)} = U_1(u^n,\Delta t/m)\]</div>
+<div class="math notranslate nohighlight">
+\[u^{n+(2/m)} = U_2(u^{n+(1/m)},\Delta t/m)\]</div>
+<div class="math notranslate nohighlight">
+\[...\]</div>
+<div class="math notranslate nohighlight">
+\[u^{n+1} = U_m(u^{n+(m-1)/m},\Delta t/m)  \, (6)\]</div>
+<!-- AP: Equations are not being rendered properly here -->
+<p>The timestep for each fractional step in (6) is now only <span class="math notranslate nohighlight">\(1/m\)</span> of the whole timestep because each partial operation acts with the original operator’s terms.</p>
+<p>Equation (6) is usually, though not always, stable as a differencing scheme for the operator <span class="math notranslate nohighlight">\(F\)</span>. In fact, as a rule of thumb, it is often sufficient to have stable <span class="math notranslate nohighlight">\(U_i\)</span>’s only for the operator pieces having the highest number of spatial derivatives — the other <span class="math notranslate nohighlight">\(U_i\)</span>’s can be <em>unstable</em> —to make the overall scheme stable!</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./AST5110.wiki"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Self-similar-solution-for-parabolic-eq.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Self similar solution for parabolic equations Moreno-Insertis et al.</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../notebooks/ex_1.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Discretization of a function of a single variable. Differentiation through finite differences.</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lie-trotter-splitting">Lie-Trotter Splitting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#strang-splitting">Strang Splitting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#additive-splitting">Additive Splitting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#alternating-direction-implicit-adi-method">Alternating-direction implicit (ADI) method</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Juan Martinez-Sykora & Avijeet Prasad
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

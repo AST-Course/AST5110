@@ -1,0 +1,557 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Discretization of a function of a single variable. Differentiation through finite differences. &#8212; AST5110</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=bd9e20870c6007c4c509"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/ex_1';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="A calculation of the order of convergence when the limit value is unknown" href="ex_1_ext.html" />
+    <link rel="prev" title="Operator splitting" href="../AST5110.wiki/Operator-splitting.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <header>
+  
+    <div class="bd-header navbar navbar-expand-lg bd-navbar">
+    </div>
+  
+  </header>
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../AST5110.wiki/Home.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">AST5110</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../AST5110.wiki/Home.html">
+                    AST5110: Numerical Modeling
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Wiki</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../AST5110.wiki/Discretization.html">Discretization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AST5110.wiki/Introduction-to-PDEs-and-classifications.html">Introduction to PDEs and classifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AST5110.wiki/Errors.html">Errors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AST5110.wiki/Stability.html">Stability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AST5110.wiki/Examples-of-hyperbolic-numerical-schemes-book.html">Examples of hyperbolic numerical schemes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AST5110.wiki/Hyper-diffusive.html">Hyper diffusive</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AST5110.wiki/Staggered-mesh.html">Staggered mesh</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../AST5110.wiki/Implicit-methods.html">Implicit methods</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../AST5110.wiki/Newton-Raphson-method.html">1. Newton-Raphson method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AST5110.wiki/Crank-Nicolson-in-Multidimensions.html">2 Crank-Nicolson in Multidimensions (ADI methods)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AST5110.wiki/Super-time-stepping.html">3 Other methods that can relax the stiffness (Super-time stepping or wave methods)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AST5110.wiki/Self-similar-solution-for-parabolic-eq.html">Self similar solution for parabolic equations Moreno-Insertis et al.</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../AST5110.wiki/Operator-splitting.html">Operator splitting</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Exercises</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Discretization of a function of a single variable. Differentiation through finite differences.</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="ex_1_ext.html">A calculation of the order of convergence when the limit value is unknown</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ex_2a_analytical.html">Preparation of the first numerical solution of a space-time partial differential equation: Study of the advection equation (Optional for everybody!).</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ex_2b.html">A first example of a numerical simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ex_3.html">The instability of numerical codes: symptoms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ex_4.html">Stabilities and accuracy in time.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ex_5.html">Riemann scheme.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ex_6.html">Space-time partial differential equation: Study of the diffusive equation (implicit methods)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ex_7.html">Operator splitting</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Project</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="project.html">Hydrodynamical PDE models</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/notebooks/ex_1.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Discretization of a function of a single variable. Differentiation through finite differences.</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Discretization of a function of a single variable. Differentiation through finite differences.</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#code-to-represent-the-function-and-the-analytical-and-numerical-derivative">1 – Code to represent the function and the analytical and numerical derivative.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tasks">Tasks:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-of-the-quadratic-order-of-the-approximation">2- Test of the quadratic order of the approximation.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analytical-proof-of-the-order-of-convergence-of-the-approximation-for-the-derivative-optional">3- Analytical proof of the order of convergence of the approximation for the derivative (optional)</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#the-numerical-test-of-the-high-order-formula-this-is-an-optional-exersice">4- The numerical test of the high-order formula (This is an optional exersice)</a></li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="discretization-of-a-function-of-a-single-variable-differentiation-through-finite-differences">
+<h1>Discretization of a function of a single variable. Differentiation through finite differences.<a class="headerlink" href="#discretization-of-a-function-of-a-single-variable-differentiation-through-finite-differences" title="Permalink to this heading">#</a></h1>
+<section id="code-to-represent-the-function-and-the-analytical-and-numerical-derivative">
+<h2>1 – Code to represent the function and the analytical and numerical derivative.<a class="headerlink" href="#code-to-represent-the-function-and-the-analytical-and-numerical-derivative" title="Permalink to this heading">#</a></h2>
+<p>Consider the function</p>
+<div class="math notranslate nohighlight">
+\[h(x) = \cos\left[\frac{\pi (x-1)}{2}\right] \exp\left[-\left(\frac{x-3}{2.5}\right)^2\right],\tag{1}\]</div>
+<p>with <span class="math notranslate nohighlight">\(x \in (-4,10) \)</span>.</p>
+<p>Let us define a sampling of <span class="math notranslate nohighlight">\(h\)</span> with 64 intervals, that is, 65 points, and store the
+values into double precision arrays called <span class="math notranslate nohighlight">\(xx\)</span> and <span class="math notranslate nohighlight">\(hh\)</span>. Numpy arrays are double precision as
+default. To define <span class="math notranslate nohighlight">\(xx\)</span> in Python you can use the commands:</p>
+<p><code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">numpy</span> <span class="pre">as</span> <span class="pre">np</span> <span class="pre">nump=65</span> <span class="pre">x0=-4.0</span>&#160; <span class="pre">xf=10.0</span> <span class="pre">xx</span> <span class="pre">=</span> <span class="pre">np.arange(nump)/(nump-1.0)</span> <span class="pre">*</span> <span class="pre">(xf-x0)</span> <span class="pre">+</span> <span class="pre">x0</span></code></p>
+<p>Use <code class="docutils literal notranslate"><span class="pre">matplotlib.pyplot</span></code> to visualize hh vs xx.</p>
+<p>Define the variable <span class="math notranslate nohighlight">\(nint\)</span> as the number of intervals (<span class="math notranslate nohighlight">\(nint= 64\)</span> in the present case)
+and <span class="math notranslate nohighlight">\(nump\)</span> as the number of points. In IDL, Python and C, those components go
+from the <span class="math notranslate nohighlight">\(0-\)</span>component through the component <span class="math notranslate nohighlight">\(nump−1\)</span>. Compute the ratio (1) in the <a class="reference external" href="https://github.com/AST-Course/AST5110/wiki/Discretization">wiki</a> using and filling the function <code class="docutils literal notranslate"><span class="pre">deriv_dnw</span></code> in <code class="docutils literal notranslate"><span class="pre">nm_lib</span></code>. Feel free to use any known library or create your own functions from scratch.</p>
+<p>It will depend on how you created the function that you have <span class="math notranslate nohighlight">\(nump\)</span> or <span class="math notranslate nohighlight">\(nump−1\)</span> elements. If the former, the last component (<span class="math notranslate nohighlight">\(nump-1\)</span>) is ill calculated. <span class="math notranslate nohighlight">\(hp\)</span> contains a second-order approximation to the derivative of the <span class="math notranslate nohighlight">\(hh\)</span> function at the intermediate points <span class="math notranslate nohighlight">\(x_{i+1/2}\)</span>.</p>
+</section>
+<section id="tasks">
+<h2>Tasks:<a class="headerlink" href="#tasks" title="Permalink to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Plot <span class="math notranslate nohighlight">\(hh\)</span> versus <span class="math notranslate nohighlight">\(xx\)</span> as a solid line with crosses added at each grid point (to visualize the goodness of the discretization) or with <code class="docutils literal notranslate"><span class="pre">plt.hist</span></code> function combined with <code class="docutils literal notranslate"><span class="pre">plt.plot</span></code>. <em>Make sure the axis pixels are properly located either to the center or half grid shifted</em></p></li>
+</ol>
+<ol class="arabic simple" start="2">
+<li><p>Plot the array containing the numerical derivative, <span class="math notranslate nohighlight">\(hp\)</span>. Calculate analytically the derivative of the function (1) and represent it in the same figure to ascertain the goodness of the approximation for that number of points. <strong>hint</strong> <em>make sure the axis pixels are properly located either to the center or half grid shifted</em>.</p></li>
+</ol>
+<ol class="arabic simple" start="3">
+<li><p>Repeat the foregoing, but now using <span class="math notranslate nohighlight">\(nint= 32\)</span> and <span class="math notranslate nohighlight">\(nint= 16\)</span> intervals to see how the approximation deteriorates. Thereafter, repeat the same process for 128 and 256 intervals, to see how it improves. Consider to use <code class="docutils literal notranslate"><span class="pre">plt.semilogy</span></code> for the error.</p></li>
+</ol>
+</section>
+<section id="test-of-the-quadratic-order-of-the-approximation">
+<h2>2- Test of the quadratic order of the approximation.<a class="headerlink" href="#test-of-the-quadratic-order-of-the-approximation" title="Permalink to this heading">#</a></h2>
+<p>We are going to test if the ratio <span class="math notranslate nohighlight">\((h_{i+1}-h_i)/(x_{i+1}-x_i)\)</span> approaches the analytical value of the derivative. To that end, we will use samplings with, successively, 16, 32, 64, 128, 256, 512, 1024 (which are successive powers of 2), and , 1e6 intervals. Calculate the maximum of the absolute value of the error, meaning: the difference between the analytical and the numerical derivatives at the <em>same points</em>. Plot a graph of that value versus the size of the interval in each case using a diagram with logarithmic axes. Check if the curve you get corresponds to a quadratic dependence.</p>
+<p>Try to fit a straight to the logarithm of the error curves using Python program <code class="docutils literal notranslate"><span class="pre">numpy.polyfit</span></code> and <code class="docutils literal notranslate"><span class="pre">numpy.poly1d</span></code>. From the value of the slope you get from that program, check the accuracy with which you obtain the quadratic dependence (only in the region that is linear in the log/log plot).</p>
+<p>What happens with <span class="math notranslate nohighlight">\(10^6\)</span> grid points?</p>
+<p>What happens if you try for a lower or higher floating number? Numpy uses float 64 as default. Instead, use <code class="docutils literal notranslate"><span class="pre">np.float32</span></code> and <code class="docutils literal notranslate"><span class="pre">np.float128</span></code> (note: <code class="docutils literal notranslate"><span class="pre">np.float128</span></code> sometimes gives an error with <code class="docutils literal notranslate"><span class="pre">np.roll</span></code>!). Explain the error slopes. What is going on with <code class="docutils literal notranslate"><span class="pre">np.float128</span></code>?</p>
+</section>
+<section id="analytical-proof-of-the-order-of-convergence-of-the-approximation-for-the-derivative-optional">
+<h2>3- Analytical proof of the order of convergence of the approximation for the derivative (optional)<a class="headerlink" href="#analytical-proof-of-the-order-of-convergence-of-the-approximation-for-the-derivative-optional" title="Permalink to this heading">#</a></h2>
+<p>Consider the sampling used in exercise this, assuming that the spacing between grid points is uniform, i.e., <span class="math notranslate nohighlight">\((\Delta x)_i = \Delta x\)</span>. Write a formal Taylor expansion as follows:</p>
+<div class="math notranslate nohighlight">
+\[f(x_{i+1}) = f(x_{i+1/2}) + f'(x_{i+1/2})\frac{\Delta x}{2} + ...  \tag{2}\]</div>
+<div class="math notranslate nohighlight">
+\[f(x_{i}) = f(x_{i+1/2}) - f'(x_{i+1/2})\frac{\Delta x}{2} + ...  \tag{3}\]</div>
+<p>including terms up to order <span class="math notranslate nohighlight">\((\Delta x)^3\)</span>. Eliminating terms combining those two expressions, conclude that, as said in the previous exercise sheet, the finite-difference approximation to the derivative at the midpoints <span class="math notranslate nohighlight">\(x_{i+1/2}\)</span> carried out there is of 2nd order.</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="the-numerical-test-of-the-high-order-formula-this-is-an-optional-exersice">
+<h1>4- The numerical test of the high-order formula (This is an optional exersice)<a class="headerlink" href="#the-numerical-test-of-the-high-order-formula-this-is-an-optional-exersice" title="Permalink to this heading">#</a></h1>
+<p>Implement the finite difference formula given by the first term on the right of Eq (5) in the <a class="reference external" href="https://github.com/AST-Course/AST5110/wiki/Discretization">wiki</a>  into the program you developed for Exercise 1a and test if you get an approximation to the first derivative with an error that converges to zero like <span class="math notranslate nohighlight">\((\Delta x)^4\)</span>.</p>
+<p>Compare the 2nd-order and 4th-order error slopes for cases 16, 32, 64, 128, 256 …</p>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../AST5110.wiki/Operator-splitting.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Operator splitting</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="ex_1_ext.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">A calculation of the order of convergence when the limit value is unknown</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Discretization of a function of a single variable. Differentiation through finite differences.</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#code-to-represent-the-function-and-the-analytical-and-numerical-derivative">1 – Code to represent the function and the analytical and numerical derivative.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tasks">Tasks:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-of-the-quadratic-order-of-the-approximation">2- Test of the quadratic order of the approximation.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analytical-proof-of-the-order-of-convergence-of-the-approximation-for-the-derivative-optional">3- Analytical proof of the order of convergence of the approximation for the derivative (optional)</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#the-numerical-test-of-the-high-order-formula-this-is-an-optional-exersice">4- The numerical test of the high-order formula (This is an optional exersice)</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Juan Martinez-Sykora & Avijeet Prasad
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

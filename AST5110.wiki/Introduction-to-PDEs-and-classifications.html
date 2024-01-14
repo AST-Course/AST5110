@@ -1,0 +1,617 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Introduction to PDEs and classifications &#8212; AST5110</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=bd9e20870c6007c4c509"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'AST5110.wiki/Introduction-to-PDEs-and-classifications';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Errors" href="Errors.html" />
+    <link rel="prev" title="Discretization" href="Discretization.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <header>
+  
+    <div class="bd-header navbar navbar-expand-lg bd-navbar">
+    </div>
+  
+  </header>
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="Home.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">AST5110</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="Home.html">
+                    AST5110: Numerical Modeling
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Wiki</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Discretization.html">Discretization</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Introduction to PDEs and classifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Errors.html">Errors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Stability.html">Stability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Examples-of-hyperbolic-numerical-schemes-book.html">Examples of hyperbolic numerical schemes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Hyper-diffusive.html">Hyper diffusive</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Staggered-mesh.html">Staggered mesh</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="Implicit-methods.html">Implicit methods</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="Newton-Raphson-method.html">1. Newton-Raphson method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Crank-Nicolson-in-Multidimensions.html">2 Crank-Nicolson in Multidimensions (ADI methods)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Super-time-stepping.html">3 Other methods that can relax the stiffness (Super-time stepping or wave methods)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Self-similar-solution-for-parabolic-eq.html">Self similar solution for parabolic equations Moreno-Insertis et al.</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Operator-splitting.html">Operator splitting</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Exercises</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/ex_1.html">Discretization of a function of a single variable. Differentiation through finite differences.</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/ex_1_ext.html">A calculation of the order of convergence when the limit value is unknown</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/ex_2a_analytical.html">Preparation of the first numerical solution of a space-time partial differential equation: Study of the advection equation (Optional for everybody!).</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/ex_2b.html">A first example of a numerical simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/ex_3.html">The instability of numerical codes: symptoms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/ex_4.html">Stabilities and accuracy in time.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/ex_5.html">Riemann scheme.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/ex_6.html">Space-time partial differential equation: Study of the diffusive equation (implicit methods)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/ex_7.html">Operator splitting</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Project</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/project.html">Hydrodynamical PDE models</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/AST5110.wiki/Introduction-to-PDEs-and-classifications.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Introduction to PDEs and classifications</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-classification">1. Mathematical Classification</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-classification-of-pdes">1.1 Mathematical Classification of PDEs</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#hyperbolic-eq-wave-eq">1.1.1 Hyperbolic eq. (wave eq.)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#parabolic-eq-diffusion-eq">1.1.2 Parabolic eq. (diffusion eq.)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#elliptic-eq-poisson-eq">1.1.3 Elliptic eq. (Poisson eq.)</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-classification-of-the-various-terms-in-the-pdes">1.2 Mathematical Classification of the various terms in the PDEs</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-or-source-or-sink-terms">1.2.1 Linear or source (or sink) terms</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#advection-terms">1.2.2 Advection terms</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#diffusive-terms">1.2.3 Diffusive terms</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computational-classification">2 Computational Classification</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#initial-value-cauchy-problems">2.1 Initial value (Cauchy) problems</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#boundary-problems">2.2 Boundary problems</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="introduction-to-pdes-and-classifications">
+<h1>Introduction to PDEs and classifications<a class="headerlink" href="#introduction-to-pdes-and-classifications" title="Permalink to this heading">#</a></h1>
+<p>Partial Differential Equations (PDEs) are part of many continuous physical systems, fluids, plasma, Electromagnetic fields, etc. This chapter briefly summarizes the classification of the most common PDEs.</p>
+<section id="mathematical-classification">
+<h2>1. Mathematical Classification<a class="headerlink" href="#mathematical-classification" title="Permalink to this heading">#</a></h2>
+<p>These can be classified as complete PDEs EQs or by the different terms in the PDEs.</p>
+<section id="mathematical-classification-of-pdes">
+<h3>1.1 Mathematical Classification of PDEs<a class="headerlink" href="#mathematical-classification-of-pdes" title="Permalink to this heading">#</a></h3>
+<p>The PDEs can be classified into three big categories, <em>hyperbolic, parabolic</em>, and <em>elliptic</em>. These three categories differ in their <em>characteristics</em>, i.e., propagation curves.</p>
+<section id="hyperbolic-eq-wave-eq">
+<h4>1.1.1 Hyperbolic eq. (wave eq.)<a class="headerlink" href="#hyperbolic-eq-wave-eq" title="Permalink to this heading">#</a></h4>
+<p>The following is the typical example of a 1D hyperbolic eq., i.e., wave eq.</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial^2 u}{\partial t^2} = v^2 \frac{\partial^2 u}{\partial x^2} \tag{1}\]</div>
+<p>Where <span class="math notranslate nohighlight">\(v = const\)</span> is the velocity of wave propagation</p>
+</section>
+<section id="parabolic-eq-diffusion-eq">
+<h4>1.1.2 Parabolic eq. (diffusion eq.)<a class="headerlink" href="#parabolic-eq-diffusion-eq" title="Permalink to this heading">#</a></h4>
+<p>The prototypical parabolic equation is the so-called diffusion equation:</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial u}{\partial t} = \frac{\partial}{\partial x} \left(D \frac{\partial u}{\partial x} \right) \tag{2}\]</div>
+<p>Where <span class="math notranslate nohighlight">\(D\)</span> is the diffusion coefficient.</p>
+</section>
+<section id="elliptic-eq-poisson-eq">
+<h4>1.1.3 Elliptic eq. (Poisson eq.)<a class="headerlink" href="#elliptic-eq-poisson-eq" title="Permalink to this heading">#</a></h4>
+<p>Finally, the prototypical elliptic eq. is the Poisson eq.</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2} = \rho(x,y) \tag{3}\]</div>
+<p>Where <span class="math notranslate nohighlight">\(\rho\)</span> is the source term, if the source term equals zero, the equation is <em>Laplace’s equation</em>.</p>
+</section>
+</section>
+<section id="mathematical-classification-of-the-various-terms-in-the-pdes">
+<h3>1.2 Mathematical Classification of the various terms in the PDEs<a class="headerlink" href="#mathematical-classification-of-the-various-terms-in-the-pdes" title="Permalink to this heading">#</a></h3>
+<p>One can also separate individual terms in the PDEs. These terms can be treated with different numerical techniques since they typically have very different properties and stiffness.</p>
+<section id="linear-or-source-or-sink-terms">
+<h4>1.2.1 Linear or source (or sink) terms<a class="headerlink" href="#linear-or-source-or-sink-terms" title="Permalink to this heading">#</a></h4>
+<p>Source (or sink) terms do not have spatial derivatives and depend on the variable that needs to be advanced in time. Some examples are ionization and recombination, chemical reactions, and collisional terms. This term can be very stiff, and often implicit methods can be easily implemented.</p>
+</section>
+<section id="advection-terms">
+<h4>1.2.2 Advection terms<a class="headerlink" href="#advection-terms" title="Permalink to this heading">#</a></h4>
+<p>Advection or convection terms are single derivatives (<span class="math notranslate nohighlight">\(\frac{\partial u}{\partial x}\)</span>). Often solved explicitly, and the CFL condition originally comes from this term.</p>
+</section>
+<section id="diffusive-terms">
+<h4>1.2.3 Diffusive terms<a class="headerlink" href="#diffusive-terms" title="Permalink to this heading">#</a></h4>
+<p>Diffusive terms are single derivatives (<span class="math notranslate nohighlight">\(\frac{\partial D \partial u}{\partial x^2}\)</span>), where <span class="math notranslate nohighlight">\(D\)</span> is the diffusive coefficient). Some examples are thermal conduction or ohmic diffusion. Often solved explicitly, and the CFL condition originally comes from this term.</p>
+<p>Sometimes, some terms are tough to put in this classification and are a combination or mix of several. For instance, the Hall term and ambipolar diffusion  (also known as Pedersen resistivity).</p>
+</section>
+</section>
+</section>
+<section id="computational-classification">
+<h2>2 Computational Classification<a class="headerlink" href="#computational-classification" title="Permalink to this heading">#</a></h2>
+<p>Computationally, the previous classification is not very meaningful. Therefore, the best is to classify in propagating and static functions.</p>
+<section id="initial-value-cauchy-problems">
+<h3>2.1 Initial value (Cauchy) problems<a class="headerlink" href="#initial-value-cauchy-problems" title="Permalink to this heading">#</a></h3>
+<p>The equations describe how the information <span class="math notranslate nohighlight">\(u(x,t)\)</span> propagates forward in time. Those equations require that the information <span class="math notranslate nohighlight">\(u\)</span> is given at some initial time (<span class="math notranslate nohighlight">\(t_0\)</span>) for all <span class="math notranslate nohighlight">\(x\)</span>. This is exemplified in the following figure.</p>
+<p><img alt="cauchy_init" src="../_images/cauchy_init.png" /></p>
+<p>In the figure, initial values are given on a one-time slice, and it is desired to advance the solution in time, successive computing rows of open dots in the direction shown by the arrows. Boundary conditions at each row’s left and right edges (<span class="math notranslate nohighlight">\(\bigotimes\)</span>) must also be supplied, but only one row at a time. Only one, or a few, previous rows need to be maintained in memory. Note Eq. 1 and 2 are part of this classification.</p>
+</section>
+<section id="boundary-problems">
+<h3>2.2 Boundary problems<a class="headerlink" href="#boundary-problems" title="Permalink to this heading">#</a></h3>
+<p>Single <em>static</em> functions <span class="math notranslate nohighlight">\(u(x,y)\)</span> satisfy the equation within some <span class="math notranslate nohighlight">\((x,y)\)</span> region of interest. These require some desired behavior on the boundary of the region of interest. This is exemplified in the following figure.</p>
+<p><img alt="bound" src="../_images/bound.png" /></p>
+<p>In the figure, boundary values are specified around the edge of a grid, and an iterative process is employed to find the values of all the internal points (open circles). All grid points must be maintained in memory. Note Eq. 3 falls in this classification.</p>
+<hr class="docutils" />
+<p>We will focus on <em>initial value (Cauchy)</em> problems in the following. A large class of time-evolution PDEs in 1D can be cast into the form of <em>flux conservative equation</em>.</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial {\bf u}}{\partial t} = - \frac{\partial \bf {F(u)}}{\partial x}\]</div>
+<p>where <span class="math notranslate nohighlight">\({\bf u}\)</span> and <span class="math notranslate nohighlight">\({\bf F}\)</span> are vectors, and where <span class="math notranslate nohighlight">\({\bf F}\)</span> may depend on <span class="math notranslate nohighlight">\({\bf u}\)</span> and/or also on spatial derivatives of <span class="math notranslate nohighlight">\(u\)</span>. The vector <span class="math notranslate nohighlight">\({\bf F}\)</span> is called the <em>conserved flux</em>.</p>
+<p>One of the simplest <em>flux-conservative</em> equations of the <em>Cauchy</em> problems is Burger’s eq. Proceed to exercise <a class="reference external" href="https://github.com/AST-Course/AST5110/blob/main/ex_2a_analytical.ipynb">ex_2a_analytical</a> to further understand Burger’s eq:</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial u}{\partial t} + u \frac{\partial u}{\partial x} =  \nu \frac{\partial^2 u}{\partial x^2}\]</div>
+<p>When the diffusion term is absent (i.e., <span class="math notranslate nohighlight">\(\nu=0\)</span>), Burgers’ equation becomes the inviscid Burgers’ equation:</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial u}{\partial t} + u \frac{\partial u}{\partial x} = 0,\]</div>
+<p>and exercise 2 focuses on this expression to build the numerical code. Note that this expression is part of the hyperbolic equations as follows:</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial^2 u}{\partial t^2} = v^2 \frac{\partial^2 u}{\partial x^2}\]</div>
+<p>can be rewritten as a set of 1st-order eq.</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial r}{\partial t} = v \frac{\partial s}{\partial x}\]</div>
+<div class="math notranslate nohighlight">
+\[\frac{\partial s}{\partial t} = v \frac{\partial r}{\partial x}\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[r = v \frac{\partial u}{\partial x}\]</div>
+<div class="math notranslate nohighlight">
+\[s = \frac{\partial u}{\partial t}\]</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./AST5110.wiki"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Discretization.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Discretization</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Errors.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Errors</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-classification">1. Mathematical Classification</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-classification-of-pdes">1.1 Mathematical Classification of PDEs</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#hyperbolic-eq-wave-eq">1.1.1 Hyperbolic eq. (wave eq.)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#parabolic-eq-diffusion-eq">1.1.2 Parabolic eq. (diffusion eq.)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#elliptic-eq-poisson-eq">1.1.3 Elliptic eq. (Poisson eq.)</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-classification-of-the-various-terms-in-the-pdes">1.2 Mathematical Classification of the various terms in the PDEs</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-or-source-or-sink-terms">1.2.1 Linear or source (or sink) terms</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#advection-terms">1.2.2 Advection terms</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#diffusive-terms">1.2.3 Diffusive terms</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computational-classification">2 Computational Classification</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#initial-value-cauchy-problems">2.1 Initial value (Cauchy) problems</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#boundary-problems">2.2 Boundary problems</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Juan Martinez-Sykora & Avijeet Prasad
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
