@@ -11,9 +11,9 @@ Created on Fri Jul 02 10:25:17 2021
 import numpy as np
 
 
-def deriv_dnw(xx: np.ndarray, hh: np.ndarray, **kwargs) -> np.ndarray:
+def deriv_fwd(xx: np.ndarray, hh: np.ndarray, **kwargs) -> np.ndarray:
     """
-    Returns the downwind 2nd order derivative of hh array with respect to xx array.
+    Returns the forward derivative of hh array with respect to xx array.
 
     Parameters
     ----------
@@ -25,7 +25,7 @@ def deriv_dnw(xx: np.ndarray, hh: np.ndarray, **kwargs) -> np.ndarray:
     Returns
     -------
     `array`
-        The downwind 2nd order derivative of hh respect to xx. The last
+        The forward derivative of hh respect to xx. The last
         grid point is ill (or missing) calculated.
     """
 
@@ -97,7 +97,7 @@ def step_adv_burgers(
         By default, clf_cut=0.98.
     ddx : `lambda function`
         Allows the selection of the type of spatial derivative.
-        By default lambda x,y: deriv_dnw(x, y)
+        By default lambda x,y: deriv_fwd(x, y)
 
     Returns
     -------
@@ -132,7 +132,7 @@ def evolv_adv_burgers(
     nt: int,
     a: float,
     cfl_cut: float = 0.98,
-    ddx = lambda x,y: deriv_dnw(x, y),
+    ddx = lambda x,y: deriv_fwd(x, y),
     bnd_type: str = 'wrap',
     bnd_limits: list=[0,1],
     **kwargs
@@ -155,7 +155,7 @@ def evolv_adv_burgers(
         Constant value to limit dt from cfl_adv_burger.
     ddx : `lambda function`
         Allows to change the space derivative function.
-        By default lambda x,y: deriv_dnw(x, y).
+        By default lambda x,y: deriv_fwd(x, y).
     bnd_type : `string`
         Allows to select the type of boundaries.
         By default 'wrap'.
@@ -174,9 +174,9 @@ def evolv_adv_burgers(
     """
 
 
-def deriv_upw(xx: np.ndarray, hh: np.ndarray, **kwargs) -> np.ndarray:
+def deriv_bck(xx: np.ndarray, hh: np.ndarray, **kwargs) -> np.ndarray:
     r"""
-    Returns the upwind 2nd order derivative of hh with respect to xx.
+    Returns the backward derivative of hh with respect to xx.
 
     Parameters
     ----------
@@ -188,7 +188,7 @@ def deriv_upw(xx: np.ndarray, hh: np.ndarray, **kwargs) -> np.ndarray:
     Returns
     -------
     `array`
-        The upwind 2nd order derivative of hh respect to xx. The first
+        The backward derivative of hh respect to xx. The first
         grid point is ill-calculated.
     """
 
@@ -217,7 +217,7 @@ def evolv_uadv_burgers(
     hh: np.ndarray,
     nt: int,
     cfl_cut: float = 0.98,
-    ddx = lambda x,y: deriv_dnw(x, y),
+    ddx = lambda x,y: deriv_fwd(x, y),
     bnd_type: str='wrap',
     bnd_limits: list = [0,1],
     **kwargs,
@@ -263,7 +263,7 @@ def evolv_Lax_uadv_burgers(
     hh: np.ndarray,
     nt: int,
     cfl_cut: float = 0.98,
-    ddx = lambda x,y: deriv_dnw(x, y),
+    ddx = lambda x,y: deriv_fwd(x, y),
     bnd_type: str='wrap',
     bnd_limits: list = [0,1],
     **kwargs,
@@ -286,7 +286,7 @@ def evolv_Lax_uadv_burgers(
         By default 0.98
     ddx : `array`
         The lambda function allows to change of the space derivative function.
-        By derault  lambda x,y: deriv_dnw(x, y)
+        By derault  lambda x,y: deriv_fwd(x, y)
     bnd_type : `string`
         It allows to select the type of boundaries
     bnd_limits : `list(int)`
@@ -309,7 +309,7 @@ def evolv_Lax_adv_burgers(
     hh: np.ndarray,
     nt: int,
     cfl_cut: float = 0.98,
-    ddx = lambda x,y: deriv_dnw(x, y),
+    ddx = lambda x,y: deriv_fwd(x, y),
     bnd_type: str='wrap',
     bnd_limits: list = [0,1],
     **kwargs,
@@ -336,7 +336,7 @@ def evolv_Lax_adv_burgers(
         By default 0.98
     ddx : `lambda function`
         Allows to change the space derivative function.
-        By default lambda x,y: deriv_dnw(x, y)
+        By default lambda x,y: deriv_fwd(x, y)
     bnd_type : `string`
         It allows one to select the type of boundaries.
         By default, 'wrap'
@@ -359,7 +359,7 @@ def step_uadv_burgers(
     xx: np.ndarray,
     hh: np.ndarray,
     cfl_cut: float = 0.98,
-    ddx = lambda x,y: deriv_dnw(x, y),
+    ddx = lambda x,y: deriv_fwd(x, y),
     **kwargs,
 ):
     r"""
@@ -380,7 +380,7 @@ def step_uadv_burgers(
         By default 0.98
     ddx : `lambda function`
         Allows to select the type of spatial derivative.
-        By default lambda x,y: deriv_dnw(x, y)
+        By default lambda x,y: deriv_fwd(x, y)
 
 
     Returns
@@ -418,7 +418,7 @@ def ops_Lax_LL_Add(
     a: np.ndarray,
     b: np.ndarray,
     cfl_cut: float = 0.98,
-    ddx = lambda x,y: deriv_dnw(x, y), 
+    ddx = lambda x,y: deriv_fwd(x, y), 
     bnd_type: str = 'wrap',
     bnd_limits: list = [0,1],
     **kwargs,
@@ -451,7 +451,7 @@ def ops_Lax_LL_Add(
         By default 0.98
     ddx : `lambda function`
         Allows to change the space derivative function.
-        By default lambda x,y: deriv_dnw(x, y)
+        By default lambda x,y: deriv_fwd(x, y)
     bnd_type : `string`
         It allows one to select the type of boundaries
         By default, 'wrap'
@@ -477,7 +477,7 @@ def ops_Lax_LL_Lie(
     a: np.ndarray,
     b: np.ndarray,
     cfl_cut: float = 0.98,
-    ddx = lambda x,y: deriv_dnw(x, y),
+    ddx = lambda x,y: deriv_fwd(x, y),
     bnd_type: str = 'wrap',
     bnd_limits: list = [0,1],
     **kwargs,
@@ -509,7 +509,7 @@ def ops_Lax_LL_Lie(
         By default 0.98
     ddx : `lambda function`
         Allows to change the space derivative function.
-        By default lambda x,y: deriv_dnw(x, y)
+        By default lambda x,y: deriv_fwd(x, y)
     bnd_type : `string`
         It allows one to select the type of boundaries.
         By default, 'wrap'
@@ -535,7 +535,7 @@ def ops_Lax_LL_Strang(
     a: np.ndarray,
     b: np.ndarray,
     cfl_cut: float = 0.98,
-    ddx = lambda x,y: deriv_dnw(x, y),
+    ddx = lambda x,y: deriv_fwd(x, y),
     bnd_type: str = 'wrap',
     bnd_limits: list = [0,1],
     **kwargs,
@@ -569,7 +569,7 @@ def ops_Lax_LL_Strang(
         By default 0.98
     ddx : `lambda function`
         Allows to change the space derivative function.
-        By default lambda x,y: deriv_dnw(x, y)
+        By default lambda x,y: deriv_fwd(x, y)
     bnd_type : `string`
         Allows to select the type of boundaries.
         By default, `wrap`
@@ -594,7 +594,7 @@ def osp_Lax_LH_Strang(
     a: np.ndarray,
     b: np.ndarray,
     cfl_cut: float = 0.98,
-    ddx = lambda x,y: deriv_dnw(x, y),
+    ddx = lambda x,y: deriv_fwd(x, y),
     bnd_type: str = 'wrap',
     bnd_limits: list = [0,1],
     **kwargs,
@@ -627,7 +627,7 @@ def osp_Lax_LH_Strang(
         By default 0.98
     ddx : `lambda function`
         Allows to change the space derivative function.
-        By default lambda x,y: deriv_dnw(x, y)
+        By default lambda x,y: deriv_fwd(x, y)
     bnd_type : `string`
         It allows one to select the type of boundaries.
         By default, 'wrap'
@@ -667,7 +667,7 @@ def step_diff_burgers(
         Either constant or array multiplies the right-hand side of the Burger's eq.
     ddx : `lambda function`
         Allows to change the space derivative function.
-        By default lambda x,y: deriv_dnw(x, y)
+        By default lambda x,y: deriv_fwd(x, y)
 
     Returns
     -------
@@ -1001,7 +1001,7 @@ def evol_sts(
     nt: int,
     a: np.ndarray,
     cfl_cut: float = 0.98,
-    ddx = lambda x,y: deriv_dnw(x, y),
+    ddx = lambda x,y: deriv_fwd(x, y),
     bnd_type: str='wrap',
     bnd_limits: list = [0,1],
     nu: float = 0.9,
@@ -1025,7 +1025,7 @@ def evol_sts(
         By default 0.45
     ddx : `lambda function`
         Allows to change the space derivative function.
-        By default lambda x,y: deriv_cent(x, y)
+        By default lambda x,y: deriv_fwd(x, y)
     bnd_type : `string`
         Allows to select the type of boundaries
         by default 'wrap'
@@ -1058,7 +1058,7 @@ def hyman(
     fold: np.ndarray = None,
     dtold: float = None,
     cfl_cut: float = 0.8,
-    ddx = lambda x,y: deriv_dnw(x, y),
+    ddx = lambda x,y: deriv_fwd(x, y),
     bnd_type: str='wrap',
     bnd_limits: list = [0,1],
     **kwargs
@@ -1085,7 +1085,7 @@ def hyman(
         By default 0.45
     ddx : `lambda function`
         Allows to change the space derivative function.
-        By default lambda x,y: deriv_cent(x, y)
+        By default lambda x,y: deriv_fwd(x, y)
     bnd_type : `string`
         Allows to select the type of boundaries
         by default 'wrap'
