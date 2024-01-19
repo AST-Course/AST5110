@@ -73,7 +73,7 @@ def step_adv_burgers(
     hh: np.ndarray,
     a: float,
     cfl_cut: float = 0.98,
-    ddx = lambda x,y: deriv_dnw(x, y),
+    ddx = lambda x,y: deriv_fwd(x, y),
     **kwargs
 ) -> np.ndarray: 
     r"""
@@ -149,6 +149,8 @@ def evolv_adv_burgers(
         Spatial axis.
     hh : `array`
         A function that depends on xx.
+    nt : `int`
+        Number of time iterations. 
     a : `float` or `array`
         Either constant or array, which multiplies the right-hand side of the Burger's eq.
     cfl_cut : `float`
@@ -235,8 +237,10 @@ def evolv_uadv_burgers(
         Spatial axis.
     hh : `array`
         Function that depends on xx.
+    nt : `int`
+        Number of time iterations. 
     cfl_cut : `float`
-        constant value to limit dt from cfl_adv_burger.
+        Constant value to limit dt from cfl_adv_burger.
         By default 0.98.
     ddx : `lambda function`
         Allows to change the space derivative function.
@@ -281,6 +285,8 @@ def evolv_Lax_uadv_burgers(
         Spatial axis.
     hh : `array`
         A function that depends on xx.
+    nt : `int`
+        Number of time iterations.
     cfl_cut : `array`
         Constant value to limit dt from cfl_adv_burger.
         By default 0.98
@@ -328,7 +334,7 @@ def evolv_Lax_adv_burgers(
     hh : `array`
         A function that depends on xx.
     nt : `int`
-        Number of iterations
+        Number of time iterations. 
     a : `float` or `array`
         Either constant or array multiplies the right-hand side of the Burger's eq.
     cfl_cut : `float`
@@ -441,7 +447,7 @@ def ops_Lax_LL_Add(
     hh : `array`
         A function that depends on xx.
     nt : `int`
-        Number of iterations
+        Number of time iterations.
     a : `float` or `array`
         Either constant or array multiplies the right-hand side of the Burger's eq.
     b : `float` or `array`
@@ -499,7 +505,7 @@ def ops_Lax_LL_Lie(
     hh : `array`
         Function that depends on xx.
     nt : `int`
-        Number of iterations
+        Number of time iterations. 
     a : `float` or `array`
         Either constant or array multiplies the right-hand side of the Burger's eq.
     b : `float` or `array`
@@ -559,7 +565,7 @@ def ops_Lax_LL_Strang(
     hh : `array`
         Function that depends on xx.
     nt : `int`
-        Number of iterations
+        Number of time iterations.
     a : `float` or `array`
         Either constant or array multiplies the right-hand side of the Burger's eq.
     b : `float` or `array`
@@ -617,7 +623,7 @@ def osp_Lax_LH_Strang(
     hh : `array`
         Function that depends on xx.
     nt : `int`
-        Number of iterations.
+        Number of time iterations.
     a : `float` or `array`
         Either constant or array multiplies the right-hand side of the Burger's eq.
     b : `float` or `array`
@@ -761,7 +767,7 @@ def Newton_Raphson(
     dt : `float`
         Time interval
     nt : `int`
-        Number of iterations
+        Number of time iterations.
     toll : `float`
         Error limit.
         By default 1e-5
@@ -907,7 +913,7 @@ def Newton_Raphson_u(
     dt : `float`
         Time interval
     nt : `int`
-        Number of iterations
+        Number of time iterations.
     toll : `float`
         Error limit.
         By default 1-5
@@ -984,7 +990,7 @@ def taui_sts(nu: float, niter: int, iiter: int) -> float:
     nu : `float`
         Coefficient, between (0,1).
     niter : `int`
-        Number of iterations
+        Number of time iterations.
     iiter : `int`
         Iterations number
 
@@ -1017,7 +1023,7 @@ def evol_sts(
     hh : `array`
         A function that depends on xx.
     nt : `int`
-        Number of iterations
+        Number of time iterations.
     a : `float` or `array`
         Either constant or array multiplies the right-hand side of the Burger's eq.
     cfl_cut : `float`
