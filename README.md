@@ -29,10 +29,8 @@ Optionally, students can enhance their skills by extending their code to 2D or 3
 
 Our repository is organized into:
 
-- `nm_lib/`: A library of essential functions used throughout the course.
 - `notebooks/`: Jupyter Notebooks containing exercises, examples, and projects.
 - `AST5110.wiki/`: Extensive wiki pages detailing each covered topic.
-- `setup.py`, `requirements.txt`: Setup files to configure the course environment.
 
 ## Getting Started
 
@@ -40,11 +38,15 @@ Our repository is organized into:
 
 2. **Environment Setup**: Prepare your Python environment in line with the course requirements. The [Python environment setup guide](https://github.com/AST-Course/AST5110/wiki/Setup-python-environment) will walk you through the necessary steps.
 
-3. **Course Familiarization**: Familiarize yourself with the overall structure of the course, including the repository layout and the wiki. Explore the course [concepts and notebooks](https://github.com/AST-Course/AST5110/wiki/Notebooks-and-concepts) to understand the core components.
+3. ** Setup nm lib**: Follow the README in [nm_lib](https://github.com/AST-Course/nm_lib).
+- `nm_lib`: A library of essential functions used throughout the course.
+- `setup.py`, `requirements.txt`: Setup files to configure the course environment.
 
-4. **Exercise Instructions**: Engage with the course exercises in the `notebooks/` directory. All the necessary guidelines are in the [exercise instructions](https://github.com/AST-Course/AST5110/wiki/Exercise-instructions).
+4. **Course Familiarization**: Familiarize yourself with the overall structure of the course, including the repository layout and the wiki. Explore the course [concepts and notebooks](https://github.com/AST-Course/AST5110/wiki/Notebooks-and-concepts) to understand the core components.
 
-5. **Jupyter Book**: To access a compiled notebook that combines both exercises and the wiki, follow the [guide to setting up GitHub Pages](https://github.com/AST-Course/AST5110/wiki/Setup-GitHub-pages-for-private-fork). This will help you configure GitHub Pages to view the course content in a structured, book-like format.
+5. **Exercise Instructions**: Engage with the course exercises in the `notebooks/` directory. All the necessary guidelines are in the [exercise instructions](https://github.com/AST-Course/AST5110/wiki/Exercise-instructions).
+
+6. **Jupyter Book**: To access a compiled notebook that combines both exercises and the wiki, follow the [guide to setting up GitHub Pages](https://github.com/AST-Course/AST5110/wiki/Setup-GitHub-pages-for-private-fork). This will help you configure GitHub Pages to view the course content in a structured, book-like format.
 
 ## Important Links
 
