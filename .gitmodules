@@ -1,6 +1,7 @@
 [submodule "AST5110.wiki"]
 	path = AST5110.wiki
 	url = AST5110.wiki.git
+	url = https://github.com/a04051127/AST5110.wiki.git
     branch = master
 	ignore = dirty
 	shallow = true
