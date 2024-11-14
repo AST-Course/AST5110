@@ -34,7 +34,7 @@ Our repository is organized into:
 
 ## Getting Started
 
-1. **Create a Private Fork**: Start your journey by establishing a private fork of the course repository. Follow the detailed [instructions for setting up a private fork](AST5110/wiki/Setup-private-fork) to get started.
+1. **Create a Private Fork**: Start your journey by establishing a private fork of the course repository. Follow the detailed [instructions for setting up a private fork](AST5110.wiki/Setup-private-fork) to get started.
 
 2. **Environment Setup**: Prepare your Python environment in line with the course requirements. The [Python environment setup guide](https://github.com/AST-Course/AST5110/wiki/Setup-python-environment) will walk you through the necessary steps.
 
