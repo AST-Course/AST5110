@@ -14,7 +14,7 @@ Optionally, students can enhance their skills by extending their code to 2D or 3
 - [**Introduction to PDEs and Classifications**](https://github.com/AST-Course/AST5110/wiki/Introduction-to-PDEs-and-classifications): Fundamentals of Partial Differential Equations and their classifications.
 - [**Errors**](https://github.com/AST-Course/AST5110/wiki/Errors): Insight into various computational error types.
 - [**Stability**](https://github.com/AST-Course/AST5110/wiki/Stability): Explore Von Neumann analysis, the CFL condition, and stability principles.
-- [**Numerical Schemes**](https://github.com/AST-Course/AST5110/wiki/Examples-of-hyperbolic-numerical-schemes): 
+- [**Numerical Schemes**](https://github.com/AST-Course/AST5110/wiki/Examples-of-hyperbolic-numerical-schemes-book):
   - [Hyper Diffusive methods](https://github.com/AST-Course/AST5110/wiki/Hyper-diffusive)
   - [Riemann Solvers](https://github.com/AST-Course/AST5110/wiki/Riemann-solvers)
   - [Staggered Mesh techniques](https://github.com/AST-Course/AST5110/wiki/Staggered-mesh)
