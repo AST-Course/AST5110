@@ -10,3 +10,4 @@ scikit-image
 setuptools
 tqdm
 xarray
+pre-commit
