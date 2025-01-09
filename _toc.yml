@@ -4,7 +4,14 @@
 format: jb-book
 root: AST5110.wiki/Home
 parts:
-  - caption: Wiki
+  - caption: wiki getting started
+    chapters: 
+      - file: AST5110.wiki/setup/Setup-private-fork
+      - file: AST5110.wiki/setup/Setup-python-environment
+      - file: AST5110.wiki/Notebooks-and-concepts
+      - file: AST5110.wiki/setup/Exercise-instructions
+      - file: AST5110.wiki/setup/Setup-GitHub-pages-for-private-fork
+  - caption: Wiki topics
     chapters:
     - file: AST5110.wiki/Discretization
     - file: AST5110.wiki/Introduction-to-PDEs-and-classifications
@@ -33,7 +40,6 @@ parts:
     - file: notebooks/ex_5
     - file: notebooks/ex_6
     - file: notebooks/ex_7
-  #  - file: nm_lib/nm_lib.ipynb
   - caption: Project
     chapters:
     - file: notebooks/project
