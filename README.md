@@ -19,7 +19,7 @@ Optionally, students can enhance their skills by extending their code to 2D or 3
   - [Riemann Solvers](https://github.com/AST-Course/AST5110/wiki/Riemann-solvers)
   - [Staggered Mesh techniques](https://github.com/AST-Course/AST5110/wiki/Staggered-mesh)
 - [**Implicit Methods**](https://github.com/AST-Course/AST5110/wiki/Implicit-methods): 
-  - [The Newton-Raphson Method](https://github.com/AST-Course/AST5110/wiki/Newton-Raphson-method)
+  - [Newton-Raphson Method](https://github.com/AST-Course/AST5110/wiki/Newton-Raphson-method)
   - [Crank-Nicolson in Multidimensions](https://github.com/AST-Course/AST5110/wiki/Crank-Nicolson-in-Multidimensions)
   - [Super Time Stepping](https://github.com/AST-Course/AST5110/wiki/Super-time-stepping)
   - [Self-similar Solutions for Parabolic Equations](https://github.com/AST-Course/AST5110/wiki/Self-similar-solution-for-parabolic-eq)
