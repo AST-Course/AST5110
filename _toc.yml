@@ -8,7 +8,7 @@ parts:
     chapters: 
       - file: AST5110.wiki/setup/Setup-private-fork
       - file: AST5110.wiki/setup/Setup-python-environment
-      - file: AST5110.wiki/setup/Python-Library-files-tools
+      - file: AST5110.wiki/Python-Packaging,-Repository-Tools-and-Github-Actions.md
       - file: AST5110.wiki/Notebooks-and-concepts
       - file: AST5110.wiki/setup/Exercise-instructions
       - file: AST5110.wiki/setup/Setup-GitHub-pages-for-private-fork
