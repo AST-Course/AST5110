@@ -25,9 +25,10 @@ Optionally, students can enhance their skills by extending their code to 2D or 3
   - [Self-similar Solutions for Parabolic Equations](https://github.com/AST-Course/AST5110/wiki/Self-similar-solution-for-parabolic-eq)
 - [**Operator Splitting**](https://github.com/AST-Course/AST5110/wiki/Operator-splitting): Techniques and applications.
 
-## Repository Structure
+## Repositories Structure
 
-Our repository is organized into:
+The course contains two repositories, one is the Python library where we will add the 
+functions [nm_lib](https://github.com/AST-Course/nm_lib), and this repository is organized into:
 
 - `notebooks/`: Jupyter Notebooks containing exercises, examples, and projects.
 - `AST5110.wiki/`: Extensive wiki pages detailing each covered topic.
@@ -39,8 +40,9 @@ Our repository is organized into:
 2. **Environment Setup**: Prepare your Python environment in line with the course requirements. The [Python environment setup guide](https://github.com/AST-Course/AST5110/wiki/Setup-python-environment) will walk you through the necessary steps.
 
 3. ** Setup nm lib**: Follow the README in [nm_lib](https://github.com/AST-Course/nm_lib).
+
 - `nm_lib`: A library of essential functions used throughout the course.
-- `setup.py`, `requirements.txt`: Setup files to configure the course environment.
+- `pyproject.toml`, `requirements.txt`: Setup files to configure the course environment.
 
 4. **Course Familiarization**: Familiarize yourself with the overall structure of the course, including the repository layout and the wiki. Explore the course [concepts and notebooks](https://github.com/AST-Course/AST5110/wiki/Notebooks-and-concepts) to understand the core components.
 
