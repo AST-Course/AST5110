@@ -39,8 +39,10 @@ parts:
     - file: notebooks/ex_2b
     - file: notebooks/ex_3
     - file: notebooks/ex_4
+    - file: notebooks/ex_4b
     - file: notebooks/ex_5
     - file: notebooks/ex_6
+    - file: notebooks/ex_7
   - caption: Project
     chapters:
     - file: notebooks/project
