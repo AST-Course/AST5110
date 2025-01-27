@@ -22,6 +22,7 @@ parts:
     - file: AST5110.wiki/Examples-of-hyperbolic-numerical-schemes-book.md
     - file: AST5110.wiki/Hyper-diffusive
     - file: AST5110.wiki/Staggered-mesh
+    - file: AST5110.wiki/Riemann-solvers
     - file: AST5110.wiki/Implicit-methods
       sections:
       - file: AST5110.wiki/Newton-Raphson-method
