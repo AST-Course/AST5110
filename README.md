@@ -25,13 +25,15 @@ Optionally, students can enhance their skills by extending their code to 2D or 3
   - [Self-similar Solutions for Parabolic Equations](https://github.com/AST-Course/AST5110/wiki/Self-similar-solution-for-parabolic-eq)
 - [**Operator Splitting**](https://github.com/AST-Course/AST5110/wiki/Operator-splitting): Techniques and applications.
 
-## Repositories Structure
+## Repository Structure
 
 The course contains two repositories, one is the Python library where we will add the 
 functions [nm_lib](https://github.com/AST-Course/nm_lib), and this repository is organized into:
 
 - `notebooks/`: Jupyter Notebooks containing exercises, examples, and projects.
 - `AST5110.wiki/`: Extensive wiki pages detailing each covered topic.
+
+
 
 ## Getting Started
 
@@ -69,3 +71,6 @@ The course material is compiled from diverse resources, including:
 - K. W. Morton and D. F. Mayers: Numerical Solution of Partial Differential Equations, Cambridge University Press.
 - Å. Nordlund & K. Galsgaard (1995): A 3D MHD code for Parallel Computers.
 - B. Gudiksen et al. (2011): The stellar atmosphere simulation code Bifrost: Code description and validation, [A&A 531, A154](https://www.aanda.org/articles/aa/pdf/2011/07/aa16520-11.pdf).
+- B. Wargnier et al. (2024): Time-Adaptive PIROCK Method with Error Control for Multi-Fluid and Single-Fluid MHD Systems, [ArXiv](https://ui.adsabs.harvard.edu/abs/2024arXiv240915552W/abstract).
+- E. F. Toro, Riemann Solvers and Numerical Methods for Fluid Dynamics, 3rd Edition, Springer, 2009.
+
