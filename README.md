@@ -1,4 +1,4 @@
-# AST5110/AST9110: Numerical Modeling
+# AST5110: Numerical Modeling
 
 Welcome to AST5110, a course on numerical modeling with applications to astrophysics. This wiki contains the **theoretical background, explanations, and practical guidance** needed to complete the course exercises and projects. The course focuses on understanding, implementing, and testing numerical methods for solving **partial differential equations (PDEs)** relevant to astrophysical problems.
 
