@@ -27,7 +27,7 @@ jobs:
 
     - name: Build
       run: |
-        jupyter-book build -n --keep-going .
+        jupyter-book build .
 
     - name: Upload
       if: |
