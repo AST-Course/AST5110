@@ -34,6 +34,7 @@ Numerical simulations are a cornerstone of modern astrophysics. In this course, 
 
 **Special Topics and Applications**
 - [Self-similar Solution for Parabolic Eq.](Self-similar-solution-for-parabolic-eq)
+- [Conservation vs. non-conservation forms of the hydrodynamic equations](Conservation-Vs-Non-conservation-Forms)
 
 
 ## 📁 Repository Structure
