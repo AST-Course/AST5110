@@ -2,48 +2,58 @@
 # Learn more at https://jupyterbook.org/customize/toc.html
 #
 format: jb-book
-root: AST5110.wiki/Home
+root: wiki/Home
 parts:
-  - caption: wiki getting started
+  - caption: Getting Started
     chapters: 
-      - file: AST5110.wiki/setup/Setup-private-fork
-      - file: AST5110.wiki/setup/Setup-python-environment
-      - file: AST5110.wiki/Python-Packaging,-Repository-Tools-and-Github-Actions.md
-      - file: AST5110.wiki/Notebooks-and-concepts
-      - file: AST5110.wiki/setup/Exercise-instructions
-      - file: AST5110.wiki/setup/Setup-GitHub-pages-for-private-fork
+      - file: wiki/Course-Format,-Tasks,-and-Evaluation-Guidelines
 
-  - caption: Wiki topics
+  - caption: Repository and Enrionment Setup
     chapters:
-    - file: AST5110.wiki/Discretization
-    - file: AST5110.wiki/Introduction-to-PDEs-and-classifications
-    - file: AST5110.wiki/Errors
-    - file: AST5110.wiki/Stability
-    - file: AST5110.wiki/Examples-of-hyperbolic-numerical-schemes-book.md
-    - file: AST5110.wiki/Hyper-diffusive
-    - file: AST5110.wiki/Staggered-mesh
-    - file: AST5110.wiki/Riemann-solvers
-    - file: AST5110.wiki/Implicit-methods
-      sections:
-      - file: AST5110.wiki/Newton-Raphson-method
-      - file: AST5110.wiki/Crank-Nicolson-in-Multidimensions
-      - file: AST5110.wiki/Super-time-stepping
-      - file: AST5110.wiki/Self-similar-solution-for-parabolic-eq
-    - file: AST5110.wiki/Operator-splitting
-#      sections:
-#      - file: AST5110.wiki/Operator-splitting-vs-Predictor-corrector
+      - file: wiki/setup/Setup-private-fork
+      - file: wiki/setup/Setup-python-environment
+      - file: wiki/Python-Packaging,-Repository-Tools-and-Github-Actions
+
+  - caption: Repository and Enrionment Setup
+    chapters:
+      - file: wiki/Notebooks-and-concepts
+      - file: wiki/setup/Setup-GitHub-pages-for-private-fork
+      - file: wiki/setup/Exercise-instructions
+
+  - caption: Mathematical and Numerical Foundation
+    chapters:
+    - file: wiki/Discretization
+    - file: wiki/Introduction-to-PDEs-and-classifications
+    - file: wiki/Errors
+    - file: wiki/Stability
+  
+  - caption: Numerical Schemes and Methods
+    chapters:
+    - file: wiki/Examples-of-hyperbolic-numerical-schemes-book.md
+    - file: wiki/Hyper-diffusive
+    - file: wiki/Staggered-mesh
+    - file: wiki/Riemann-solvers
+    - file: wiki/Implicit-methods
+    - file: wiki/Newton-Raphson-method
+    - file: wiki/Crank-Nicolson-in-Multidimensions
+    - file: wiki/Super-time-stepping
+    - file: wiki/Operator-splitting
+      
+  - caption: Special Topics and Applications
+    chapters:
+    - file: wiki/Self-similar-solution-for-parabolic-eq
+    - file: wiki/Conservation-Vs-Non-conservation-Forms
+
   - caption: Exercises
     chapters:
     - file: notebooks/ex_1
     - file: notebooks/ex_1_ext
-    - file: notebooks/ex_2a_analytical
     - file: notebooks/ex_2b
     - file: notebooks/ex_3
     - file: notebooks/ex_4
     - file: notebooks/ex_4b
     - file: notebooks/ex_5
     - file: notebooks/ex_6
-    - file: notebooks/ex_7
   - caption: Project
     chapters:
     - file: notebooks/project
